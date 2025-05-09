@@ -38,7 +38,8 @@
         android:allowBackup="true"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:hardwareAccelerated="true">
 
         <!-- Main Activity -->
         <activity

@@ -13,6 +13,15 @@ Page {
     property string garmentId  // Pass this from GarmentSelectionPage
     property url previewImage  // Pass this from GarmentSelectionPage
 
+    Component.onCompleted: {
+        console.log("Style properties:",
+            "Primary color:", Style.primaryColor,
+            "Background color:", Style.backgroundColor,
+            "Button font:", Style.buttonFont
+        )
+
+    }
+
     background: Rectangle { color: Style.backgroundColor }
 
     QMLManager {
@@ -38,7 +47,7 @@ Page {
             id: scene3d
             anchors.fill: parent
             focus: true
-            visible: false // Set to true when 3D model is working
+            visible: true // Set to true when 3D model is working
 
             Entity {
                 id: sceneRoot
@@ -50,6 +59,19 @@ Page {
                             clearColor: "lightgray"
                         }
                     },
+                    // ObjectPicker {
+                    //     id: modelPicker
+                    //     hoverEnabled: true
+                    //     dragEnabled: true
+
+                    //     onMoved: (pick) => {
+                    //         // Calculate rotation based on mouse delta
+                    //         var dx = pick.x - pick.previousX
+                    //         var dy = pick.y - pick.previousY
+                    //         garmentTransform.rotation = garmentTransform.rotation
+                    //             .times(Quaternion.fromEulerAngles(dy * 0.5, dx * 0.5, 0))
+                    //     }
+                    // },
                     InputSettings {}
                 ]
 
@@ -86,15 +108,39 @@ Page {
                             id: garmentMesh
                             source: "qrc:/garments/" + garmentId.split('_')[0] + "/model.obj"  // Extracts "shirt" from "shirt_001"
                         },
+                        // NumberAnimation {
+                        //     id: autoRotate
+                        //     target: garmentTransform
+                        //     property: "rotationY"
+                        //     from: 0
+                        //     to: 360
+                        //     duration: 10000
+                        //     loops: Animation.Infinite
+                        //     running: false // Start with mouse control only
+                        // },
                         PhongMaterial {
                             id: garmentMaterial
                             diffuse: "white"
                             ambient: "gray"
                         },
                         Transform {
-                            id: garmentTransform
-                            rotation: fromEulerAngles(-90, 0, 0)  // Adjust orientation if needed
-                        }
+                                                   id: garmentTransform
+                                                   rotation: fromEulerAngles(0, 180, 0)  // Adjust orientation if needed
+                                               }
+                        // Transform {
+                        //     id: garmentTransform
+                        //     property real rotationX: 0
+                        //     property real rotationY: 0
+                        //     property real rotationZ: 0
+
+                        //     matrix: {
+                        //         var m = Qt.matrix4x4()
+                        //         m.rotate(rotationX, Qt.vector3d(1, 0, 0))
+                        //         m.rotate(rotationY, Qt.vector3d(0, 1, 0))
+                        //         m.rotate(rotationZ, Qt.vector3d(0, 0, 1))
+                        //         return m
+                        //     }
+                        // }
                     ]
                 }
             }
@@ -161,10 +207,22 @@ Page {
                 stackView.push("CameraPage.qml");
             }
         }
+
+        // Button {
+        //     text: "Rotate Left"
+        //     onClicked: garmentTransform.rotationY -= 45
+        // }
+
+        // Button {
+        //     text: "Rotate Right"
+        //     onClicked: garmentTransform.rotationY += 45
+        // }
+
+        // Button {
+        //     text: "Auto Rotate"
+        //     onClicked: autoRotate.running = !autoRotate.running
+        // }
     }
 
-    Component.onCompleted: {
-        console.log("GarmentPreviewPage loaded with garmentId: " + garmentId);
-        console.log("Preview image: " + previewImage);
-    }
+
 }

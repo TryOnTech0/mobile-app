@@ -10,7 +10,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 
-# Find Qt packages
+# Find Qt packages - ADD 3D RENDERING COMPONENTS
 find_package(Qt6 REQUIRED COMPONENTS
     Core
     Quick
@@ -20,6 +20,12 @@ find_package(Qt6 REQUIRED COMPONENTS
     Network
     Quick3D
     DataVisualization
+    3DCore
+    3DRender
+    3DInput
+    3DExtras
+    OpenGL
+    ShaderTools
 )
 
 # Add Qt resources
@@ -65,7 +71,7 @@ target_include_directories(ARClothTryOn PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-# Link libraries
+# Link libraries - ADD 3D AND OPENGL LIBS
 target_link_libraries(ARClothTryOn PRIVATE
     Qt6::Core
     Qt6::Quick
@@ -73,9 +79,15 @@ target_link_libraries(ARClothTryOn PRIVATE
     Qt6::Multimedia
     Qt6::Qml
     Qt6::Network
-    Qt::CorePrivate
+    Qt6::CorePrivate
     Qt6::Quick3D
     Qt6::DataVisualization
+    Qt6::3DCore
+    Qt6::3DRender
+    Qt6::3DInput
+    Qt6::3DExtras
+    Qt6::OpenGL
+    Qt6::ShaderTools
 )
 
 # Android configuration
@@ -83,7 +95,7 @@ if(ANDROID)
     # Set Android package source directory
     set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
 
-    # Create deployment-rules.cmake if it doesn't exist
+    # Update deployment rules with 3D/OpenGL dependencies
     if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/android/deployment-rules.cmake")
         file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/android/deployment-rules.cmake"
             "# Auto-generated deployment rules\n"
@@ -97,6 +109,13 @@ if(ANDROID)
             "    libQt6Quick.so\n"
             "    libQt6QuickControls2.so\n"
             "    libQt6Multimedia.so\n"
+            "    # 3D rendering\n"
+            "    libQt63DCore.so\n"
+            "    libQt63DRender.so\n"
+            "    libQt63DInput.so\n"
+            "    libQt63DExtras.so\n"
+            "    libQt6OpenGL.so\n"
+            "    libQt6ShaderTools.so\n"
             "    # Android extras\n"
             "    libQt6AndroidExtras.so\n"
             "    libqtandroid.so\n"

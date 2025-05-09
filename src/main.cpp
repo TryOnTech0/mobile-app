@@ -3,6 +3,7 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include "QMLManager.h"
+#include <Qt3DRender/QRenderAspect>
 
 #ifdef Q_OS_ANDROID
 #include <QtCore/private/qandroidextras_p.h>
@@ -24,7 +25,8 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* /*reserved*/)
 
 int main(int argc, char *argv[])
 {
-
+    qputenv("QT3D_RENDERER", "opengl");  // Force OpenGL backend
+    qputenv("QSG_RHI_BACKEND", "opengl"); // Force Qt Quick to use OpenGL
     QGuiApplication app(argc, argv);
 
     // Register QMLManager
