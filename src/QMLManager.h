@@ -19,7 +19,8 @@ class QMLManager : public QObject {
     QML_ELEMENT
 
     Q_PROPERTY(int scanProgress READ scanProgress NOTIFY scanProgressChanged)
-    Q_PROPERTY(QStringList garments READ garments NOTIFY garmentsChanged)
+    // Q_PROPERTY(QStringList garments READ garments NOTIFY garmentsChanged)
+    Q_PROPERTY(QVariantList garments READ garments NOTIFY garmentsChanged)
 public:
     explicit QMLManager(QObject* parent = nullptr);
 
@@ -32,7 +33,8 @@ public:
     Q_INVOKABLE bool hasCameraPermission() const;
 
     int scanProgress() const;
-    QStringList garments() const;
+    QVariantList garments() const;
+    // QStringList garments() const;
 
 signals:
     void permissionGranted();
@@ -51,7 +53,8 @@ private:
     std::unique_ptr<ClothScanner> m_clothScanner;
     std::unique_ptr<ClothFitter> m_clothFitter;
     std::unique_ptr<BodyTracker> m_bodyTracker;
-    QStringList m_garments;
+    QVariantList m_garments;
+    // QStringList m_garments;
     int m_scanProgress = 0;
 };
 

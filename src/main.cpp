@@ -24,6 +24,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* /*reserved*/)
 
 int main(int argc, char *argv[])
 {
+
     QGuiApplication app(argc, argv);
 
     // Register QMLManager

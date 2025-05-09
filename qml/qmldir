@@ -1,2 +1,8 @@
 module ARClothTryOn
+# Register QML Components
+GarmentSelectionPage 1.0 GarmentSelectionPage.qml
+GarmentPreviewPage 1.0 GarmentPreviewPage.qml
+CameraPage 1.0 CameraPage.qml
+
+# Singleton for styling
 singleton Style 1.0 Style.qml

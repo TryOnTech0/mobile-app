@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<resources>
-    <!-- Splash screen theme -->
-    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash</item>
-        <item name="android:windowFullscreen">true</item>
-    </style>
-</resources>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.qtproject.example.ARClothTryOn"
     android:versionCode="1"
@@ -40,9 +33,8 @@
     <application
         android:name="org.qtproject.qt.android.bindings.QtApplication"
         android:label="@string/app_name"
-        android:icon="@drawable/icon.png"
-        android:theme="@style/SplashTheme"
-        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+        android:icon="@drawable/icon"
+        android:theme="@style/AppTheme"
         android:allowBackup="true"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
@@ -54,7 +46,7 @@
             android:label="@string/app_name"
             android:theme="@style/SplashTheme"
             android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
-            android:screenOrientation="fullUser"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:exported="true">
 
@@ -86,13 +78,7 @@
         <!-- ARCore service declaration -->
         <service
             android:name="com.google.ar.core.InstallActivity"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
-
-        <!-- Splash screen configuration -->
-        <meta-data
-            android:name="android.app.splash_screen_drawable"
-            android:resource="@drawable/splash" />
+            android:exported="false" />
 
         <!-- Native libraries -->
         <uses-library android:name="android.opengl" />

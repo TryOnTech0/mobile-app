@@ -18,6 +18,8 @@ find_package(Qt6 REQUIRED COMPONENTS
     Multimedia
     Qml
     Network
+    Quick3D
+    DataVisualization
 )
 
 # Add Qt resources
@@ -37,6 +39,7 @@ qt_add_executable(ARClothTryOn
     src/ClothScanner.cpp
     src/ClothScanner.h
     src/ImageConverter.cpp
+    resources.qrc
     ${QRC_FILES}
 )
 
@@ -71,6 +74,8 @@ target_link_libraries(ARClothTryOn PRIVATE
     Qt6::Qml
     Qt6::Network
     Qt::CorePrivate
+    Qt6::Quick3D
+    Qt6::DataVisualization
 )
 
 # Android configuration

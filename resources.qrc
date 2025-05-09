@@ -8,10 +8,10 @@
         <file>qml/GarmentPreviewPage.qml</file>
         <file>qml/Style.qml</file>
         <!-- Shirt -->
-        <file>garments/shirt/preview.png</file>
+        <file>garments/shirt/preview.jpg</file>
         <file>garments/shirt/model.obj</file>
         <!-- Pants -->
-        <file>garments/pants/preview.png</file>
+        <file>garments/pants/preview.jpg</file>
         <file>garments/pants/model.obj</file>
     </qresource>
 </RCC>

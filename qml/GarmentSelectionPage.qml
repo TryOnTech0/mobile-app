@@ -11,19 +11,46 @@ Page {
 
     header: ToolBar {
         background: Rectangle { color: Style.primaryColor }
-        
-        Label {
-            anchors.centerIn: parent
-            text: "Select Garment"
-            color: "white"
-            font.bold: true
-            font.pixelSize: Style.buttonFont.pointSize * 1.2
+
+        RowLayout {
+            anchors {
+                fill: parent
+                topMargin: 5  // This creates 5px padding at top
+            }
+            spacing: 10
+
+            // Back Button
+            Button {
+                text: "← Back"
+                font: Style.buttonFont
+                palette.buttonText: "white"
+                Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
+
+                background: Rectangle {
+                    color: "transparent"
+                }
+
+                onClicked: {
+                    stackView.pop() // Navigate back
+                }
+            }
+
+            // Title
+            Label {
+                text: "Select Garment"
+                color: "white"
+                font.bold: true
+                font.pixelSize: Style.buttonFont.pointSize * 1.2
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignHRight
+            }
         }
     }
 
     QMLManager {
         id: qmlManager
         onGarmentsChanged: {
+            console.log("Garments changed, count: " + garments.length)
             gridView.model = garments
             loadingIndicator.visible = false
         }
@@ -41,12 +68,33 @@ Page {
         }
         cellWidth: width / 3 - Style.gridSpacing
         cellHeight: cellWidth + 40 // Extra space for text
-        
+
         delegate: Item {
+            id: delegateItem
             width: gridView.cellWidth
             height: gridView.cellHeight
-            
+
+            // Add a visual indication for debugging
+            Rectangle {
+                id: debugHighlight
+                anchors.fill: parent
+                color: "transparent"
+                border.color: "transparent"
+                border.width: 2
+
+                // Visual feedback on hover
+                states: State {
+                    name: "hovered"
+                    when: mouseArea.containsMouse
+                    PropertyChanges {
+                        target: debugHighlight
+                        border.color: Style.primaryColor
+                    }
+                }
+            }
+
             ColumnLayout {
+                id: contentLayout
                 spacing: Style.gridSpacing
                 anchors.fill: parent
                 anchors.margins: Style.gridSpacing/2
@@ -62,19 +110,20 @@ Page {
                     border.width: 2
 
                     Image {
+                        id: previewImage
                         anchors {
                             fill: parent
                             margins: 2
                         }
-                        source: modelData.previewUrl || "qrc:/images/placeholder.png"
+                        source: model.modelData.previewUrl  // Should resolve to qrc:/garments/.../preview.png
                         fillMode: Image.PreserveAspectCrop
                         asynchronous: true
-                        
+
                         Rectangle {
                             anchors.fill: parent
                             color: "#80000000"
                             visible: !modelData.isAvailable
-                            
+
                             Text {
                                 anchors.centerIn: parent
                                 text: "Unavailable"
@@ -86,13 +135,14 @@ Page {
 
                     BusyIndicator {
                         anchors.centerIn: parent
-                        running: parent.status === Image.Loading
+                        running: previewImage.status === Image.Loading
+                        visible: previewImage.status === Image.Loading
                     }
                 }
 
                 // Garment Name
                 Text {
-                    text: modelData.name || "Unnamed Garment"
+                    text: model.modelData.name
                     color: Style.primaryColor
                     font: Style.buttonFont
                     elide: Text.ElideRight
@@ -102,15 +152,51 @@ Page {
             }
 
             MouseArea {
+                id: mouseArea
                 anchors.fill: parent
+                hoverEnabled: true
+
                 onClicked: {
-                    if(modelData.isAvailable) {
-                        selectedGarmentId = modelData.id
-                        stackView.push("GarmentPreviewPage.qml", {
-                            garmentId: modelData.id,
-                            previewImage: modelData.previewUrl
-                        })
+                    console.log("Item clicked: " + model.modelData.id)
+                    if (model.modelData.isAvailable) {
+                        selectedGarmentId = model.modelData.id  // Access id
+
+                        // Debug log the path we're attempting to load
+                        var pagePath = "qrc:/qml/GarmentPreviewPage.qml"
+                        console.log("Attempting to load: " + pagePath)
+
+                        try {
+                            stackView.push(pagePath, {
+                                "garmentId": model.modelData.id,
+                                "previewImage": model.modelData.previewUrl
+                            });
+                        } catch (e) {
+                            console.error("Failed to push page: " + e)
+
+                            // Try alternate paths if the first one fails
+                            try {
+                                stackView.push("GarmentPreviewPage.qml", {
+                                    "garmentId": model.modelData.id,
+                                    "previewImage": model.modelData.previewUrl
+                                });
+                            } catch (e2) {
+                                console.error("Failed second attempt: " + e2)
+                            }
+                        }
                     }
+                }
+
+                onPressed: {
+                    debugHighlight.border.color = Style.primaryColor
+                    debugHighlight.color = Qt.rgba(Style.primaryColor.r,
+                                                 Style.primaryColor.g,
+                                                 Style.primaryColor.b, 0.1)
+                }
+
+                onReleased: {
+                    debugHighlight.border.color = mouseArea.containsMouse ?
+                        Style.primaryColor : "transparent"
+                    debugHighlight.color = "transparent"
                 }
             }
         }
@@ -142,6 +228,7 @@ Page {
     }
 
     Component.onCompleted: {
+        console.log("GarmentSelectionPage completed")
         if(gridView.count === 0) {
             loadingIndicator.visible = true
             qmlManager.loadGarments()
@@ -152,6 +239,7 @@ Page {
     Connections {
         target: qmlManager
         function onGarmentsChanged() {
+            console.log("Garments changed signal received")
             if(gridView.count === 0) {
                 loadingIndicator.visible = false
             }

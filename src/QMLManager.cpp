@@ -2,6 +2,7 @@
 #include <QGuiApplication>
 #include "ClothFitter.h"
 #include "ImageConverter.h"
+#include <QUrl>
 
 QMLManager::QMLManager(QObject* parent)
     : QObject(parent),
@@ -71,15 +72,18 @@ int QMLManager::scanProgress() const {
     return m_scanProgress;
 }
 
-QStringList QMLManager::garments() const {
-    return m_garments;
-}
+// QStringList QMLManager::garments() const {
+//     return m_garments;
+// }
 
 void QMLManager::handleFrame(const QImage& frame) {
     // cv::Mat cvFrame = ImageConverter::qImageToCvMat(frame);
     // Process frame
 }
 
+QVariantList QMLManager::garments() const {
+    return m_garments;
+}
 
 void QMLManager::loadGarments() {
     m_garments.clear();
@@ -88,7 +92,7 @@ void QMLManager::loadGarments() {
     QVariantMap shirt;
     shirt["id"] = "shirt_001";
     shirt["name"] = "Casual Shirt";
-    shirt["previewUrl"] = QUrl("qrc:/garments/shirt/preview.png");
+    shirt["previewUrl"] = QUrl("qrc:/garments/shirt/preview.jpg");
     shirt["isAvailable"] = true;
     m_garments.append(shirt);
 
@@ -96,7 +100,7 @@ void QMLManager::loadGarments() {
     QVariantMap pants;
     pants["id"] = "pants_001";
     pants["name"] = "Formal Pants";
-    pants["previewUrl"] = QUrl("qrc:/garments/pants/preview.png");
+    pants["previewUrl"] = QUrl("qrc:/garments/pants/preview.jpg");
     pants["isAvailable"] = true;
     m_garments.append(pants);
 
