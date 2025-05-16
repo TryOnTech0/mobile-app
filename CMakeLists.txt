@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.16)
 project(ARClothTryOn VERSION 1.0 LANGUAGES C CXX)
 
 # Android ABI selection
-set(CMAKE_ANDROID_ARCH_ABI x86_64)
+set(CMAKE_ANDROID_ARCH_ABI arm64-v8a)
+# set(CMAKE_ANDROID_ARCH_ABI x86_64)
 set(CMAKE_ANDROID_STL_TYPE c++_shared)
 
 # Qt build settings
@@ -26,6 +27,7 @@ find_package(Qt6 REQUIRED COMPONENTS
     3DExtras
     OpenGL
     ShaderTools
+    Svg
 )
 
 # Add Qt resources
@@ -45,10 +47,12 @@ qt_add_executable(ARClothTryOn
     src/ClothScanner.cpp
     src/ClothScanner.h
     src/ImageConverter.cpp
+    src/NetworkManager.cpp
+    src/NetworkManager.h
     resources.qrc
     ${QRC_FILES}
 )
-
+qt_policy(SET QTP0004 NEW)
 # Add QML module
 qt_add_qml_module(ARClothTryOn
     URI ARClothTryOn
@@ -60,10 +64,13 @@ qt_add_qml_module(ARClothTryOn
         qml/ScanResultPage.qml
         qml/GarmentSelectionPage.qml
         qml/GarmentPreviewPage.qml
+        qml/AuthorizationPage.qml
         qml/Style.qml
     RESOURCES
         qml/qmldir
     RESOURCE_PREFIX /
+    SOURCES src/NetworkManager.cpp
+    SOURCES src/NetworkManager.h
 )
 
 # Include directories
@@ -79,6 +86,7 @@ target_link_libraries(ARClothTryOn PRIVATE
     Qt6::Multimedia
     Qt6::Qml
     Qt6::Network
+    # Qt6::Ssl
     Qt6::CorePrivate
     Qt6::Quick3D
     Qt6::DataVisualization
@@ -119,6 +127,9 @@ if(ANDROID)
             "    # Android extras\n"
             "    libQt6AndroidExtras.so\n"
             "    libqtandroid.so\n"
+            "    # Network support\n"
+            "    libQt6Network.so\n"
+            "    libQt6Ssl.so\n"
             ")\n"
         )
     endif()
@@ -133,7 +144,7 @@ if(ANDROID)
 endif()
 
 # Finalize executable
-qt_finalize_executable(ARClothTryOn)
+# qt_finalize_executable(ARClothTryOn)
 
 # Install target
 install(TARGETS ARClothTryOn

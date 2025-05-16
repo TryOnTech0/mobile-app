@@ -10,8 +10,16 @@ import ARClothTryOn 1.0
 
 Page {
     id: garmentPreviewPage
-    property string garmentId  // Pass this from GarmentSelectionPage
-    property url previewImage  // Pass this from GarmentSelectionPage
+    property string garmentId
+    property url previewImage
+
+    // State variables for garment manipulation (model only)
+    property real scaleValue: 1.0
+    property real modelRotationX: -90  // Initial X rotation for typical OBJ models
+    property real modelRotationY: 0    // No initial Y rotation
+    property real modelRotationZ: 0    // No initial Z rotation
+    property vector2d lastTouchPos: Qt.vector2d(0, 0)
+    property bool isDragging: false
 
     Component.onCompleted: {
         console.log("Style properties:",
@@ -23,30 +31,81 @@ Page {
 
     background: Rectangle { color: Style.backgroundColor }
 
-    QMLManager {
-        id: qmlManager
-    }
+    QMLManager { id: qmlManager }
 
-    // Layout with preview image as fallback
     Item {
         id: contentArea
         anchors.fill: parent
 
-        // Preview Image (fallback for 3D model)
-        Image {
-            id: previewImageView
-            anchors.fill: parent
-            source: previewImage
-            fillMode: Image.PreserveAspectFit
-            visible: !scene3d.visible // Only show if 3D model isn't visible
+        // Zoom Controls (Top-Right)
+        Column {
+            z: 999  // Ensure buttons stay on top
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.margins: 20
+            spacing: 15
+
+            Button {
+                id: zoomInButton
+                width: 50
+                height: 50
+
+                contentItem: Item {
+                    Text {
+                        text: "+"
+                        color: "white"
+                        font.pixelSize: 28
+                        anchors.centerIn: parent
+                    }
+                }
+
+                background: Rectangle {
+                    color: zoomInButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                           zoomInButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                           Style.primaryColor
+                    radius: width/2
+                }
+
+                onPressed: {
+                    // Scale the model up
+                    scaleValue += 0.1
+                    if (scaleValue > 3.0) scaleValue = 3.0
+                }
+            }
+
+            Button {
+                id: zoomOutButton
+                width: 50
+                height: 50
+
+                contentItem: Item {
+                    Text {
+                        text: "-"
+                        color: "white"
+                        font.pixelSize: 28
+                        anchors.centerIn: parent
+                    }
+                }
+
+                background: Rectangle {
+                    color: zoomOutButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                           zoomOutButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                           Style.primaryColor
+                    radius: width/2
+                }
+
+                onPressed: {
+                    // Scale the model down
+                    scaleValue -= 0.1
+                    if (scaleValue < 0.5) scaleValue = 0.5
+                }
+            }
         }
 
-        // 3D Viewport
         Scene3D {
             id: scene3d
             anchors.fill: parent
             focus: true
-            visible: true // Set to true when 3D model is working
             aspects: ["input", "logic"]
             multisample: true
 
@@ -57,267 +116,462 @@ Page {
                     RenderSettings {
                         activeFrameGraph: ForwardRenderer {
                             camera: mainCamera
-                            clearColor: "lightgray"
+                            clearColor: "lightgray"  // Scene background stays stable
                         }
                     },
                     InputSettings { }
                 ]
 
-                // Main Camera
                 Camera {
                     id: mainCamera
-                    position: Qt.vector3d(0, 0, 3)
+                    // Fixed camera position that won't move
+                    position: Qt.vector3d(0, 0, 5)
                     viewCenter: Qt.vector3d(0, 0, 0)
+                    fieldOfView: 45
+                    nearPlane: 0.1
+                    farPlane: 1000.0
                 }
 
-                // Light Sources
                 Entity {
-                    components: [
-                        DirectionalLight {
-                            intensity: 0.8
-                            worldDirection: Qt.vector3d(0, -1, 0)
-                        }
-                    ]
+                    components: DirectionalLight {
+                        intensity: 1.0
+                        worldDirection: Qt.vector3d(0, -1, 0)
+                    }
                 }
 
-                // Ambient light for better visibility
                 Entity {
-                    components: [
-                        DirectionalLight {
-                            intensity: 0.4
-                            worldDirection: Qt.vector3d(1, -0.5, 1)
-                        }
-                    ]
+                    components: DirectionalLight {
+                        intensity: 0.4
+                        worldDirection: Qt.vector3d(0.5, -0.5, 0.5)
+                    }
                 }
 
-                // Load .obj Model
                 Entity {
                     id: modelEntity
 
+                    // Ensure model is centered in the view
                     components: [
                         Mesh {
-                            id: garmentMesh
-                            source: "qrc:/garments/" + garmentId.split('_')[0] + "/model.obj"  // Extracts "shirt" from "shirt_001"
+                            source: "qrc:/garments/" + garmentId.split('_')[0] + "/model.obj"
                         },
                         PhongMaterial {
-                            id: garmentMaterial
                             diffuse: "white"
                             ambient: "gray"
-                            shininess: 50
+                            shininess: 100
                         },
                         Transform {
                             id: garmentTransform
-                            // Start with appropriate orientation - rotate around X axis -90 degrees
-                            rotationX: -90
-                            // We'll apply additional rotation in the animation
-                        },
-                        // Custom object picker for drag rotation
-                        ObjectPicker {
-                            id: modelPicker
-                            hoverEnabled: true
-                            dragEnabled: true
+                            // Keep model centered and rotate it around its own axes
+                            matrix: {
+                                let m = Qt.matrix4x4();
 
-                            onPressed: function(pick) {
-                                // Store initial drag position
-                                lastX = pick.x
-                                lastY = pick.y
-                                autoRotate.pause() // Pause auto-rotation when manually rotating
+                                // First translate to origin if needed (for models not centered at origin)
+                                // m.translate(-modelCenter) would go here if we knew model center
+
+                                // Apply rotations around the model's own axes
+                                m.rotate(modelRotationX, Qt.vector3d(1, 0, 0));
+                                m.rotate(modelRotationY, Qt.vector3d(0, 1, 0));
+                                m.rotate(modelRotationZ, Qt.vector3d(0, 0, 1));
+
+                                // Scale the model
+                                m.scale(garmentPreviewPage.scaleValue);
+
+                                // Translate back if needed
+                                // m.translate(modelCenter) would go here if we translated earlier
+
+                                return m;
                             }
-
-                            onReleased: function(pick) {
-                                if (autoRotateActive) {
-                                    autoRotate.resume() // Resume auto-rotation if it was active
-                                }
-                            }
-
-                            onMoved: function(pick) {
-                                if (!pick.valid)
-                                    return
-
-                                // Calculate rotation based on mouse delta
-                                var dx = pick.x - lastX
-                                var dy = pick.y - lastY
-
-                                // Update rotation based on mouse movement
-                                if (Math.abs(dx) > Math.abs(dy)) {
-                                    // Horizontal movement - rotate around y-axis
-                                    garmentTransform.rotationY += dx * 0.5
-                                } else {
-                                    // Vertical movement - rotate around x-axis (limited range to prevent flipping)
-                                    var newRotationX = garmentTransform.rotationX + dy * 0.5
-                                    // Limit vertical rotation to avoid gimbal lock issues
-                                    if (newRotationX > -150 && newRotationX < -30) {
-                                        garmentTransform.rotationX = newRotationX
-                                    }
-                                }
-
-                                // Update last position
-                                lastX = pick.x
-                                lastY = pick.y
-                            }
-
-                            // Store last mouse position for calculating deltas
-                            property real lastX: 0
-                            property real lastY: 0
                         }
                     ]
-
-                    // Auto-rotation animation
-                    property bool autoRotateActive: false
-
-                    // Auto-rotation timer-based approach
-                    Timer {
-                        id: autoRotate
-                        interval: 16 // ~60fps
-                        running: false
-                        repeat: true
-                        property real rotationSpeed: 1.0 // degrees per frame
-
-                        function pause() {
-                            running = false
-                        }
-
-                        function resume() {
-                            running = modelEntity.autoRotateActive
-                        }
-
-                        onTriggered: {
-                            // Rotate around Y axis for continuous spinning effect
-                            garmentTransform.rotationY += rotationSpeed
-                        }
-                    }
                 }
             }
         }
 
-        // Debug information - displays the garment ID and model path
+        // Improved Touch Area for Mobile
+        MouseArea {
+            id: touchArea
+            anchors.fill: parent
+            property point previousPos: Qt.point(0, 0)
+            property real pinchStartDist: 0
+            property bool isPinching: false
+
+            // For debugging touches
+            Rectangle {
+                id: touchIndicator
+                width: 20
+                height: 20
+                radius: 10
+                color: "red"
+                opacity: 0.5
+                visible: false
+            }
+
+            // Handle single touch for rotation around model's own axes
+            onPressed: function(mouse) {
+                previousPos = Qt.point(mouse.x, mouse.y)
+                isDragging = true
+                autoRotate.stop()
+
+                // Debug visualization
+                touchIndicator.x = mouse.x - touchIndicator.width/2
+                touchIndicator.y = mouse.y - touchIndicator.height/2
+                touchIndicator.visible = true
+            }
+
+            onPositionChanged: function(mouse) {
+                if (!isDragging) return
+
+                const dx = mouse.x - previousPos.x
+                const dy = mouse.y - previousPos.y
+
+                // Apply rotation to model only around its own axes
+                // Reversed direction for more intuitive control
+                modelRotationY += dx * 0.5  // Horizontal motion rotates around Y axis
+                modelRotationX += dy * 0.5  // Vertical motion rotates around X axis
+
+                previousPos = Qt.point(mouse.x, mouse.y)
+
+                // Update debug visualization
+                touchIndicator.x = mouse.x - touchIndicator.width/2
+                touchIndicator.y = mouse.y - touchIndicator.height/2
+            }
+
+            onReleased: function() {
+                isDragging = false
+                touchIndicator.visible = false
+            }
+        }
+
+        // Multi-touch handling with PinchHandler
+        PinchHandler {
+            id: pinch
+            target: null // Don't move any item directly
+            minimumScale: 0.5
+            maximumScale: 3.0
+
+            onActiveChanged: {
+                if (active) {
+                    autoRotate.stop()
+                }
+            }
+
+            onScaleChanged: {
+                if (active) {
+                    // Apply scale to the model
+                    scaleValue = pinch.scale * pinch.previousScale
+
+                    // Keep scale within reasonable bounds
+                    if (scaleValue < 0.5) scaleValue = 0.5
+                    if (scaleValue > 3.0) scaleValue = 3.0
+                }
+            }
+        }
+
+        // Debug View
         Rectangle {
             anchors.top: parent.top
-            anchors.right: parent.right
+            anchors.left: parent.left
             color: "#80000000"
             width: debugText.width + 20
             height: debugText.height + 10
-            visible: true  // Set to false in production
+            visible: false // Set to true for debugging
 
             Text {
                 id: debugText
                 anchors.centerIn: parent
-                text: "ID: " + garmentId + "\nPath: qrc:/garments/" + garmentId.split('_')[0] + "/model.obj"
+                text: `Scale: ${scaleValue.toFixed(2)}, Rotation: (${modelRotationX.toFixed(1)}, ${modelRotationY.toFixed(1)})`
                 color: "white"
                 font.pixelSize: 12
             }
         }
     }
 
-    // Control Buttons - Two rows layout
-    Column {
+    // Auto rotation timer
+    Timer {
+        id: autoRotate
+        interval: 16
+        running: false
+        repeat: true
+        onTriggered: modelRotationY += 1.2
+    }
+
+    // Improved Control Panel
+    Rectangle {
+        id: controlPanel
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottomMargin: 20
-        spacing: 15
+        anchors.bottomMargin: 30
+        width: controlLayout.width + 40
+        height: controlLayout.height + 40
+        color: Qt.rgba(Style.primaryColor.r, Style.primaryColor.g, Style.primaryColor.b, 0.7)
+        radius: 10
 
-        // Top row - Rotation controls
-        RowLayout {
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 20
+        ColumnLayout {
+            id: controlLayout
+            anchors.centerIn: parent
+            spacing: 15
 
-            Button {
-                text: "Rotate Left"
-                background: Rectangle {
-                    color: Style.primaryColor
-                    radius: 5
+            RowLayout {
+                spacing: 15
+                Layout.alignment: Qt.AlignHCenter
+
+                // X-axis rotation controls
+                Button {
+                    id: rotateXUpButton
+                    Layout.preferredWidth: 50
+                    Layout.preferredHeight: 40
+
+                    contentItem: Text {
+                        text: "⬆️"
+                        color: "white"
+                        font.pixelSize: 16
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: rotateXUpButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                               rotateXUpButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                               Style.primaryColor
+                        radius: 5
+                    }
+
+                    onPressed: modelRotationX += 15
                 }
-                contentItem: Text {
-                    text: parent.text
-                    font: Style.buttonFont
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
+
+                Button {
+                    id: rotateXDownButton
+                    Layout.preferredWidth: 50
+                    Layout.preferredHeight: 40
+
+                    contentItem: Text {
+                        text: "⬇️"
+                        color: "white"
+                        font.pixelSize: 16
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: rotateXDownButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                               rotateXDownButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                               Style.primaryColor
+                        radius: 5
+                    }
+
+                    onPressed: modelRotationX -= 15
                 }
-                onClicked: {
-                    garmentTransform.rotationY -= 45
+
+                // Y-axis rotation controls
+                Button {
+                    id: rotateYLeftButton
+                    Layout.preferredWidth: 50
+                    Layout.preferredHeight: 40
+
+                    contentItem: Text {
+                        text: "⬅️"
+                        color: "white"
+                        font.pixelSize: 16
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: rotateYLeftButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                               rotateYLeftButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                               Style.primaryColor
+                        radius: 5
+                    }
+
+                    onPressed: modelRotationY -= 15
+                }
+
+                Button {
+                    id: rotateYRightButton
+                    Layout.preferredWidth: 50
+                    Layout.preferredHeight: 40
+
+                    contentItem: Text {
+                        text: "➡️"
+                        color: "white"
+                        font.pixelSize: 16
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: rotateYRightButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                               rotateYRightButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                               Style.primaryColor
+                        radius: 5
+                    }
+
+                    onPressed: modelRotationY += 15
+                }
+
+                // Z-axis rotation controls
+                Button {
+                    id: rotateZLeftButton
+                    Layout.preferredWidth: 50
+                    Layout.preferredHeight: 40
+
+                    contentItem: Text {
+                        text: "↶"  // Counterclockwise
+                        color: "white"
+                        font.pixelSize: 16
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: rotateZLeftButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                               rotateZLeftButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                               Style.primaryColor
+                        radius: 5
+                    }
+
+                    onPressed: modelRotationZ -= 15
+                }
+
+                Button {
+                    id: rotateZRightButton
+                    Layout.preferredWidth: 50
+                    Layout.preferredHeight: 40
+
+                    contentItem: Text {
+                        text: "↷"  // Clockwise
+                        color: "white"
+                        font.pixelSize: 16
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: rotateZRightButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                               rotateZRightButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                               Style.primaryColor
+                        radius: 5
+                    }
+
+                    onPressed: modelRotationZ += 15
+                }
+            }
+
+            RowLayout {
+                spacing: 15
+                Layout.alignment: Qt.AlignHCenter
+
+                Button {
+                    id: resetViewButton
+                    Layout.preferredWidth: 110
+                    Layout.preferredHeight: 40
+
+                    contentItem: Text {
+                        text: "Reset View"
+                        color: "white"
+                        font.family: Style.buttonFont.family
+                        font.pixelSize: Style.buttonFont.pixelSize
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: resetViewButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                               resetViewButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                               Style.primaryColor
+                        radius: 5
+                    }
+
+                    onPressed: {
+                        modelRotationX = -90  // Reset to default initial position
+                        modelRotationY = 0
+                        modelRotationZ = 0
+                        scaleValue = 1.0
+                        autoRotate.stop()
+                    }
+                }
+
+                Button {
+                    id: autoRotateButton
+                    Layout.preferredWidth: 110
+                    Layout.preferredHeight: 40
+
+                    contentItem: Text {
+                        text: autoRotate.running ? "Stop Rotate" : "Auto Rotate"
+                        color: "white"
+                        font.family: Style.buttonFont.family
+                        font.pixelSize: Style.buttonFont.pixelSize
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    background: Rectangle {
+                        color: autoRotateButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                               autoRotateButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                               Style.primaryColor
+                        radius: 5
+                    }
+
+                    onPressed: autoRotate.running = !autoRotate.running
                 }
             }
 
             Button {
-                id: autoRotateButton
-                text: "Auto Rotate"
-                background: Rectangle {
-                    color: modelEntity.autoRotateActive ? "#808080" : Style.primaryColor
-                    radius: 5
-                }
-                contentItem: Text {
-                    text: parent.text
-                    font: Style.buttonFont
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                onClicked: {
-                    modelEntity.autoRotateActive = !modelEntity.autoRotateActive
-                    autoRotate.running = modelEntity.autoRotateActive
-                }
-            }
+                id: tryNowButton
+                Layout.preferredWidth: 240
+                Layout.preferredHeight: 50
+                Layout.alignment: Qt.AlignHCenter
 
-            Button {
-                text: "Rotate Right"
-                background: Rectangle {
-                    color: Style.primaryColor
-                    radius: 5
-                }
                 contentItem: Text {
-                    text: parent.text
-                    font: Style.buttonFont
+                    text: "Try Now"
                     color: "white"
+                    font.family: Style.buttonFont.family
+                    font.pixelSize: Style.buttonFont.pixelSize * 1.2
+                    font.bold: true
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
-                onClicked: {
-                    garmentTransform.rotationY += 45
+
+                background: Rectangle {
+                    color: tryNowButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                           tryNowButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                           Style.primaryColor
+                    radius: 8
+                }
+
+                onPressed: {
+                    qmlManager.tryOnGarment(garmentId)
+                    stackView.push("CameraPage.qml")
                 }
             }
         }
+    }
 
-        // Bottom row - Navigation buttons
-        RowLayout {
-            anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 40 // Larger spacing between navigation buttons
+    // Back Button
+    Button {
+        id: backButton
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.margins: 20
+        width: 100
+        height: 40
 
-            Button {
-                text: "Go Back"
-                background: Rectangle {
-                    color: Style.primaryColor
-                    radius: 5
-                }
-                contentItem: Text {
-                    text: parent.text
-                    font: Style.buttonFont
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                onClicked: stackView.pop()
-            }
-
-            Button {
-                text: "Try On"
-                background: Rectangle {
-                    color: Style.primaryColor
-                    radius: 5
-                }
-                contentItem: Text {
-                    text: parent.text
-                    font: Style.buttonFont
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-                onClicked: {
-                    console.log("Trying on garment: " + garmentId);
-                    qmlManager.tryOnGarment(garmentId);
-                    stackView.push("CameraPage.qml");
-                }
-            }
+        contentItem: Text {
+            text: "← Back"
+            color: "white"
+            font.family: Style.buttonFont.family
+            font.pixelSize: Style.buttonFont.pixelSize
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
         }
+
+        background: Rectangle {
+            color: backButton.pressed ? Qt.darker(Style.primaryColor, 1.2) :
+                   backButton.hovered ? Qt.lighter(Style.primaryColor, 1.2) :
+                   Style.primaryColor
+            radius: 5
+        }
+
+        onPressed: stackView.pop()
     }
 }

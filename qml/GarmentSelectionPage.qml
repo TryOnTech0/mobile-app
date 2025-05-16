@@ -11,7 +11,7 @@ Page {
 
     header: ToolBar {
         background: Rectangle { color: Style.primaryColor }
-
+        topPadding: 15
         RowLayout {
             anchors {
                 fill: parent

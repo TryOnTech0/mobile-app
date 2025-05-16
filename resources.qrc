@@ -8,12 +8,11 @@
         <file>qml/GarmentPreviewPage.qml</file>
         <file>qml/Style.qml</file>
         <file>qml/qmldir</file>
-        <!-- Shirt -->
         <file>garments/shirt/preview.jpg</file>
         <file>garments/shirt/model.obj</file>
         <file>garments/shirt/model.mtl</file>
-        <!-- Pants -->
         <file>garments/pants/preview.jpg</file>
         <file>garments/pants/model.obj</file>
+        <file>qml/AuthorizationPage.qml</file>
     </qresource>
 </RCC>

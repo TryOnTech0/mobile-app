@@ -21,6 +21,7 @@ ApplicationWindow {
         id: stackView
         anchors.fill: parent
         initialItem: "qrc:/ARClothTryOn/qml/MainPage.qml"
+        // initialItem: "qrc:/ARClothTryOn/qml/AuthorizationPage.qml"
 
         onCurrentItemChanged: {
             console.log("Current item changed: " + currentItem)
