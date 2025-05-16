@@ -6,6 +6,7 @@
 #include <QMimeDatabase>
 #include <QSslSocket>
 #include <QStandardPaths>
+#include <QEventLoop>
 
 // Constructor
 NetworkManager::NetworkManager(QObject* parent)
@@ -171,8 +172,8 @@ void NetworkManager::fetchGarments(bool forceRefresh) {
         handleGarmentsResponse(reply);
     });
 
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-            this, &NetworkManager::processNetworkError);
+    connect(reply, &QNetworkReply::errorOccurred,
+        this, &NetworkManager::processNetworkError);
 }
 
 // Fetch details for a specific garment
@@ -192,8 +193,8 @@ void NetworkManager::fetchGarmentDetails(const QString& garmentId) {
         handleGarmentDetailsResponse(reply);
     });
 
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-            this, &NetworkManager::processNetworkError);
+    connect(reply, &QNetworkReply::errorOccurred,
+        this, &NetworkManager::processNetworkError);
 }
 
 // Upload a new garment
@@ -265,8 +266,8 @@ void NetworkManager::uploadGarment(const QJsonObject& garmentData, const QString
         emit networkRequestFinished();
     });
 
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-            this, &NetworkManager::processNetworkError);
+    connect(reply, &QNetworkReply::errorOccurred,
+        this, &NetworkManager::processNetworkError);
 }
 
 // Update an existing garment
@@ -304,8 +305,8 @@ void NetworkManager::updateGarment(const QString& garmentId, const QJsonObject& 
         emit networkRequestFinished();
     });
 
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-            this, &NetworkManager::processNetworkError);
+    connect(reply, &QNetworkReply::errorOccurred,
+        this, &NetworkManager::processNetworkError);
 }
 
 // Delete a garment
@@ -332,8 +333,8 @@ void NetworkManager::deleteGarment(const QString& garmentId) {
         emit networkRequestFinished();
     });
 
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-            this, &NetworkManager::processNetworkError);
+    connect(reply, &QNetworkReply::errorOccurred,
+        this, &NetworkManager::processNetworkError);
 }
 
 // Register a new user
@@ -356,8 +357,8 @@ void NetworkManager::registerUser(const QString& username, const QString& email,
         handleAuthResponse(reply);
     });
 
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-            this, &NetworkManager::processNetworkError);
+    connect(reply, &QNetworkReply::errorOccurred,
+        this, &NetworkManager::processNetworkError);
 }
 
 // Login user
@@ -379,8 +380,8 @@ void NetworkManager::loginUser(const QString& email, const QString& password) {
         handleAuthResponse(reply);
     });
 
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::error),
-            this, &NetworkManager::processNetworkError);
+    connect(reply, &QNetworkReply::errorOccurred,
+        this, &NetworkManager::processNetworkError);
 }
 
 // Logout user

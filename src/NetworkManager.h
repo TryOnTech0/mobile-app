@@ -14,6 +14,8 @@
 #include <QSettings>
 #include <QSslConfiguration>
 #include <QtQml/qqmlregistration.h>
+#include <QAuthenticator>
+#include <QFileInfo>
 
 class NetworkManager : public QObject {
     Q_OBJECT
