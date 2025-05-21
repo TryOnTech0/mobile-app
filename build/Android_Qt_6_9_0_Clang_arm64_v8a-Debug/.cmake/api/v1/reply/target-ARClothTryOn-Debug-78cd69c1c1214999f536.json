@@ -1,0 +1,1839 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "libARClothTryOn_arm64-v8a.so"
+		}
+	],
+	"backtrace" : 4,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"_qt_internal_create_executable",
+			"qt6_add_executable",
+			"qt_add_executable",
+			"install",
+			"target_link_libraries",
+			"set_target_properties",
+			"include",
+			"find_package",
+			"find_dependency",
+			"_qt_internal_find_qt_dependencies",
+			"qt6_add_qml_module",
+			"qt_add_qml_module",
+			"set_property",
+			"_qt_internal_find_third_party_dependencies",
+			"add_dependencies",
+			"_qt_internal_qml_copy_files_to_build_dir",
+			"qt6_target_qml_sources",
+			"target_include_directories",
+			"_qt_internal_qml_type_registration",
+			"target_sources",
+			"qt6_extract_metatypes",
+			"__qt_propagate_generated_resource",
+			"_qt_internal_process_resource",
+			"qt6_add_resources",
+			"_qt_internal_target_enable_qmlcachegen",
+			"_qt_internal_expose_deferred_files_to_ide",
+			"qt6_finalize_target"
+		],
+		"files" : 
+		[
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Core/Qt6CoreMacros.cmake",
+			"CMakeLists.txt",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3D/Qt6Quick3DTargets.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3D/Qt6Quick3DConfig.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/Qt6Config.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DRuntimeRender/Qt6Quick3DRuntimeRenderTargets.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DRuntimeRender/Qt6Quick3DRuntimeRenderConfig.cmake",
+			"D:/progs/Tools/CMake_64/share/cmake-3.30/Modules/CMakeFindDependencyMacro.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3D/Qt6Quick3DDependencies.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick/Qt6QuickTargets.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick/Qt6QuickConfig.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QmlMeta/Qt6QmlMetaTargets.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QmlMeta/Qt6QmlMetaConfig.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick/Qt6QuickDependencies.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DExtras/Qt63DExtrasTargets.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DExtras/Qt63DExtrasConfig.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DCore/Qt63DCoreTargets.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DCore/Qt63DCoreConfig.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/Qt6Targets.cmake",
+			"D:/progs/Tools/CMake_64/share/cmake-3.30/Modules/FindThreads.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/Qt6Dependencies.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Gui/Qt6GuiTargets.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Gui/Qt6GuiConfig.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/FindGLESv2.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Gui/Qt6GuiDependencies.cmake",
+			"D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Core/Qt6CoreMacros.cmake:785:EVAL"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 39,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 938,
+				"parent" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 639,
+				"parent" : 2
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 671,
+				"parent" : 3
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 150,
+				"parent" : 0
+			},
+			{
+				"command" : 5,
+				"file" : 1,
+				"line" : 82,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 1,
+				"line" : 15,
+				"parent" : 0
+			},
+			{
+				"file" : 4,
+				"parent" : 7
+			},
+			{
+				"command" : 8,
+				"file" : 4,
+				"line" : 212,
+				"parent" : 8
+			},
+			{
+				"file" : 3,
+				"parent" : 9
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 55,
+				"parent" : 10
+			},
+			{
+				"file" : 2,
+				"parent" : 11
+			},
+			{
+				"command" : 6,
+				"file" : 2,
+				"line" : 61,
+				"parent" : 12
+			},
+			{
+				"command" : 7,
+				"file" : 3,
+				"line" : 43,
+				"parent" : 10
+			},
+			{
+				"file" : 9,
+				"parent" : 14
+			},
+			{
+				"command" : 10,
+				"file" : 9,
+				"line" : 45,
+				"parent" : 15
+			},
+			{
+				"command" : 9,
+				"file" : 8,
+				"line" : 137,
+				"parent" : 16
+			},
+			{
+				"command" : 8,
+				"file" : 7,
+				"line" : 76,
+				"parent" : 17
+			},
+			{
+				"file" : 6,
+				"parent" : 18
+			},
+			{
+				"command" : 7,
+				"file" : 6,
+				"line" : 55,
+				"parent" : 19
+			},
+			{
+				"file" : 5,
+				"parent" : 20
+			},
+			{
+				"command" : 6,
+				"file" : 5,
+				"line" : 61,
+				"parent" : 21
+			},
+			{
+				"command" : 8,
+				"file" : 4,
+				"line" : 212,
+				"parent" : 8
+			},
+			{
+				"file" : 11,
+				"parent" : 23
+			},
+			{
+				"command" : 7,
+				"file" : 11,
+				"line" : 55,
+				"parent" : 24
+			},
+			{
+				"file" : 10,
+				"parent" : 25
+			},
+			{
+				"command" : 6,
+				"file" : 10,
+				"line" : 61,
+				"parent" : 26
+			},
+			{
+				"command" : 7,
+				"file" : 11,
+				"line" : 43,
+				"parent" : 24
+			},
+			{
+				"file" : 14,
+				"parent" : 28
+			},
+			{
+				"command" : 10,
+				"file" : 14,
+				"line" : 45,
+				"parent" : 29
+			},
+			{
+				"command" : 9,
+				"file" : 8,
+				"line" : 137,
+				"parent" : 30
+			},
+			{
+				"command" : 8,
+				"file" : 7,
+				"line" : 76,
+				"parent" : 31
+			},
+			{
+				"file" : 13,
+				"parent" : 32
+			},
+			{
+				"command" : 7,
+				"file" : 13,
+				"line" : 55,
+				"parent" : 33
+			},
+			{
+				"file" : 12,
+				"parent" : 34
+			},
+			{
+				"command" : 6,
+				"file" : 12,
+				"line" : 61,
+				"parent" : 35
+			},
+			{
+				"command" : 12,
+				"file" : 1,
+				"line" : 57,
+				"parent" : 0
+			},
+			{
+				"command" : 11,
+				"file" : 15,
+				"line" : 1252,
+				"parent" : 37
+			},
+			{
+				"command" : 5,
+				"file" : 15,
+				"line" : 596,
+				"parent" : 38
+			},
+			{
+				"command" : 8,
+				"file" : 4,
+				"line" : 212,
+				"parent" : 8
+			},
+			{
+				"file" : 17,
+				"parent" : 40
+			},
+			{
+				"command" : 7,
+				"file" : 17,
+				"line" : 55,
+				"parent" : 41
+			},
+			{
+				"file" : 16,
+				"parent" : 42
+			},
+			{
+				"command" : 6,
+				"file" : 16,
+				"line" : 61,
+				"parent" : 43
+			},
+			{
+				"command" : 8,
+				"file" : 4,
+				"line" : 212,
+				"parent" : 8
+			},
+			{
+				"file" : 19,
+				"parent" : 45
+			},
+			{
+				"command" : 7,
+				"file" : 19,
+				"line" : 55,
+				"parent" : 46
+			},
+			{
+				"file" : 18,
+				"parent" : 47
+			},
+			{
+				"command" : 6,
+				"file" : 18,
+				"line" : 61,
+				"parent" : 48
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 640,
+				"parent" : 2
+			},
+			{
+				"command" : 7,
+				"file" : 4,
+				"line" : 43,
+				"parent" : 8
+			},
+			{
+				"file" : 20,
+				"parent" : 51
+			},
+			{
+				"command" : 6,
+				"file" : 20,
+				"line" : 61,
+				"parent" : 52
+			},
+			{
+				"command" : 7,
+				"file" : 4,
+				"line" : 162,
+				"parent" : 8
+			},
+			{
+				"file" : 22,
+				"parent" : 54
+			},
+			{
+				"command" : 14,
+				"file" : 22,
+				"line" : 34,
+				"parent" : 55
+			},
+			{
+				"command" : 9,
+				"file" : 8,
+				"line" : 36,
+				"parent" : 56
+			},
+			{
+				"command" : 8,
+				"file" : 7,
+				"line" : 76,
+				"parent" : 57
+			},
+			{
+				"file" : 21,
+				"parent" : 58
+			},
+			{
+				"command" : 13,
+				"file" : 21,
+				"line" : 238,
+				"parent" : 59
+			},
+			{
+				"command" : 9,
+				"file" : 8,
+				"line" : 137,
+				"parent" : 30
+			},
+			{
+				"command" : 8,
+				"file" : 7,
+				"line" : 76,
+				"parent" : 61
+			},
+			{
+				"file" : 24,
+				"parent" : 62
+			},
+			{
+				"command" : 7,
+				"file" : 24,
+				"line" : 55,
+				"parent" : 63
+			},
+			{
+				"file" : 23,
+				"parent" : 64
+			},
+			{
+				"command" : 6,
+				"file" : 23,
+				"line" : 61,
+				"parent" : 65
+			},
+			{
+				"command" : 7,
+				"file" : 24,
+				"line" : 43,
+				"parent" : 63
+			},
+			{
+				"file" : 26,
+				"parent" : 67
+			},
+			{
+				"command" : 14,
+				"file" : 26,
+				"line" : 36,
+				"parent" : 68
+			},
+			{
+				"command" : 9,
+				"file" : 8,
+				"line" : 36,
+				"parent" : 69
+			},
+			{
+				"command" : 8,
+				"file" : 7,
+				"line" : 76,
+				"parent" : 70
+			},
+			{
+				"file" : 25,
+				"parent" : 71
+			},
+			{
+				"command" : 5,
+				"file" : 25,
+				"line" : 85,
+				"parent" : 72
+			},
+			{
+				"command" : 17,
+				"file" : 15,
+				"line" : 916,
+				"parent" : 38
+			},
+			{
+				"command" : 16,
+				"file" : 15,
+				"line" : 3471,
+				"parent" : 74
+			},
+			{
+				"command" : 15,
+				"file" : 15,
+				"line" : 2870,
+				"parent" : 75
+			},
+			{
+				"command" : 16,
+				"file" : 15,
+				"line" : 3465,
+				"parent" : 74
+			},
+			{
+				"command" : 15,
+				"file" : 15,
+				"line" : 2870,
+				"parent" : 77
+			},
+			{
+				"command" : 19,
+				"file" : 15,
+				"line" : 796,
+				"parent" : 38
+			},
+			{
+				"command" : 18,
+				"file" : 15,
+				"line" : 3847,
+				"parent" : 79
+			},
+			{
+				"command" : 18,
+				"file" : 1,
+				"line" : 77,
+				"parent" : 0
+			},
+			{
+				"command" : 18,
+				"file" : 15,
+				"line" : 3872,
+				"parent" : 79
+			},
+			{
+				"command" : 21,
+				"file" : 15,
+				"line" : 3672,
+				"parent" : 79
+			},
+			{
+				"command" : 20,
+				"file" : 0,
+				"line" : 1489,
+				"parent" : 83
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3838,
+				"parent" : 79
+			},
+			{
+				"command" : 24,
+				"file" : 15,
+				"line" : 850,
+				"parent" : 38
+			},
+			{
+				"command" : 23,
+				"file" : 0,
+				"line" : 401,
+				"parent" : 86
+			},
+			{
+				"command" : 22,
+				"file" : 0,
+				"line" : 2530,
+				"parent" : 87
+			},
+			{
+				"command" : 20,
+				"file" : 0,
+				"line" : 2074,
+				"parent" : 88
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3192,
+				"parent" : 74
+			},
+			{
+				"command" : 25,
+				"file" : 15,
+				"line" : 3329,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 1721,
+				"parent" : 91
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3385,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3192,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3385,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3192,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3385,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3192,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3385,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3192,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3385,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3192,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3385,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3192,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3385,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3192,
+				"parent" : 74
+			},
+			{
+				"command" : 20,
+				"file" : 15,
+				"line" : 3385,
+				"parent" : 74
+			},
+			{
+				"command" : 24,
+				"file" : 15,
+				"line" : 3487,
+				"parent" : 74
+			},
+			{
+				"command" : 23,
+				"file" : 0,
+				"line" : 401,
+				"parent" : 108
+			},
+			{
+				"command" : 22,
+				"file" : 0,
+				"line" : 2530,
+				"parent" : 109
+			},
+			{
+				"command" : 20,
+				"file" : 0,
+				"line" : 2074,
+				"parent" : 110
+			},
+			{
+				"command" : 24,
+				"file" : 15,
+				"line" : 3523,
+				"parent" : 74
+			},
+			{
+				"command" : 23,
+				"file" : 0,
+				"line" : 401,
+				"parent" : 112
+			},
+			{
+				"command" : 22,
+				"file" : 0,
+				"line" : 2530,
+				"parent" : 113
+			},
+			{
+				"command" : 20,
+				"file" : 0,
+				"line" : 2074,
+				"parent" : 114
+			},
+			{
+				"file" : 1,
+				"line" : -1,
+				"parent" : 0
+			},
+			{
+				"command" : 27,
+				"file" : 27,
+				"line" : 1,
+				"parent" : 116
+			},
+			{
+				"command" : 26,
+				"file" : 0,
+				"line" : 810,
+				"parent" : 117
+			},
+			{
+				"command" : 20,
+				"file" : 0,
+				"line" : 2199,
+				"parent" : 118
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-DQT_QML_DEBUG   -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -fexceptions -frtti -stdlib=libc++ -g  -fno-limit-debug-info -std=gnu++17 -fPIC -fvisibility=default -fansi-escape-codes -fcolor-diagnostics"
+				},
+				{
+					"backtrace" : 50,
+					"fragment" : "-pthread"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"define" : "ARClothTryOn_EXPORTS"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_3DCORE_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_3DEXTRAS_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_3DINPUT_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_3DLOGIC_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_3DRENDER_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_CONCURRENT_LIB"
+				},
+				{
+					"backtrace" : 50,
+					"define" : "QT_CORE_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_DATAVISUALIZATION_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_GUI_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_MULTIMEDIA_LIB"
+				},
+				{
+					"backtrace" : 39,
+					"define" : "QT_NETWORK_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_OPENGL_LIB"
+				},
+				{
+					"backtrace" : 39,
+					"define" : "QT_QMLINTEGRATION_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_QMLMETA_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_QMLMODELS_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_QMLWORKERSCRIPT_LIB"
+				},
+				{
+					"backtrace" : 39,
+					"define" : "QT_QML_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_QUICK3DRUNTIMERENDER_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_QUICK3DUTILS_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_QUICK3D_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_QUICKCONTROLS2_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_QUICK_LIB"
+				},
+				{
+					"backtrace" : 6,
+					"define" : "QT_SHADERTOOLS_LIB"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 0,
+					"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_autogen/include"
+				},
+				{
+					"backtrace" : 80,
+					"path" : "C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb"
+				},
+				{
+					"backtrace" : 81,
+					"path" : "C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQml/6.9.0"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQml/6.9.0/QtQml"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtCore/6.9.0"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtCore/6.9.0/QtCore"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtCore"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/mkspecs/android-clang"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQml"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQmlIntegration"
+				},
+				{
+					"backtrace" : 82,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQuick"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtGui"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQmlMeta"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQmlModels"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQmlWorkerScript"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtOpenGL"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQuickControls2"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQuick3D"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQuick3DRuntimeRender"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtQuick3DUtils"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtShaderTools"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtDataVisualization"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/Qt3DCore"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/QtConcurrent"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/Qt3DRender"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/Qt3DInput"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/Qt3DExtras"
+				},
+				{
+					"backtrace" : 6,
+					"isSystem" : true,
+					"path" : "D:/progs/6.9.0/android_arm64_v8a/include/Qt3DLogic"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					50,
+					50
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				4,
+				6,
+				8,
+				10,
+				11,
+				14,
+				16,
+				17,
+				19,
+				20,
+				22,
+				24,
+				26,
+				28,
+				30,
+				32,
+				34,
+				35,
+				36
+			],
+			"sysroot" : 
+			{
+				"path" : "C:/Users/user/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+			}
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"id" : "ARClothTryOn_autogen_timestamp_deps::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 76,
+			"id" : "ARClothTryOn_copy_res::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 78,
+			"id" : "ARClothTryOn_copy_qml::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 0,
+			"id" : "ARClothTryOn_autogen::@6890427a1f51a3e7e1df"
+		}
+	],
+	"id" : "ARClothTryOn::@6890427a1f51a3e7e1df",
+	"install" : 
+	{
+		"destinations" : 
+		[
+			{
+				"backtrace" : 5,
+				"path" : "lib"
+			}
+		],
+		"prefix" : 
+		{
+			"path" : "C:/Program Files (x86)/ARClothTryOn"
+		}
+	},
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--no-undefined-version -Wl,--fatal-warnings -Wl,--gc-sections -Qunused-arguments -Wl,--no-undefined",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6QuickControls2_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6Multimedia_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6Quick3D_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6DataVisualization_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt63DExtras_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6Quick3DRuntimeRender_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6ShaderTools_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 22,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6Quick3DUtils_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6Quick_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 27,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6QmlMeta_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 36,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6QmlWorkerScript_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 27,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6QmlModels_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 39,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6Qml_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt63DRender_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6OpenGL_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt63DInput_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 44,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt63DLogic_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt63DCore_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6Network_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 49,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6Concurrent_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 27,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6Gui_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 50,
+				"fragment" : "D:\\progs\\6.9.0\\android_arm64_v8a\\lib\\libQt6Core_arm64-v8a.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 53,
+				"fragment" : "-llog",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 60,
+				"fragment" : "-pthread",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 66,
+				"fragment" : "C:\\Users\\user\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\23\\libGLESv2.so",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 73,
+				"fragment" : "C:\\Users\\user\\AppData\\Local\\Android\\Sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\sysroot\\usr\\lib\\aarch64-linux-android\\23\\libEGL.so",
+				"role" : "libraries"
+			},
+			{
+				"fragment" : "-Wl,-rpath-link,D:/progs/6.9.0/android_arm64_v8a/lib  -latomic -lm",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX",
+		"sysroot" : 
+		{
+			"path" : "C:/Users/user/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot"
+		}
+	},
+	"name" : "ARClothTryOn",
+	"nameOnDisk" : "libARClothTryOn_arm64-v8a.so",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1,
+				2,
+				4,
+				6,
+				8,
+				10,
+				11,
+				14,
+				16,
+				17,
+				19,
+				20,
+				22,
+				24,
+				26,
+				28,
+				30,
+				32,
+				34,
+				35,
+				36
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				3,
+				5,
+				7,
+				9,
+				12
+			]
+		},
+		{
+			"name" : "Resources",
+			"sourceIndexes" : 
+			[
+				13,
+				37,
+				39,
+				41
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				15,
+				18,
+				21,
+				23,
+				25,
+				27,
+				29,
+				31,
+				33,
+				38,
+				40,
+				42,
+				43,
+				60,
+				61,
+				62,
+				63,
+				64,
+				65,
+				66,
+				67,
+				68,
+				69,
+				70,
+				71,
+				72,
+				73,
+				74,
+				75,
+				76,
+				77,
+				78,
+				79,
+				80,
+				81
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				44,
+				45,
+				46,
+				47,
+				48,
+				49,
+				50,
+				51,
+				52,
+				53,
+				54,
+				55,
+				56,
+				57,
+				58,
+				59
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_autogen/mocs_compilation.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "src/main.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "src/QMLManager.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"path" : "src/QMLManager.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "src/BodyTracker.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"path" : "src/BodyTracker.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "src/ClothFitter.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"path" : "src/ClothFitter.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "src/ClothScanner.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"path" : "src/ClothScanner.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "src/ImageConverter.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"path" : "src/NetworkManager.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 4,
+			"path" : "src/NetworkManager.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 4,
+			"path" : "resources.qrc",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 4,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/qrc_resources.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 84,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/meta_types/qt6arclothtryon_debug_metatypes.json.gen",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 85,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/arclothtryon_qmltyperegistrations.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 89,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/qrc_qmake_ARClothTryOn.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 90,
+			"path" : "qml/Main.qml",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 92,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qmlcache_loader.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 93,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/Main_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 94,
+			"path" : "qml/MainPage.qml",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 95,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/MainPage_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 96,
+			"path" : "qml/CameraPage.qml",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 97,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/CameraPage_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 98,
+			"path" : "qml/ScanResultPage.qml",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 99,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/ScanResultPage_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 100,
+			"path" : "qml/GarmentSelectionPage.qml",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 101,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/GarmentSelectionPage_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 102,
+			"path" : "qml/GarmentPreviewPage.qml",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 103,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/GarmentPreviewPage_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 104,
+			"path" : "qml/AuthorizationPage.qml",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 105,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/AuthorizationPage_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 106,
+			"path" : "qml/Style.qml",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 107,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/Style_qml.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 111,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/qrc_ARClothTryOn_raw_qml_0.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 115,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/qrc_ARClothTryOn_raw_qml_0_extra_qmldirs.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 119,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/qmake_ARClothTryOn.qrc",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 119,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn/qmldir",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 119,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/ARClothTryOn_raw_qml_0.qrc",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 119,
+			"path" : "qml/qmldir",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 119,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/ARClothTryOn_raw_qml_0_extra_qmldirs.qrc",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 119,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn/qml/qmldir",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_autogen/timestamp",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/meta_types/qt6arclothtryon_debug_metatypes.json.gen.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/arclothtryon_qmltyperegistrations.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/qrc_qmake_ARClothTryOn.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qmlcache_loader.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/Main_qml.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/MainPage_qml.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/CameraPage_qml.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/ScanResultPage_qml.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/GarmentSelectionPage_qml.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/GarmentPreviewPage_qml.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/AuthorizationPage_qml.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.rcc/qmlcache/ARClothTryOn_qml/Style_qml.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/qrc_ARClothTryOn_raw_qml_0.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/qrc_ARClothTryOn_raw_qml_0_extra_qmldirs.cpp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_autogen/timestamp.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/meta_types/ARClothTryOn_json_file_list.txt.rule",
+			"sourceGroupIndex" : 4
+		},
+		{
+			"backtrace" : 50,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6core_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 39,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6qml_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 39,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6network_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6quick_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6gui_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6qmlmeta_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6qmlmodels_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6qmlworkerscript_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6opengl_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6quickcontrols2_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6multimedia_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6quick3d_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6quick3druntimerender_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6quick3dutils_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6shadertools_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6datavisualization_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt63dcore_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt6concurrent_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt63drender_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt63dinput_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt63dextras_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		},
+		{
+			"backtrace" : 6,
+			"path" : "D:/progs/6.9.0/android_arm64_v8a/metatypes/qt63dlogic_relwithdebinfo_metatypes.json",
+			"sourceGroupIndex" : 3
+		}
+	],
+	"type" : "MODULE_LIBRARY"
+}

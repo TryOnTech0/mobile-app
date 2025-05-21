@@ -1,0 +1,20 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 31,
+                        "durationMicroseconds": 1178,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method font, returning QVariant -> QFont stored as QVariant",
+                        "functionName": "buttonFont",
+                        "line": 18
+                    }
+                ],
+                "filepath": "Style.qml"
+            }
+        ],
+        "moduleId": "ARClothTryOn(ARClothTryOn)"
+    }
+]

@@ -1,0 +1,14 @@
+--resource
+C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/qmake_ARClothTryOn.qrc
+--resource
+C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/ARClothTryOn_raw_qml_0.qrc
+--resource
+C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/ARClothTryOn_raw_qml_0_extra_qmldirs.qrc
+/ARClothTryOn/qml/Main.qml
+/ARClothTryOn/qml/MainPage.qml
+/ARClothTryOn/qml/CameraPage.qml
+/ARClothTryOn/qml/ScanResultPage.qml
+/ARClothTryOn/qml/GarmentSelectionPage.qml
+/ARClothTryOn/qml/GarmentPreviewPage.qml
+/ARClothTryOn/qml/AuthorizationPage.qml
+/ARClothTryOn/qml/Style.qml

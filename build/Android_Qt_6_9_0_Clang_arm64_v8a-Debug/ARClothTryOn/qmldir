@@ -1,0 +1,12 @@
+module ARClothTryOn
+typeinfo ARClothTryOn.qmltypes
+prefer :/ARClothTryOn/
+Main 1.0 qml/Main.qml
+MainPage 1.0 qml/MainPage.qml
+CameraPage 1.0 qml/CameraPage.qml
+ScanResultPage 1.0 qml/ScanResultPage.qml
+GarmentSelectionPage 1.0 qml/GarmentSelectionPage.qml
+GarmentPreviewPage 1.0 qml/GarmentPreviewPage.qml
+AuthorizationPage 1.0 qml/AuthorizationPage.qml
+Style 1.0 qml/Style.qml
+

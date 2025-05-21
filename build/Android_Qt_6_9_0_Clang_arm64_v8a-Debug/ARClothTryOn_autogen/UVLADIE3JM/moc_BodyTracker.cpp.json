@@ -1,0 +1,26 @@
+{
+    "classes": [
+        {
+            "className": "BodyTracker",
+            "lineNumber": 7,
+            "object": true,
+            "qualifiedClassName": "BodyTracker",
+            "signals": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "name": "keypointsUpdated",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "BodyTracker.h",
+    "outputRevision": 69
+}

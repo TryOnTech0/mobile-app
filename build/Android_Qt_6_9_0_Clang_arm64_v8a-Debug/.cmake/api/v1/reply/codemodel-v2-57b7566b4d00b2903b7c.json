@@ -1,0 +1,286 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-c9d095b3e0985517ba27.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ARClothTryOn",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn-Debug-78cd69c1c1214999f536.json",
+					"name" : "ARClothTryOn",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_autogen-Debug-e2bde7e4164b281eff17.json",
+					"name" : "ARClothTryOn_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_autogen_timestamp_deps-Debug-8e8c5b08eaf3b13e6d30.json",
+					"name" : "ARClothTryOn_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_copy_apk_dependencies::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_copy_apk_dependencies-Debug-792044746bc10781d826.json",
+					"name" : "ARClothTryOn_copy_apk_dependencies",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_copy_qml::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_copy_qml-Debug-d62fb28efd5be5b7f630.json",
+					"name" : "ARClothTryOn_copy_qml",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_copy_res::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_copy_res-Debug-86aecb4f542434f1888c.json",
+					"name" : "ARClothTryOn_copy_res",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_make_aab::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_make_aab-Debug-17301a8e3f6f34beb919.json",
+					"name" : "ARClothTryOn_make_aab",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_make_aar::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_make_aar-Debug-7421c8dbc2f740a26305.json",
+					"name" : "ARClothTryOn_make_aar",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_make_apk::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_make_apk-Debug-c567c8a8287af8a97a5f.json",
+					"name" : "ARClothTryOn_make_apk",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_prepare_apk_dir::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_prepare_apk_dir-Debug-15e209c2c055cca4f63d.json",
+					"name" : "ARClothTryOn_prepare_apk_dir",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_qmllint-Debug-43572cc9d125701d8a6a.json",
+					"name" : "ARClothTryOn_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_qmllint_json-Debug-f45c6273a4e31bb61a0d.json",
+					"name" : "ARClothTryOn_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_qmllint_module-Debug-26d1a37c152f50d623f4.json",
+					"name" : "ARClothTryOn_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ARClothTryOn_qmltyperegistration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ARClothTryOn_qmltyperegistration-Debug-c370ab583e801d1795b2.json",
+					"name" : "ARClothTryOn_qmltyperegistration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "_qt_internal_apk_dependencies::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-_qt_internal_apk_dependencies-Debug-852412e84e32287efccb.json",
+					"name" : "_qt_internal_apk_dependencies",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "aab::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-aab-Debug-07e1006adbc3ca5d2cb5.json",
+					"name" : "aab",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "aar::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-aar-Debug-903139d2ce9e0a53b04e.json",
+					"name" : "aar",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_aotstats::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_aotstats-Debug-1fbf646d74f629d725fb.json",
+					"name" : "all_aotstats",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint-Debug-be1f5f045bf4f42e74b6.json",
+					"name" : "all_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_json-Debug-39004d577e48db9a6169.json",
+					"name" : "all_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_module-Debug-0c7759ec58b6c7020a25.json",
+					"name" : "all_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmltyperegistrations::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmltyperegistrations-Debug-d24c7d0ca708a998e64f.json",
+					"name" : "all_qmltyperegistrations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "apk::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-apk-Debug-6ee15de46c08c6756db7.json",
+					"name" : "apk",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "apk_all::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-apk_all-Debug-34b298ca0be99d306da6.json",
+					"name" : "apk_all",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "module_ARClothTryOn_aotstats_target::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-module_ARClothTryOn_aotstats_target-Debug-15494825a6d4b1666e61.json",
+					"name" : "module_ARClothTryOn_aotstats_target",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "qt_internal_plugins::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-qt_internal_plugins-Debug-5f07ceb870c32a628a16.json",
+					"name" : "qt_internal_plugins",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e",
+		"source" : "C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

@@ -1,0 +1,12 @@
+-I
+C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e
+-I
+D:/progs/6.9.0/android_arm64_v8a/qml
+--resource
+C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/qmake_ARClothTryOn.qrc
+--resource
+C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/ARClothTryOn_raw_qml_0.qrc
+--resource
+C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/.qt/rcc/ARClothTryOn_raw_qml_0_extra_qmldirs.qrc
+--module
+ARClothTryOn

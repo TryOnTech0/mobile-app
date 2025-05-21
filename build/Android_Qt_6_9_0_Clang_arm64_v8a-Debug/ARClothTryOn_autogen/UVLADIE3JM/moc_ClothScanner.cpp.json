@@ -1,0 +1,32 @@
+{
+    "classes": [
+        {
+            "className": "ClothScanner",
+            "lineNumber": 6,
+            "object": true,
+            "qualifiedClassName": "ClothScanner",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "percent",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "progressUpdated",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "ClothScanner.h",
+    "outputRevision": 69
+}

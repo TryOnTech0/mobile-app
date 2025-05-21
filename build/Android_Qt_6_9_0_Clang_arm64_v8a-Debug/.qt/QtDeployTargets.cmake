@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_ARClothTryOn_FILE C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/libARClothTryOn_arm64-v8a.so)
+set(__QT_DEPLOY_TARGET_ARClothTryOn_TYPE MODULE_LIBRARY)
