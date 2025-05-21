@@ -1,0 +1,113 @@
+# Project root .gitignore
+.gitignore
+
+# --------------------------
+# Server (Node.js) Specific
+# --------------------------
+/server/node_modules/
+/server/.env
+/server/.env.*
+/server/npm-debug.log*
+/server/yarn-debug.log*
+/server/yarn-error.log*
+/server/coverage/
+/server/logs/
+/server/uploads/ # Local file storage
+/server/.nyc_output/
+
+# --------------------------
+# Client (Qt/C++) Specific
+# --------------------------
+/client/build*/
+/client/CMakeLists.txt.user
+/client/*.autosave
+/client/*.pro.user
+/client/*.pro.user.*
+/client/.qmake.stash
+/build/
+/client/android-opencv/
+
+
+# Compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.app
+*.lib
+*.a
+*.o
+*.obj
+*.ilk
+*.pdb
+
+# Qt generated files
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.moc
+*.qrc.depends
+*.qm
+
+# Qt Creator files
+*.includes
+*.config
+*.creator
+*.files
+*.cflags
+*.cxxflags
+*.config
+
+# --------------------------
+# General
+# --------------------------
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+~$*
+
+# IDE Specific
+.idea/
+.vscode/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# --------------------------
+# Debug/Release Files
+# --------------------------
+Debug/
+Release/
+*.debug
+*.release
+
+# --------------------------
+# Dependency directories
+# --------------------------
+**/ThirdParty/
+**/3rdparty/
+**/external/
+
+# --------------------------
+# Local development files
+# --------------------------
+*.local
+*.local.*
