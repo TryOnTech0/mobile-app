@@ -16,6 +16,7 @@
 #include <QtQml/qqmlregistration.h>
 #include <QAuthenticator>
 #include <QFileInfo>
+#include <memory> 
 
 class NetworkManager : public QObject {
     Q_OBJECT
@@ -43,9 +44,12 @@ public:
     // CRUD operations for garments collection
     Q_INVOKABLE void fetchGarments(bool forceRefresh = false);
     Q_INVOKABLE void fetchGarmentDetails(const QString& garmentId);
-    Q_INVOKABLE void uploadGarment(const QJsonObject& garmentData, const QString& modelPath);
+    Q_INVOKABLE void uploadGarment(const QJsonObject& garmentData, 
+                              const QString& previewPath = QString(),
+                              const QString& modelPath = QString());
     Q_INVOKABLE void updateGarment(const QString& garmentId, const QJsonObject& garmentData);
     Q_INVOKABLE void deleteGarment(const QString& garmentId);
+
 
     // User management
     Q_INVOKABLE void registerUser(const QString& username, const QString& email, const QString& password);
@@ -109,6 +113,7 @@ private:
     QString m_username;
 
     // Helper methods
+    void handleUploadFinished(QNetworkReply* reply);
     QNetworkRequest createAuthenticatedRequest(const QUrl& url);
     void saveAuthToken(const QString& token);
     void clearAuthToken();

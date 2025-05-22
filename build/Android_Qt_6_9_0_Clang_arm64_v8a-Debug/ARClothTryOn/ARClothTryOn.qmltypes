@@ -151,7 +151,19 @@ Module {
         Method {
             name: "uploadGarment"
             Parameter { name: "garmentData"; type: "QJsonObject" }
+            Parameter { name: "previewPath"; type: "QString" }
             Parameter { name: "modelPath"; type: "QString" }
+        }
+        Method {
+            name: "uploadGarment"
+            isCloned: true
+            Parameter { name: "garmentData"; type: "QJsonObject" }
+            Parameter { name: "previewPath"; type: "QString" }
+        }
+        Method {
+            name: "uploadGarment"
+            isCloned: true
+            Parameter { name: "garmentData"; type: "QJsonObject" }
         }
         Method {
             name: "updateGarment"
@@ -201,14 +213,35 @@ Module {
             index: 1
             isReadonly: true
         }
+        Property {
+            name: "isNetworkConnected"
+            type: "bool"
+            read: "isNetworkConnected"
+            notify: "networkStatusChanged"
+            index: 2
+            isReadonly: true
+        }
         Signal { name: "permissionGranted" }
         Signal { name: "permissionDenied" }
         Signal {
             name: "scanProgressChanged"
             Parameter { name: "progress"; type: "int" }
         }
+        Signal { name: "scanCompleted" }
+        Signal {
+            name: "scanFailed"
+            Parameter { name: "error"; type: "QString" }
+        }
         Signal { name: "garmentsChanged" }
+        Signal {
+            name: "garmentLoadFailed"
+            Parameter { name: "error"; type: "QString" }
+        }
         Signal { name: "arSessionReady" }
+        Signal {
+            name: "arSessionFailed"
+            Parameter { name: "error"; type: "QString" }
+        }
         Signal {
             name: "showPreview"
             Parameter { name: "previewPath"; type: "QString" }
@@ -216,6 +249,18 @@ Module {
         Signal {
             name: "networkStatusChanged"
             Parameter { name: "connected"; type: "bool" }
+        }
+        Signal {
+            name: "uploadProgressChanged"
+            Parameter { name: "progress"; type: "int" }
+        }
+        Signal {
+            name: "uploadCompleted"
+            Parameter { name: "garmentId"; type: "QString" }
+        }
+        Signal {
+            name: "uploadFailed"
+            Parameter { name: "error"; type: "QString" }
         }
         Method {
             name: "handlePermissionResult"
@@ -233,6 +278,15 @@ Module {
             name: "handleGarmentsReceived"
             Parameter { name: "garments"; type: "QJsonArray" }
         }
+        Method {
+            name: "handleNetworkStatusChanged"
+            Parameter { name: "connected"; type: "bool" }
+        }
+        Method {
+            name: "handleUploadProgress"
+            Parameter { name: "progress"; type: "int" }
+        }
+        Method { name: "uploadNewGarment" }
         Method { name: "initializeApp" }
         Method { name: "startScanning" }
         Method { name: "saveScan" }
@@ -243,5 +297,10 @@ Module {
         }
         Method { name: "requestCameraPermission" }
         Method { name: "hasCameraPermission"; type: "bool"; isMethodConstant: true }
+        Method {
+            name: "fetchGarments"
+            Parameter { name: "forceRefresh"; type: "bool" }
+        }
+        Method { name: "fetchGarments"; isCloned: true }
     }
 }

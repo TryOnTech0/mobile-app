@@ -739,6 +739,7 @@ C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_aut
   C:/Users/user/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/wchar.h \
   C:/Users/user/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/wctype.h \
   C:/Users/user/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/xlocale.h \
+  D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QDateTime \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QFileInfo \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QFlags \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QIODevice \
@@ -746,6 +747,7 @@ C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_aut
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QJsonDocument \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QJsonObject \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QList \
+  D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QMap \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QMetaType \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QObject \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QPermission \
@@ -757,6 +759,8 @@ C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_aut
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QUrl \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QUrlQuery \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QVariant \
+  D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QVariantList \
+  D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QVariantMap \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/q17memory.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/q20functional.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/q20iterator.h \
@@ -926,6 +930,8 @@ C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_aut
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qutf8stringview.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/quuid.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qvariant.h \
+  D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qvariantlist.h \
+  D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qvariantmap.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qvarlengtharray.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qversiontagging.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qxptype_traits.h \

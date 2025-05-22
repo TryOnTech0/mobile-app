@@ -13,26 +13,35 @@ NetworkManager::NetworkManager(QObject* parent)
     : QObject(parent)
     , m_networkManager(new QNetworkAccessManager(this))
     , m_connected(false)
-    , m_serverUrl("http://localhost:5000/api") // Default server URL - replace with your actual API endpoint
 {
-    // Configure SSL
-    m_sslConfig = QSslConfiguration::defaultConfiguration();
-    m_sslConfig.setProtocol(QSsl::TlsV1_2OrLater);
+    #ifdef Q_OS_ANDROID
+        // Replace 192.168.1.100 with your actual laptop IP address
+        m_serverUrl = "http://192.168.1.100:5000/api";
+    #else
+        // Use localhost for desktop development
+        m_serverUrl = "http://localhost:5000/api";
+    #endif
 
-    // Connect network manager signals
-    connect(m_networkManager, &QNetworkAccessManager::authenticationRequired,
-            this, &NetworkManager::onAuthenticationRequired);
-    connect(m_networkManager, &QNetworkAccessManager::sslErrors,
-            this, &NetworkManager::onSslErrors);
+        // Configure SSL
+        m_sslConfig = QSslConfiguration::defaultConfiguration();
+        m_sslConfig.setProtocol(QSsl::TlsV1_2OrLater);
 
-    // Load authentication token if available
-    m_authToken = loadAuthToken();
+        // Rest of your existing constructor code...
+        connect(m_networkManager, &QNetworkAccessManager::authenticationRequired,
+                this, &NetworkManager::onAuthenticationRequired);
+        connect(m_networkManager, &QNetworkAccessManager::sslErrors,
+                this, &NetworkManager::onSslErrors);
+
+        qDebug() << "Server URL configured as:" << m_serverUrl;
+        
+        // Load authentication token if available
+        m_authToken = loadAuthToken();
     if (!m_authToken.isEmpty()) {
         // Verify token validity at startup (optional)
         // This could be implemented by making a lightweight API call
         QNetworkRequest request = createAuthenticatedRequest(QUrl(m_serverUrl + "/auth/verify"));
         QNetworkReply* reply = m_networkManager->get(request);
-        connect(reply, &QNetworkReply::finished, [this, reply]() {
+        connect(reply, &QNetworkReply::finished, this, [this, reply]() {
             bool ok;
             QJsonDocument jsonResponse = parseJsonReply(reply, ok);
 
@@ -120,7 +129,7 @@ void NetworkManager::disconnectFromDatabase() {
     emit networkRequestStarted();
     QNetworkReply* reply = m_networkManager->get(request);
 
-    connect(reply, &QNetworkReply::finished, [this, reply]() {
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         m_connected = false;
         emit connectionStatusChanged(false);
         emit databaseDisconnected();
@@ -172,7 +181,8 @@ void NetworkManager::fetchGarments(bool forceRefresh) {
         handleGarmentsResponse(reply);
     });
 
-    connect(reply, &QNetworkReply::errorOccurred,
+    // Fixed: Use QOverload to specify the correct errorOccurred signal
+    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
             this, &NetworkManager::processNetworkError);
 }
 
@@ -193,81 +203,108 @@ void NetworkManager::fetchGarmentDetails(const QString& garmentId) {
         handleGarmentDetailsResponse(reply);
     });
 
-    connect(reply, &QNetworkReply::errorOccurred,
+    // Fixed: Use QOverload to specify the correct errorOccurred signal
+    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
             this, &NetworkManager::processNetworkError);
 }
 
 // Upload a new garment
-void NetworkManager::uploadGarment(const QJsonObject& garmentData, const QString& modelPath) {
+void NetworkManager::uploadGarment(const QJsonObject& garmentData, 
+                                  const QString& previewPath,
+                                  const QString& modelPath)
+{
     if (!m_connected) {
-        emit connectionError("Not connected to database");
+        emit connectionError(tr("Not connected to database"));
         return;
     }
 
-    // Create multipart message for file upload
     QHttpMultiPart* multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    QNetworkRequest request = createAuthenticatedRequest(QUrl(m_serverUrl + "/garments"));
+    
+    try {
+        // Add metadata part
+        QHttpPart metadataPart;
+        metadataPart.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+        metadataPart.setHeader(QNetworkRequest::ContentDispositionHeader, 
+                             QVariant("form-data; name=\"metadata\""));
+        metadataPart.setBody(QJsonDocument(garmentData).toJson());
+        multiPart->append(metadataPart);
 
-    // Add JSON metadata
-    QHttpPart jsonPart;
-    jsonPart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
-    jsonPart.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"metadata\""));
-    jsonPart.setBody(QJsonDocument(garmentData).toJson());
-    multiPart->append(jsonPart);
+        // Helper function to add file parts
+        auto addFilePart = [multiPart](const QString& path, const QString& partName) {
+            if (path.isEmpty()) return;
 
-    // Add 3D model file
-    if (!modelPath.isEmpty()) {
-        QFile* file = new QFile(modelPath);
-        if (file->open(QIODevice::ReadOnly)) {
-            QHttpPart modelPart;
-
-            // Determine MIME type
-            QMimeDatabase db;
-            QString mimeType = db.mimeTypeForFile(modelPath).name();
-
-            modelPart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant(mimeType));
-            modelPart.setHeader(QNetworkRequest::ContentDispositionHeader,
-                                QVariant("form-data; name=\"model\"; filename=\"" +
-                                         QFileInfo(modelPath).fileName() + "\""));
-            modelPart.setBodyDevice(file);
-            file->setParent(multiPart); // multiPart will take ownership and delete file
-            multiPart->append(modelPart);
-        } else {
-            delete file;
-            delete multiPart;
-            emit garmentUploadFailed("Could not open model file: " + modelPath);
-            return;
-        }
-    }
-
-    // Create request
-    QUrl url(m_serverUrl + "/garments");
-    QNetworkRequest request = createAuthenticatedRequest(url);
-
-    emit networkRequestStarted();
-    QNetworkReply* reply = m_networkManager->post(request, multiPart);
-    multiPart->setParent(reply); // reply will take ownership and delete multiPart
-
-    connect(reply, &QNetworkReply::finished, [this, reply]() {
-        bool ok;
-        QJsonDocument response = parseJsonReply(reply, ok);
-
-        if (ok && reply->error() == QNetworkReply::NoError) {
-            QString garmentId = response.object().value("garmentId").toString();
-            emit garmentUploadSucceeded(garmentId);
-        } else {
-            QString errorMsg = "Upload failed: " + reply->errorString();
-            if (ok) {
-                errorMsg = response.object().value("error").toString(errorMsg);
+            std::unique_ptr<QFile> file(new QFile(path));
+            if (!file->open(QIODevice::ReadOnly)) {
+                throw std::runtime_error(
+                    QString("Could not open %1 file: %2").arg(partName).arg(path).toStdString()
+                );
             }
-            emit garmentUploadFailed(errorMsg);
-        }
 
-        reply->deleteLater();
+            QHttpPart filePart;
+            const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(path);
+            
+            filePart.setHeader(QNetworkRequest::ContentTypeHeader, mimeType.name());
+            filePart.setHeader(QNetworkRequest::ContentDispositionHeader,
+                QVariant(QString("form-data; name=\"%1\"; filename=\"%2\"")
+                    .arg(partName)
+                    .arg(QFileInfo(path).fileName())));
+            
+            filePart.setBodyDevice(file.release());
+            multiPart->append(filePart);
+        };
+
+        // Add files
+        addFilePart(previewPath, "preview");
+        addFilePart(modelPath, "model");
+
+        emit networkRequestStarted();
+        QNetworkReply* reply = m_networkManager->post(request, multiPart);
+        multiPart->setParent(reply);  // Transfer ownership
+
+        connect(reply, &QNetworkReply::finished, this, [this, reply]() {
+            handleUploadFinished(reply);
+        });
+        
+        // Fixed: Use QOverload to specify the correct errorOccurred signal
+        connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
+                this, &NetworkManager::processNetworkError);
+
+    } catch (const std::exception& e) {
+        multiPart->deleteLater();
+        emit garmentUploadFailed(QString::fromStdString(e.what()));
         emit networkRequestFinished();
-    });
+    }
+}
 
-    connect(reply, &QNetworkReply::errorOccurred,
-            this, &NetworkManager::processNetworkError);
+// Private slot implementation
+void NetworkManager::handleUploadFinished(QNetworkReply* reply)
+{
+    QScopedPointer<QNetworkReply> replyDeleter(reply);  // Auto-delete
+    
+    bool ok = false;
+    QJsonDocument response = parseJsonReply(reply, ok);
+    
+    if (reply->error() == QNetworkReply::NoError && ok) {
+        if (response.isObject()) {
+            QJsonObject obj = response.object();
+            if (obj.contains("garmentId")) {
+                QString garmentId = obj["garmentId"].toString();
+                emit garmentUploadSucceeded(garmentId);
+                emit networkRequestFinished();
+                return;
+            }
+        }
+        emit garmentUploadFailed(tr("Invalid response format"));
+    } else {
+        QString error = reply->errorString();
+        if (!response.isNull() && response.isObject()) {
+            error = response.object()["error"].toString(error);
+        }
+        emit garmentUploadFailed(error);
+    }
+    
+    emit networkRequestFinished();
 }
 
 // Update an existing garment
@@ -287,7 +324,7 @@ void NetworkManager::updateGarment(const QString& garmentId, const QJsonObject& 
     emit networkRequestStarted();
     QNetworkReply* reply = m_networkManager->put(request, jsonData);
 
-    connect(reply, &QNetworkReply::finished, [this, garmentId, reply]() {
+    connect(reply, &QNetworkReply::finished, this, [this, garmentId, reply]() {
         bool ok;
         QJsonDocument response = parseJsonReply(reply, ok);
 
@@ -305,7 +342,8 @@ void NetworkManager::updateGarment(const QString& garmentId, const QJsonObject& 
         emit networkRequestFinished();
     });
 
-    connect(reply, &QNetworkReply::errorOccurred,
+    // Fixed: Use QOverload to specify the correct errorOccurred signal
+    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
             this, &NetworkManager::processNetworkError);
 }
 
@@ -322,7 +360,7 @@ void NetworkManager::deleteGarment(const QString& garmentId) {
     emit networkRequestStarted();
     QNetworkReply* reply = m_networkManager->deleteResource(request);
 
-    connect(reply, &QNetworkReply::finished, [this, garmentId, reply]() {
+    connect(reply, &QNetworkReply::finished, this, [this, garmentId, reply]() {
         if (reply->error() == QNetworkReply::NoError) {
             emit garmentDeleteSucceeded(garmentId);
         } else {
@@ -333,7 +371,8 @@ void NetworkManager::deleteGarment(const QString& garmentId) {
         emit networkRequestFinished();
     });
 
-    connect(reply, &QNetworkReply::errorOccurred,
+    // Fixed: Use QOverload to specify the correct errorOccurred signal
+    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
             this, &NetworkManager::processNetworkError);
 }
 
@@ -353,11 +392,12 @@ void NetworkManager::registerUser(const QString& username, const QString& email,
     emit networkRequestStarted();
     QNetworkReply* reply = m_networkManager->post(request, jsonData);
 
-    connect(reply, &QNetworkReply::finished, [this, username, reply]() {
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         handleAuthResponse(reply);
     });
 
-    connect(reply, &QNetworkReply::errorOccurred,
+    // Fixed: Use QOverload to specify the correct errorOccurred signal
+    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
             this, &NetworkManager::processNetworkError);
 }
 
@@ -376,11 +416,12 @@ void NetworkManager::loginUser(const QString& email, const QString& password) {
     emit networkRequestStarted();
     QNetworkReply* reply = m_networkManager->post(request, jsonData);
 
-    connect(reply, &QNetworkReply::finished, [this, reply]() {
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         handleAuthResponse(reply);
     });
 
-    connect(reply, &QNetworkReply::errorOccurred,
+    // Fixed: Use QOverload to specify the correct errorOccurred signal
+    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
             this, &NetworkManager::processNetworkError);
 }
 
@@ -396,7 +437,7 @@ void NetworkManager::logoutUser() {
     emit networkRequestStarted();
     QNetworkReply* reply = m_networkManager->get(request);
 
-    connect(reply, &QNetworkReply::finished, [this, reply]() {
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         clearAuthToken();
         m_userId = QString();
         m_username = QString();
@@ -424,7 +465,7 @@ void NetworkManager::syncUserData() {
     emit networkRequestStarted();
     QNetworkReply* reply = m_networkManager->get(request);
 
-    connect(reply, &QNetworkReply::finished, [this, reply]() {
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         bool ok;
         QJsonDocument response = parseJsonReply(reply, ok);
 
@@ -452,7 +493,7 @@ void NetworkManager::checkServerStatus() {
     emit networkRequestStarted();
     QNetworkReply* reply = m_networkManager->get(request);
 
-    connect(reply, &QNetworkReply::finished, [this, reply]() {
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         bool ok;
         QJsonDocument response = parseJsonReply(reply, ok);
 

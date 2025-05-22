@@ -8,29 +8,35 @@
                 }
             ],
             "className": "QMLManager",
-            "lineNumber": 18,
+            "lineNumber": 22,
             "methods": [
                 {
                     "access": "public",
-                    "index": 11,
+                    "index": 20,
+                    "name": "uploadNewGarment",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 21,
                     "name": "initializeApp",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 12,
+                    "index": 22,
                     "name": "startScanning",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 13,
+                    "index": 23,
                     "name": "saveScan",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 14,
+                    "index": 24,
                     "name": "loadGarments",
                     "returnType": "void"
                 },
@@ -42,22 +48,41 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 15,
+                    "index": 25,
                     "name": "tryOnGarment",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 16,
+                    "index": 26,
                     "name": "requestCameraPermission",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 17,
+                    "index": 27,
                     "isConst": true,
                     "name": "hasCameraPermission",
                     "returnType": "bool"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "forceRefresh",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 28,
+                    "name": "fetchGarments",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 29,
+                    "isCloned": true,
+                    "name": "fetchGarments",
+                    "returnType": "void"
                 }
             ],
             "object": true,
@@ -88,6 +113,20 @@
                     "scriptable": true,
                     "stored": true,
                     "type": "QVariantList",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 2,
+                    "name": "isNetworkConnected",
+                    "notify": "networkStatusChanged",
+                    "read": "isNetworkConnected",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
                     "user": false
                 }
             ],
@@ -120,13 +159,55 @@
                 {
                     "access": "public",
                     "index": 3,
+                    "name": "scanCompleted",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 4,
+                    "name": "scanFailed",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 5,
                     "name": "garmentsChanged",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 4,
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 6,
+                    "name": "garmentLoadFailed",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 7,
                     "name": "arSessionReady",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 8,
+                    "name": "arSessionFailed",
                     "returnType": "void"
                 },
                 {
@@ -137,7 +218,7 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 5,
+                    "index": 9,
                     "name": "showPreview",
                     "returnType": "void"
                 },
@@ -149,45 +230,81 @@
                             "type": "bool"
                         }
                     ],
-                    "index": 6,
+                    "index": 10,
                     "name": "networkStatusChanged",
                     "returnType": "void"
-                }
-            ],
-            "slots": [
-                {
-                    "access": "private",
-                    "arguments": [
-                        {
-                            "name": "permission",
-                            "type": "QPermission"
-                        }
-                    ],
-                    "index": 7,
-                    "name": "handlePermissionResult",
-                    "returnType": "void"
                 },
                 {
-                    "access": "private",
-                    "arguments": [
-                        {
-                            "name": "frame",
-                            "type": "QImage"
-                        }
-                    ],
-                    "index": 8,
-                    "name": "handleFrame",
-                    "returnType": "void"
-                },
-                {
-                    "access": "private",
+                    "access": "public",
                     "arguments": [
                         {
                             "name": "progress",
                             "type": "int"
                         }
                     ],
-                    "index": 9,
+                    "index": 11,
+                    "name": "uploadProgressChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "garmentId",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 12,
+                    "name": "uploadCompleted",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 13,
+                    "name": "uploadFailed",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "permission",
+                            "type": "QPermission"
+                        }
+                    ],
+                    "index": 14,
+                    "name": "handlePermissionResult",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "frame",
+                            "type": "QImage"
+                        }
+                    ],
+                    "index": 15,
+                    "name": "handleFrame",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "progress",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 16,
                     "name": "updateScanProgress",
                     "returnType": "void"
                 },
@@ -199,8 +316,32 @@
                             "type": "QJsonArray"
                         }
                     ],
-                    "index": 10,
+                    "index": 17,
                     "name": "handleGarmentsReceived",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "connected",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 18,
+                    "name": "handleNetworkStatusChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "progress",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 19,
+                    "name": "handleUploadProgress",
                     "returnType": "void"
                 }
             ],

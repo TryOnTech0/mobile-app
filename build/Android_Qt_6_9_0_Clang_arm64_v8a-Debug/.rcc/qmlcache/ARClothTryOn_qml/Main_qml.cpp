@@ -425,7 +425,7 @@ const auto doCall = [&]() {
     return aotContext->callObjectPropertyLookup(1, r7_0, args, 0);
 };
 const auto doInit = [&]() {
-    aotContext->initCallObjectPropertyLookup(1, r7_0, 11);
+    aotContext->initCallObjectPropertyLookup(1, r7_0, 21);
 };
 #ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(10);
