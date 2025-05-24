@@ -5,19 +5,13 @@ const GarmentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  description: String,
-  previewUrl: {
-    type: String,
+  previewFileId: {
+    type: mongoose.Schema.Types.ObjectId,
     required: true
   },
-  modelUrl: {
-    type: String,
+  modelFileId: {
+    type: mongoose.Schema.Types.ObjectId,
     required: true
-  },
-  category: {
-    type: String,
-    enum: ['shirt', 'pants', 'dress'],
-    default: 'shirt'
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
