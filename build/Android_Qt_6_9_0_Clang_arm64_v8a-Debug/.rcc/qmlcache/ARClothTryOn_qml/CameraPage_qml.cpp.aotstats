@@ -6,7 +6,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 40,
-                        "durationMicroseconds": 332,
+                        "durationMicroseconds": 318,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "color",
                         "line": 12
@@ -14,7 +14,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 27,
-                        "durationMicroseconds": 15,
+                        "durationMicroseconds": 18,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "fill",
                         "line": 16
@@ -62,7 +62,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 122,
+                        "durationMicroseconds": 147,
                         "errorMessage": "Cannot retrieve a non-object type by ID: progressBar",
                         "functionName": "onScanProgressChanged",
                         "line": 44
@@ -70,7 +70,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 26,
-                        "durationMicroseconds": 180,
+                        "durationMicroseconds": 185,
                         "errorMessage": "",
                         "functionName": "videoOutput",
                         "line": 71
@@ -78,7 +78,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 31,
-                        "durationMicroseconds": 59,
+                        "durationMicroseconds": 41,
                         "errorMessage": "Cannot load property defaultVideoInput from const QMetaObject.",
                         "functionName": "cameraDevice",
                         "line": 54
@@ -94,7 +94,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 35,
-                        "durationMicroseconds": 81,
+                        "durationMicroseconds": 97,
                         "errorMessage": "Cannot retrieve a non-object type by ID: errorLabel",
                         "functionName": "onErrorOccurred",
                         "line": 65
@@ -102,7 +102,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 83,
+                        "durationMicroseconds": 80,
                         "errorMessage": "",
                         "functionName": "onErrorOccurred",
                         "line": 65
@@ -110,7 +110,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 40,
-                        "durationMicroseconds": 922,
+                        "durationMicroseconds": 972,
                         "errorMessage": "Cannot access value for name PermissionHelper",
                         "functionName": "onCompleted",
                         "line": 57
@@ -118,7 +118,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 23,
-                        "durationMicroseconds": 114,
+                        "durationMicroseconds": 119,
                         "errorMessage": "",
                         "functionName": "fillMode",
                         "line": 77
@@ -126,7 +126,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 27,
-                        "durationMicroseconds": 85,
+                        "durationMicroseconds": 94,
                         "errorMessage": "",
                         "functionName": "fill",
                         "line": 76
@@ -134,7 +134,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 27,
-                        "durationMicroseconds": 64,
+                        "durationMicroseconds": 65,
                         "errorMessage": "",
                         "functionName": "centerIn",
                         "line": 81
@@ -142,7 +142,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 118,
+                        "durationMicroseconds": 111,
                         "errorMessage": "",
                         "functionName": "alignment",
                         "line": 89
@@ -222,7 +222,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 21,
-                        "durationMicroseconds": 242,
+                        "durationMicroseconds": 251,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "radius",
                         "line": 114
@@ -230,7 +230,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 20,
-                        "durationMicroseconds": 1307,
+                        "durationMicroseconds": 887,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "color",
                         "line": 115
@@ -238,7 +238,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 19,
-                        "durationMicroseconds": 389,
+                        "durationMicroseconds": 366,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "font",
                         "line": 126
@@ -246,7 +246,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 34,
-                        "durationMicroseconds": 295,
+                        "durationMicroseconds": 315,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
                         "line": 128
@@ -254,7 +254,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 269,
+                        "durationMicroseconds": 354,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
                         "line": 129
@@ -262,7 +262,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 22,
-                        "durationMicroseconds": 35,
+                        "durationMicroseconds": 41,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "opacity",
                         "line": 130
@@ -270,7 +270,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 39,
-                        "durationMicroseconds": 11,
+                        "durationMicroseconds": 13,
                         "errorMessage": "Cannot access value for name scanButton",
                         "functionName": "target",
                         "line": 141
@@ -286,7 +286,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 313,
+                        "durationMicroseconds": 350,
                         "errorMessage": "Cannot load property cameraStatus from .",
                         "functionName": "onCompleted",
                         "line": 145
@@ -294,7 +294,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 30,
-                        "durationMicroseconds": 260,
+                        "durationMicroseconds": 285,
                         "errorMessage": "Cannot load property cameraStatus from .",
                         "functionName": "onDestruction",
                         "line": 151
@@ -302,7 +302,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 17,
-                        "durationMicroseconds": 102,
+                        "durationMicroseconds": 113,
                         "errorMessage": "",
                         "functionName": "target",
                         "line": 158

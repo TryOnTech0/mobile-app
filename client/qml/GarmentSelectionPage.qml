@@ -115,14 +115,27 @@ Page {
                             fill: parent
                             margins: 2
                         }
-                        source: model.modelData.previewUrl  // Should resolve to qrc:/garments/.../preview.png
+                        source: model.modelData.previewUrl
                         fillMode: Image.PreserveAspectCrop
                         asynchronous: true
+                        sourceSize: Qt.size(200, 200)  // Preload at a reasonable size
+
+                        // Error handling for image loading
+                        onStatusChanged: {
+                            if (status === Image.Error) {
+                                console.log("Error loading image:", source)
+                                // Show error state
+                                errorOverlay.visible = true
+                            } else {
+                                errorOverlay.visible = false
+                            }
+                        }
 
                         Rectangle {
+                            id: errorOverlay
                             anchors.fill: parent
-                            color: "#80000000"
-                            visible: !modelData.isAvailable
+                            color: "transparent"
+                            visible: false
 
                             Text {
                                 anchors.centerIn: parent

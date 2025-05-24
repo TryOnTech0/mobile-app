@@ -4,51 +4,51 @@
 #include <QFile>
 #include <QHttpMultiPart>
 #include <QMimeDatabase>
-#include <QSslSocket>
 #include <QStandardPaths>
 #include <QEventLoop>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QNetworkReply>
+#include <QSslSocket>
+#include <QSslConfiguration>
+#include <memory>
 
-// Constructor
 NetworkManager::NetworkManager(QObject* parent)
-    : QObject(parent)
-    , m_networkManager(new QNetworkAccessManager(this))
-    , m_connected(false)
+    : QObject(parent),
+      m_networkManager(new QNetworkAccessManager(this)), // Parent properly set
+      m_connected(false)
 {
     #ifdef Q_OS_ANDROID
-        // Replace 192.168.1.100 with your actual laptop IP address
-        m_serverUrl = "http://192.168.1.100:5000/api";
+        m_serverUrl = "http://192.168.1.4:5000/api";
     #else
-        // Use localhost for desktop development
         m_serverUrl = "http://localhost:5000/api";
     #endif
 
-        // Configure SSL
-        m_sslConfig = QSslConfiguration::defaultConfiguration();
-        m_sslConfig.setProtocol(QSsl::TlsV1_2OrLater);
+    connect(m_networkManager, &QNetworkAccessManager::authenticationRequired,
+            this, &NetworkManager::onAuthenticationRequired);
 
-        // Rest of your existing constructor code...
-        connect(m_networkManager, &QNetworkAccessManager::authenticationRequired,
-                this, &NetworkManager::onAuthenticationRequired);
-        connect(m_networkManager, &QNetworkAccessManager::sslErrors,
-                this, &NetworkManager::onSslErrors);
+#ifndef QT_NO_SSL
+    m_sslConfig = QSslConfiguration::defaultConfiguration();
+    m_sslConfig.setProtocol(QSsl::TlsV1_2OrLater);
 
-        qDebug() << "Server URL configured as:" << m_serverUrl;
-        
-        // Load authentication token if available
-        m_authToken = loadAuthToken();
+    connect(m_networkManager, &QNetworkAccessManager::sslErrors,
+            this, &NetworkManager::onSslErrors);
+
+    qDebug() << "SSL support available:" << QSslSocket::supportsSsl();
+#else
+    qDebug() << "SSL disabled - HTTP-only networking";
+#endif
+
+    m_authToken = loadAuthToken();
     if (!m_authToken.isEmpty()) {
-        // Verify token validity at startup (optional)
-        // This could be implemented by making a lightweight API call
         QNetworkRequest request = createAuthenticatedRequest(QUrl(m_serverUrl + "/auth/verify"));
         QNetworkReply* reply = m_networkManager->get(request);
         connect(reply, &QNetworkReply::finished, this, [this, reply]() {
             bool ok;
             QJsonDocument jsonResponse = parseJsonReply(reply, ok);
-
             if (!ok || !jsonResponse.object().value("valid").toBool()) {
                 clearAuthToken();
             }
-
             reply->deleteLater();
         });
     }
@@ -59,16 +59,40 @@ NetworkManager::~NetworkManager() {
     disconnectFromDatabase();
 }
 
-// Connect to MongoDB database
-bool NetworkManager::connectToDatabase(const QString& dbName,
-                                       const QString& username,
-                                       const QString& password) {
-    // For MongoDB Atlas or other cloud-based services, we may not need to explicitly connect
-    // but we can validate our connection parameters
-    m_databaseName = dbName;
+QNetworkRequest NetworkManager::createAuthenticatedRequest(const QUrl& url) {
+    QNetworkRequest request(url);
 
-    QJsonObject connectData;
-    connectData["database"] = dbName;
+#ifndef QT_NO_SSL
+    if (url.scheme() == "https") {
+        request.setSslConfiguration(m_sslConfig);
+    }
+#endif
+
+    if (!m_authToken.isEmpty()) {
+        request.setRawHeader("Authorization", "Bearer " + m_authToken.toUtf8());
+    }
+
+    return request;
+}
+
+#ifndef QT_NO_SSL
+void NetworkManager::onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors) {
+    QString errorString;
+    for (const QSslError& error : errors) {
+        errorString += error.errorString() + ", ";
+    }
+    errorString.chop(2);
+
+    qWarning() << "SSL errors:" << errorString;
+    emit networkError("SSL error: " + errorString);
+}
+#endif
+
+bool NetworkManager::connectToDatabase(const QString& dbName,
+                                     const QString& username,
+                                     const QString& password) {
+    m_databaseName = dbName;
+    QJsonObject connectData{{"database", dbName}};
 
     if (!username.isEmpty() && !password.isEmpty()) {
         connectData["username"] = username;
@@ -77,44 +101,36 @@ bool NetworkManager::connectToDatabase(const QString& dbName,
 
     QNetworkRequest request(QUrl(m_serverUrl + "/database/connect"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
     if (!m_authToken.isEmpty()) {
         request.setRawHeader("Authorization", "Bearer " + m_authToken.toUtf8());
     }
 
     QJsonDocument jsonDoc(connectData);
-    QByteArray jsonData = jsonDoc.toJson();
+    QNetworkReply* reply = m_networkManager->post(request, jsonDoc.toJson());
 
-    emit networkRequestStarted();
-    QNetworkReply* reply = m_networkManager->post(request, jsonData);
-
-    // Use a blocking connection for the initial setup
     QEventLoop loop;
-    connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
+        // lambda implementation
+    });
     loop.exec();
 
     bool success = false;
     if (reply->error() == QNetworkReply::NoError) {
         bool ok;
         QJsonDocument response = parseJsonReply(reply, ok);
-
-        if (ok && response.object().value("success").toBool()) {
+        if (ok && response.object()["success"].toBool()) {
             m_connected = true;
             emit connectionStatusChanged(true);
             emit databaseConnected(dbName);
             success = true;
         } else {
-            QString errorMsg = response.object().value("error").toString("Unknown database connection error");
-            emit connectionError(errorMsg);
-            qWarning() << "Database connection error:" << errorMsg;
+            emit connectionError(response.object()["error"].toString());
         }
     } else {
         handleNetworkError(reply);
     }
 
     reply->deleteLater();
-    emit networkRequestFinished();
-
     return success;
 }
 
@@ -166,114 +182,81 @@ void NetworkManager::fetchGarments(bool forceRefresh) {
 
     QUrl url(m_serverUrl + "/garments");
     QUrlQuery query;
-
-    if (forceRefresh) {
-        query.addQueryItem("refresh", "true");
-    }
-
+    if (forceRefresh) query.addQueryItem("refresh", "true");
     url.setQuery(query);
-    QNetworkRequest request = createAuthenticatedRequest(url);
 
-    emit networkRequestStarted();
-    QNetworkReply* reply = m_networkManager->get(request);
-
+    QNetworkReply* reply = m_networkManager->get(createAuthenticatedRequest(url));
     connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         handleGarmentsResponse(reply);
     });
-
-    // Fixed: Use QOverload to specify the correct errorOccurred signal
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
-            this, &NetworkManager::processNetworkError);
+    connect(reply, &QNetworkReply::errorOccurred, this, &NetworkManager::processNetworkError);
 }
 
-// Fetch details for a specific garment
-void NetworkManager::fetchGarmentDetails(const QString& garmentId) {
-    if (!m_connected) {
-        emit connectionError("Not connected to database");
-        return;
+// Handle response for garments fetching
+void NetworkManager::handleGarmentsResponse(QNetworkReply* reply) {
+    bool ok;
+    QJsonDocument jsonResponse = parseJsonReply(reply, ok);
+
+    if (ok && reply->error() == QNetworkReply::NoError) {
+        QJsonArray garmentsArray = jsonResponse.object().value("garments").toArray();
+        emit garmentsReceived(garmentsArray);
+    } else {
+        handleNetworkError(reply);
     }
 
-    QUrl url(m_serverUrl + "/garments/" + garmentId);
-    QNetworkRequest request = createAuthenticatedRequest(url);
-
-    emit networkRequestStarted();
-    QNetworkReply* reply = m_networkManager->get(request);
-
-    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
-        handleGarmentDetailsResponse(reply);
-    });
-
-    // Fixed: Use QOverload to specify the correct errorOccurred signal
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
-            this, &NetworkManager::processNetworkError);
+    reply->deleteLater();
+    emit networkRequestFinished();
 }
 
 // Upload a new garment
-void NetworkManager::uploadGarment(const QJsonObject& garmentData, 
-                                  const QString& previewPath,
-                                  const QString& modelPath)
+void NetworkManager::uploadGarment(const QJsonObject& garmentData,
+                                 const QString& previewPath,
+                                 const QString& modelPath)
 {
-    if (!m_connected) {
-        emit connectionError(tr("Not connected to database"));
-        return;
-    }
-
     QHttpMultiPart* multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     QNetworkRequest request = createAuthenticatedRequest(QUrl(m_serverUrl + "/garments"));
-    
+
     try {
-        // Add metadata part
         QHttpPart metadataPart;
         metadataPart.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-        metadataPart.setHeader(QNetworkRequest::ContentDispositionHeader, 
-                             QVariant("form-data; name=\"metadata\""));
+        metadataPart.setHeader(QNetworkRequest::ContentDispositionHeader,
+                             "form-data; name=\"metadata\"");
         metadataPart.setBody(QJsonDocument(garmentData).toJson());
         multiPart->append(metadataPart);
 
-        // Helper function to add file parts
         auto addFilePart = [multiPart](const QString& path, const QString& partName) {
             if (path.isEmpty()) return;
 
-            std::unique_ptr<QFile> file(new QFile(path));
+            QFile* file = new QFile(path);
             if (!file->open(QIODevice::ReadOnly)) {
-                throw std::runtime_error(
-                    QString("Could not open %1 file: %2").arg(partName).arg(path).toStdString()
-                );
+                throw std::runtime_error(QString("Could not open %1 file").arg(partName).toStdString());
             }
 
             QHttpPart filePart;
-            const QMimeType mimeType = QMimeDatabase().mimeTypeForFile(path);
-            
-            filePart.setHeader(QNetworkRequest::ContentTypeHeader, mimeType.name());
+            filePart.setHeader(QNetworkRequest::ContentTypeHeader,
+                             QMimeDatabase().mimeTypeForFile(path).name());
             filePart.setHeader(QNetworkRequest::ContentDispositionHeader,
-                QVariant(QString("form-data; name=\"%1\"; filename=\"%2\"")
+                QString("form-data; name=\"%1\"; filename=\"%2\"")
                     .arg(partName)
-                    .arg(QFileInfo(path).fileName())));
-            
-            filePart.setBodyDevice(file.release());
+                    .arg(QFileInfo(path).fileName()));
+            filePart.setBodyDevice(file);
             multiPart->append(filePart);
         };
 
-        // Add files
         addFilePart(previewPath, "preview");
         addFilePart(modelPath, "model");
 
-        emit networkRequestStarted();
         QNetworkReply* reply = m_networkManager->post(request, multiPart);
-        multiPart->setParent(reply);  // Transfer ownership
+        multiPart->setParent(reply);
 
         connect(reply, &QNetworkReply::finished, this, [this, reply]() {
             handleUploadFinished(reply);
         });
-        
-        // Fixed: Use QOverload to specify the correct errorOccurred signal
-        connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
-                this, &NetworkManager::processNetworkError);
+        connect(reply, &QNetworkReply::errorOccurred, this, &NetworkManager::processNetworkError);
 
     } catch (const std::exception& e) {
         multiPart->deleteLater();
         emit garmentUploadFailed(QString::fromStdString(e.what()));
-        emit networkRequestFinished();
     }
 }
 
@@ -281,10 +264,10 @@ void NetworkManager::uploadGarment(const QJsonObject& garmentData,
 void NetworkManager::handleUploadFinished(QNetworkReply* reply)
 {
     QScopedPointer<QNetworkReply> replyDeleter(reply);  // Auto-delete
-    
+
     bool ok = false;
     QJsonDocument response = parseJsonReply(reply, ok);
-    
+
     if (reply->error() == QNetworkReply::NoError && ok) {
         if (response.isObject()) {
             QJsonObject obj = response.object();
@@ -303,48 +286,8 @@ void NetworkManager::handleUploadFinished(QNetworkReply* reply)
         }
         emit garmentUploadFailed(error);
     }
-    
+
     emit networkRequestFinished();
-}
-
-// Update an existing garment
-void NetworkManager::updateGarment(const QString& garmentId, const QJsonObject& garmentData) {
-    if (!m_connected) {
-        emit connectionError("Not connected to database");
-        return;
-    }
-
-    QUrl url(m_serverUrl + "/garments/" + garmentId);
-    QNetworkRequest request = createAuthenticatedRequest(url);
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-    QJsonDocument jsonDoc(garmentData);
-    QByteArray jsonData = jsonDoc.toJson();
-
-    emit networkRequestStarted();
-    QNetworkReply* reply = m_networkManager->put(request, jsonData);
-
-    connect(reply, &QNetworkReply::finished, this, [this, garmentId, reply]() {
-        bool ok;
-        QJsonDocument response = parseJsonReply(reply, ok);
-
-        if (ok && reply->error() == QNetworkReply::NoError) {
-            emit garmentUpdateSucceeded(garmentId);
-        } else {
-            QString errorMsg = "Update failed: " + reply->errorString();
-            if (ok) {
-                errorMsg = response.object().value("error").toString(errorMsg);
-            }
-            emit networkError(errorMsg);
-        }
-
-        reply->deleteLater();
-        emit networkRequestFinished();
-    });
-
-    // Fixed: Use QOverload to specify the correct errorOccurred signal
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
-            this, &NetworkManager::processNetworkError);
 }
 
 // Delete a garment
@@ -376,77 +319,102 @@ void NetworkManager::deleteGarment(const QString& garmentId) {
             this, &NetworkManager::processNetworkError);
 }
 
-// Register a new user
 void NetworkManager::registerUser(const QString& username, const QString& email, const QString& password) {
-    QJsonObject registerData;
-    registerData["username"] = username;
-    registerData["email"] = email;
-    registerData["password"] = password;
-
-    QNetworkRequest request(QUrl(m_serverUrl + "/auth/register"));
+    QUrl url(m_serverUrl + "/auth/register");
+    QNetworkRequest request(url);
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
-    QJsonDocument jsonDoc(registerData);
-    QByteArray jsonData = jsonDoc.toJson();
+    QJsonObject userData{
+        {"username", username},
+        {"email", email},
+        {"password", password}
+    };
 
-    emit networkRequestStarted();
-    QNetworkReply* reply = m_networkManager->post(request, jsonData);
+    QNetworkReply* reply = m_networkManager->post(request, QJsonDocument(userData).toJson());
 
-    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
-        handleAuthResponse(reply);
-    });
-
-    // Fixed: Use QOverload to specify the correct errorOccurred signal
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
-            this, &NetworkManager::processNetworkError);
-}
-
-// Login user
-void NetworkManager::loginUser(const QString& email, const QString& password) {
-    QJsonObject loginData;
-    loginData["email"] = email;
-    loginData["password"] = password;
-
-    QNetworkRequest request(QUrl(m_serverUrl + "/auth/login"));
-    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-
-    QJsonDocument jsonDoc(loginData);
-    QByteArray jsonData = jsonDoc.toJson();
-
-    emit networkRequestStarted();
-    QNetworkReply* reply = m_networkManager->post(request, jsonData);
-
-    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
-        handleAuthResponse(reply);
-    });
-
-    // Fixed: Use QOverload to specify the correct errorOccurred signal
-    connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred),
-            this, &NetworkManager::processNetworkError);
-}
-
-// Logout user
-void NetworkManager::logoutUser() {
-    if (m_authToken.isEmpty()) {
-        emit userLoggedOut();
-        return;
-    }
-
-    QNetworkRequest request = createAuthenticatedRequest(QUrl(m_serverUrl + "/auth/logout"));
-
-    emit networkRequestStarted();
-    QNetworkReply* reply = m_networkManager->get(request);
-
-    connect(reply, &QNetworkReply::finished, this, [this, reply]() {
-        clearAuthToken();
-        m_userId = QString();
-        m_username = QString();
-
-        emit userLoggedOut();
+    connect(reply, &QNetworkReply::finished, [this, reply]() {
+        handleAuthResponse(reply, true);
         reply->deleteLater();
-        emit networkRequestFinished();
     });
 }
+
+void NetworkManager::loginUser(const QString& email, const QString& password) {
+    QUrl url(m_serverUrl + "/auth/login");
+    QNetworkRequest request(url);
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+
+    QJsonObject credentials{
+        {"email", email},
+        {"password", password}
+    };
+
+    QNetworkReply* reply = m_networkManager->post(request, QJsonDocument(credentials).toJson());
+    connect(reply, &QNetworkReply::finished, [this, reply]() {
+        handleAuthResponse(reply, false);
+        reply->deleteLater();
+    });
+}
+
+void NetworkManager::logoutUser() {
+    clearAuthToken();
+    m_userId = QString();
+    m_username = QString();
+    emit userLoggedOut();
+}
+
+void NetworkManager::handleAuthResponse(QNetworkReply* reply, bool isRegistration) {
+    bool ok;
+    QJsonDocument response = parseJsonReply(reply, ok);
+    
+    if(reply->error() == QNetworkReply::NoError && ok) {
+        QJsonObject responseObj = response.object();
+        if(responseObj.contains("token")) {
+            m_authToken = responseObj["token"].toString();
+            saveAuthToken(m_authToken);
+            
+            // For login, fetch additional user data
+            if(!isRegistration) {
+                fetchUserData();
+            }
+            else {
+                emit registrationSucceeded(responseObj.value("username").toString());
+            }
+        }
+    }
+    else {
+        QString error = response.object().value("error").toString();
+        if(error.isEmpty()) error = "Authentication failed";
+        
+        if(isRegistration) {
+            emit registrationFailed(error);
+        }
+        else {
+            emit authenticationFailed(error);
+        }
+    }
+}
+
+void NetworkManager::fetchUserData() {
+    QNetworkRequest request = createAuthenticatedRequest(QUrl(m_serverUrl + "/auth/me"));
+    QNetworkReply* reply = m_networkManager->get(request);
+    
+    connect(reply, &QNetworkReply::finished, [this, reply]() {
+        bool ok;
+        QJsonDocument response = parseJsonReply(reply, ok);
+        
+        if(reply->error() == QNetworkReply::NoError && ok) {
+            QJsonObject user = response.object();
+            m_userId = user["_id"].toString();
+            m_username = user["username"].toString();
+            emit userLoggedIn(m_username, m_userId);
+        }
+        else {
+            emit authenticationFailed("Failed to fetch user data");
+        }
+        reply->deleteLater();
+    });
+}
+
 
 // Check if user is logged in
 bool NetworkManager::isUserLoggedIn() const {
@@ -527,189 +495,46 @@ void NetworkManager::onAuthenticationRequired(QNetworkReply* reply, QAuthenticat
     }
 }
 
-// Handle SSL errors
-void NetworkManager::onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors) {
-    QString errorString;
-    for (const QSslError& error : errors) {
-        if (!errorString.isEmpty()) {
-            errorString += ", ";
-        }
-        errorString += error.errorString();
-    }
 
-    qWarning() << "SSL errors occurred:" << errorString;
-
-    // In a development environment, you might want to ignore certain SSL errors
-    // Be careful in production!
-    // reply->ignoreSslErrors();
-
-    emit networkError("SSL error: " + errorString);
-}
-
-// Handle response for garments fetching
-void NetworkManager::handleGarmentsResponse(QNetworkReply* reply) {
-    bool ok;
-    QJsonDocument jsonResponse = parseJsonReply(reply, ok);
-
-    if (ok && reply->error() == QNetworkReply::NoError) {
-        QJsonArray garmentsArray = jsonResponse.object().value("garments").toArray();
-        emit garmentsReceived(garmentsArray);
-    } else {
-        handleNetworkError(reply);
-    }
-
-    reply->deleteLater();
-    emit networkRequestFinished();
-}
-
-// Handle response for garment details
-void NetworkManager::handleGarmentDetailsResponse(QNetworkReply* reply) {
-    bool ok;
-    QJsonDocument jsonResponse = parseJsonReply(reply, ok);
-
-    if (ok && reply->error() == QNetworkReply::NoError) {
-        QJsonObject garmentDetails = jsonResponse.object().value("garment").toObject();
-        QString garmentId = garmentDetails.value("_id").toString();
-        emit garmentDetailsReceived(garmentId, garmentDetails);
-    } else {
-        handleNetworkError(reply);
-    }
-
-    reply->deleteLater();
-    emit networkRequestFinished();
-}
-
-// Handle authentication responses (login/register)
-void NetworkManager::handleAuthResponse(QNetworkReply* reply) {
-    bool ok;
-    QJsonDocument jsonResponse = parseJsonReply(reply, ok);
-    QString requestPath = reply->url().path();
-
-    if (ok && reply->error() == QNetworkReply::NoError) {
-        QJsonObject responseObj = jsonResponse.object();
-
-        if (requestPath.endsWith("/login")) {
-            // Handle login response
-            if (responseObj.contains("token")) {
-                QString token = responseObj.value("token").toString();
-                saveAuthToken(token);
-
-                m_userId = responseObj.value("userId").toString();
-                m_username = responseObj.value("username").toString();
-
-                emit userLoggedIn(m_username, m_userId);
-            } else {
-                emit authenticationFailed("No token received from server");
-            }
-        } else if (requestPath.endsWith("/register")) {
-            // Handle registration response
-            if (responseObj.value("success").toBool()) {
-                QString username = responseObj.value("username").toString();
-                emit registrationSucceeded(username);
-
-                // Some APIs might also return a token upon registration
-                if (responseObj.contains("token")) {
-                    QString token = responseObj.value("token").toString();
-                    saveAuthToken(token);
-
-                    m_userId = responseObj.value("userId").toString();
-                    m_username = username;
-
-                    emit userLoggedIn(m_username, m_userId);
-                }
-            } else {
-                emit registrationFailed(responseObj.value("error").toString("Unknown registration error"));
-            }
-        }
-    } else {
-        QString errorMsg = reply->errorString();
-        if (ok) {
-            errorMsg = jsonResponse.object().value("error").toString(errorMsg);
-        }
-
-        if (requestPath.endsWith("/login")) {
-            emit authenticationFailed(errorMsg);
-        } else if (requestPath.endsWith("/register")) {
-            emit registrationFailed(errorMsg);
-        } else {
-            emit networkError(errorMsg);
-        }
-    }
-
-    reply->deleteLater();
-    emit networkRequestFinished();
-}
-
-// Process network errors
 void NetworkManager::processNetworkError(QNetworkReply::NetworkError error) {
+    Q_UNUSED(error)
     QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
-    if (reply) {
-        handleNetworkError(reply);
-    }
+    if (reply) handleNetworkError(reply);
 }
 
-// Create authenticated request
-QNetworkRequest NetworkManager::createAuthenticatedRequest(const QUrl& url) {
-    QNetworkRequest request(url);
-    request.setSslConfiguration(m_sslConfig);
-
-    if (!m_authToken.isEmpty()) {
-        request.setRawHeader("Authorization", "Bearer " + m_authToken.toUtf8());
-    }
-
-    return request;
-}
-
-// Save authentication token
 void NetworkManager::saveAuthToken(const QString& token) {
     QSettings settings;
     settings.beginGroup("Authentication");
     settings.setValue("token", token);
     settings.endGroup();
-    settings.sync();
-
-    m_authToken = token;
 }
 
-// Clear authentication token
+QString NetworkManager::loadAuthToken() {
+    QSettings settings;
+    settings.beginGroup("Authentication");
+    return settings.value("token").toString();
+}
+
 void NetworkManager::clearAuthToken() {
     QSettings settings;
     settings.beginGroup("Authentication");
     settings.remove("token");
     settings.endGroup();
-    settings.sync();
-
     m_authToken = QString();
 }
 
-// Load authentication token
-QString NetworkManager::loadAuthToken() {
-    QSettings settings;
-    settings.beginGroup("Authentication");
-    QString token = settings.value("token").toString();
-    settings.endGroup();
-
-    return token;
-}
-
-// Parse JSON reply
 QJsonDocument NetworkManager::parseJsonReply(QNetworkReply* reply, bool& ok) {
     ok = false;
     QByteArray data = reply->readAll();
-
-    if (data.isEmpty()) {
+    
+    if(data.isEmpty()) {
         return QJsonDocument();
     }
 
     QJsonParseError parseError;
     QJsonDocument doc = QJsonDocument::fromJson(data, &parseError);
-
-    if (parseError.error != QJsonParseError::NoError) {
-        qWarning() << "JSON parse error:" << parseError.errorString();
-        return QJsonDocument();
-    }
-
-    ok = true;
+    ok = (parseError.error == QJsonParseError::NoError);
+    
     return doc;
 }
 

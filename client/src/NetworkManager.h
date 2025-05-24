@@ -16,13 +16,11 @@
 #include <QtQml/qqmlregistration.h>
 #include <QAuthenticator>
 #include <QFileInfo>
-#include <memory> 
 
 class NetworkManager : public QObject {
     Q_OBJECT
     QML_ELEMENT
 
-    // Properties for QML
     Q_PROPERTY(bool isConnected READ isConnected NOTIFY connectionStatusChanged)
     Q_PROPERTY(QString serverUrl READ serverUrl WRITE setServerUrl NOTIFY serverUrlChanged)
 
@@ -36,20 +34,17 @@ public:
                                        const QString& password = QString());
     Q_INVOKABLE void disconnectFromDatabase();
 
-    // Properties getters/setters
+    // Properties
     bool isConnected() const;
     QString serverUrl() const;
     void setServerUrl(const QString& url);
 
-    // CRUD operations for garments collection
+    // CRUD operations
     Q_INVOKABLE void fetchGarments(bool forceRefresh = false);
-    Q_INVOKABLE void fetchGarmentDetails(const QString& garmentId);
     Q_INVOKABLE void uploadGarment(const QJsonObject& garmentData, 
                               const QString& previewPath = QString(),
                               const QString& modelPath = QString());
-    Q_INVOKABLE void updateGarment(const QString& garmentId, const QJsonObject& garmentData);
     Q_INVOKABLE void deleteGarment(const QString& garmentId);
-
 
     // User management
     Q_INVOKABLE void registerUser(const QString& username, const QString& email, const QString& password);
@@ -57,7 +52,7 @@ public:
     Q_INVOKABLE void logoutUser();
     Q_INVOKABLE bool isUserLoggedIn() const;
 
-    // Additional utility methods
+    // Utility methods
     Q_INVOKABLE void syncUserData();
     Q_INVOKABLE void checkServerStatus();
 
@@ -84,25 +79,30 @@ signals:
     void authenticationFailed(const QString& reason);
     void registrationFailed(const QString& reason);
 
-    // General network signals
+    // Network signals
     void networkRequestStarted();
     void networkRequestFinished();
     void networkError(const QString& errorMessage);
 
 private slots:
     void onAuthenticationRequired(QNetworkReply* reply, QAuthenticator* authenticator);
-    void onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors);
     void handleGarmentsResponse(QNetworkReply* reply);
-    void handleGarmentDetailsResponse(QNetworkReply* reply);
-    void handleAuthResponse(QNetworkReply* reply);
+    void handleAuthResponse(QNetworkReply* reply, bool isRegistration);
     void processNetworkError(QNetworkReply::NetworkError error);
+    void handleUploadFinished(QNetworkReply* reply);
+    void fetchUserData();
+#ifndef QT_NO_SSL
+    void onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors);
+#endif
 
 private:
     // Network components
     QNetworkAccessManager* m_networkManager;
+#ifndef QT_NO_SSL
     QSslConfiguration m_sslConfig;
+#endif
 
-    // Server/database configuration
+    // Configuration
     QString m_serverUrl;
     QString m_databaseName;
     bool m_connected;
@@ -113,13 +113,14 @@ private:
     QString m_username;
 
     // Helper methods
-    void handleUploadFinished(QNetworkReply* reply);
     QNetworkRequest createAuthenticatedRequest(const QUrl& url);
     void saveAuthToken(const QString& token);
     void clearAuthToken();
     QString loadAuthToken();
     QJsonDocument parseJsonReply(QNetworkReply* reply, bool& ok);
     void handleNetworkError(QNetworkReply* reply);
+
+
 };
 
 #endif // NETWORKMANAGER_H

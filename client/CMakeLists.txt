@@ -11,7 +11,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 
-# Find Qt packages - ADD 3D RENDERING COMPONENTS
+# Find Qt packages - Core components for HTTP-only networking
 find_package(Qt6 REQUIRED COMPONENTS
     Core
     Quick
@@ -52,7 +52,9 @@ qt_add_executable(ARClothTryOn
     resources.qrc
     ${QRC_FILES}
 )
+
 qt_policy(SET QTP0004 NEW)
+
 # Add QML module
 qt_add_qml_module(ARClothTryOn
     URI ARClothTryOn
@@ -78,7 +80,7 @@ target_include_directories(ARClothTryOn PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-# Link libraries - ADD 3D AND OPENGL LIBS
+# Link libraries - REMOVED SSL DEPENDENCIES FOR HTTP-ONLY
 target_link_libraries(ARClothTryOn PRIVATE
     Qt6::Core
     Qt6::Quick
@@ -86,7 +88,6 @@ target_link_libraries(ARClothTryOn PRIVATE
     Qt6::Multimedia
     Qt6::Qml
     Qt6::Network
-    # Qt6::Ssl
     Qt6::CorePrivate
     Qt6::Quick3D
     Qt6::DataVisualization
@@ -103,10 +104,10 @@ if(ANDROID)
     # Set Android package source directory
     set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
 
-    # Update deployment rules with 3D/OpenGL dependencies
+    # Update deployment rules WITHOUT SSL dependencies
     if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/android/deployment-rules.cmake")
         file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/android/deployment-rules.cmake"
-            "# Auto-generated deployment rules\n"
+            "# Auto-generated deployment rules for HTTP-only networking\n"
             "set(QT_ANDROID_DEPLOYMENT_DEPENDENCIES\n"
             "    # Core libraries\n"
             "    libQt6Core.so\n"
@@ -125,11 +126,9 @@ if(ANDROID)
             "    libQt6OpenGL.so\n"
             "    libQt6ShaderTools.so\n"
             "    # Android extras\n"
-            "    libQt6AndroidExtras.so\n"
             "    libqtandroid.so\n"
-            "    # Network support\n"
+            "    # Network support (HTTP only)\n"
             "    libQt6Network.so\n"
-            "    libQt6Ssl.so\n"
             ")\n"
         )
     endif()
@@ -141,10 +140,10 @@ if(ANDROID)
 
     # Define JNI libs search path
     set(ANDROID_JNI_LIBS_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/android/libs/${CMAKE_ANDROID_ARCH_ABI})
-endif()
 
-# Finalize executable
-# qt_finalize_executable(ARClothTryOn)
+    # Add compile definition to disable SSL features
+    target_compile_definitions(ARClothTryOn PRIVATE QT_NO_SSL)
+endif()
 
 # Install target
 install(TARGETS ARClothTryOn

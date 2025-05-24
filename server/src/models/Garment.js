@@ -1,26 +1,45 @@
 const mongoose = require('mongoose');
 
 const GarmentSchema = new mongoose.Schema({
+  garmentId: {
+    type: String,
+    required: true,
+    unique: true
+  },
   name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  previewUrl: {
     type: String,
     required: true
   },
-  previewFileId: {
-    type: mongoose.Schema.Types.ObjectId,
+  previewKey: {
+    type: String,
     required: true
   },
-  modelFileId: {
-    type: mongoose.Schema.Types.ObjectId,
+  modelUrl: {
+    type: String,
+    required: true
+  },
+  modelKey: {
+    type: String,
     required: true
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: true
   },
   createdAt: {
     type: Date,
     default: Date.now
   }
 });
+
+// Add index for efficient querying
+GarmentSchema.index({ garmentId: 1 });
+GarmentSchema.index({ createdBy: 1 });
 
 module.exports = mongoose.model('Garment', GarmentSchema);

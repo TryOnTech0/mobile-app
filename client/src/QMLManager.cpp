@@ -45,7 +45,7 @@ void QMLManager::handleNetworkStatusChanged(bool isConnected) {
 
 void QMLManager::handleUploadProgress(int percent) {
     qDebug() << "Upload progress:" << percent << "%";
-    // You can emit a signal to QML for progress updates here
+    // You can emit a signal to QML for progress updates here
 }
 
 // Initialize the application
@@ -53,6 +53,7 @@ void QMLManager::initializeApp() {
     // Connect to database and fetch garments on app startup
     if (m_networkManager) {
         m_networkManager->connectToDatabase("tryonDB", "user", "password");
+        uploadNewGarment();
         m_networkManager->fetchGarments();
     }
 }
@@ -191,38 +192,38 @@ QVariantList QMLManager::garments() const {
 }
 
 // Load test garments (fallback method)
-void QMLManager::loadGarments() {
-    m_garments.clear();
+// void QMLManager::loadGarments() {
+//     m_garments.clear();
 
-    // Test Garment 1: Shirt
-    QVariantMap shirt;
-    shirt["id"] = "shirt_001";
-    shirt["name"] = "Casual Shirt";
-    shirt["previewUrl"] = QUrl("qrc:/garments/shirt/preview.jpg");
-    shirt["isAvailable"] = true;
-    shirt["category"] = "shirt";
-    m_garments.append(shirt);
+//     // Test Garment 1: Shirt
+//     QVariantMap shirt;
+//     shirt["id"] = "shirt_001";
+//     shirt["name"] = "Casual Shirt";
+//     shirt["previewUrl"] = QUrl("qrc:/garments/shirt/preview.jpg");
+//     shirt["isAvailable"] = true;
+//     shirt["category"] = "shirt";
+//     m_garments.append(shirt);
 
-    // Test Garment 2: Pants
-    QVariantMap pants;
-    pants["id"] = "pants_001";
-    pants["name"] = "Formal Pants";
-    pants["previewUrl"] = QUrl("qrc:/garments/pants/preview.jpg");
-    pants["isAvailable"] = true;
-    pants["category"] = "pants";
-    m_garments.append(pants);
+//     // Test Garment 2: Pants
+//     QVariantMap pants;
+//     pants["id"] = "pants_001";
+//     pants["name"] = "Formal Pants";
+//     pants["previewUrl"] = QUrl("qrc:/garments/pants/preview.jpg");
+//     pants["isAvailable"] = true;
+//     pants["category"] = "pants";
+//     m_garments.append(pants);
 
-    // Test Garment 3: Dress
-    QVariantMap dress;
-    dress["id"] = "dress_001";
-    dress["name"] = "Summer Dress";
-    dress["previewUrl"] = QUrl("qrc:/garments/dress/preview.jpg");
-    dress["isAvailable"] = true;
-    dress["category"] = "dress";
-    m_garments.append(dress);
+//     // Test Garment 3: Dress
+//     QVariantMap dress;
+//     dress["id"] = "dress_001";
+//     dress["name"] = "Summer Dress";
+//     dress["previewUrl"] = QUrl("qrc:/garments/dress/preview.jpg");
+//     dress["isAvailable"] = true;
+//     dress["category"] = "dress";
+//     m_garments.append(dress);
 
-    emit garmentsChanged();
-}
+//     emit garmentsChanged();
+// }
 
 // Fetch garments from network - Fixed to properly delegate to NetworkManager
 void QMLManager::fetchGarments(bool forceRefresh) {

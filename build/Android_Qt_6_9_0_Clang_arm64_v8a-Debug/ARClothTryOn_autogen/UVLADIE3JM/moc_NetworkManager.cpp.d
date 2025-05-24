@@ -738,7 +738,6 @@ C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_aut
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QJsonDocument \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QJsonObject \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QList \
-  D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QMetaType \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QObject \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QSettings \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QSharedDataPointer \
@@ -782,7 +781,6 @@ C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_aut
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qcontainerinfo.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qcontainertools_impl.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qcontiguouscache.h \
-  D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qcryptographichash.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qdarwinhelpers.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qdatastream.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qdatetime.h \
@@ -893,21 +891,14 @@ C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_aut
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QNetworkReply \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QNetworkRequest \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QSslConfiguration \
-  D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QSslPreSharedKeyAuthenticator \
-  D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qabstractsocket.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qauthenticator.h \
-  D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qhostaddress.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qhttpheaders.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkaccessmanager.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkreply.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkrequest.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qssl.h \
-  D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qsslcertificate.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qsslconfiguration.h \
-  D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qsslerror.h \
-  D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qsslpresharedkeyauthenticator.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qsslsocket.h \
-  D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qtcpsocket.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qtnetwork-config.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qtnetworkexports.h \
   D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qtnetworkglobal.h \

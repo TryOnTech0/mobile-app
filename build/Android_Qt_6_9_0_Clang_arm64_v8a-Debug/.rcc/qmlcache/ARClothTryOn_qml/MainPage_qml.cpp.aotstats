@@ -6,7 +6,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 353,
+                        "durationMicroseconds": 361,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "color",
                         "line": 11
@@ -14,7 +14,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 30,
-                        "durationMicroseconds": 215,
+                        "durationMicroseconds": 207,
                         "errorMessage": "Cannot retrieve a non-object type by ID: permissionDialog",
                         "functionName": "onPermissionGranted",
                         "line": 15
@@ -22,7 +22,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 29,
-                        "durationMicroseconds": 73,
+                        "durationMicroseconds": 72,
                         "errorMessage": "Cannot retrieve a non-object type by ID: permissionDialog",
                         "functionName": "onPermissionDenied",
                         "line": 20
@@ -30,7 +30,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 126,
+                        "durationMicroseconds": 129,
                         "errorMessage": "Cannot access value for name stackView",
                         "functionName": "onGarmentsChanged",
                         "line": 25
@@ -38,7 +38,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 18,
-                        "durationMicroseconds": 10011,
+                        "durationMicroseconds": 5103,
                         "errorMessage": "Cannot load property gridSpacing from const QMetaObject.",
                         "functionName": "spacing",
                         "line": 32
@@ -46,7 +46,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 27,
-                        "durationMicroseconds": 914,
+                        "durationMicroseconds": 187,
                         "errorMessage": "",
                         "functionName": "centerIn",
                         "line": 31
@@ -70,7 +70,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 56,
+                        "durationMicroseconds": 33,
                         "errorMessage": "Cannot load property buttonWidth from const QMetaObject.",
                         "functionName": "preferredWidth",
                         "line": 38
@@ -86,7 +86,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 25,
-                        "durationMicroseconds": 219,
+                        "durationMicroseconds": 228,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "radius",
                         "line": 54
@@ -94,7 +94,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 24,
-                        "durationMicroseconds": 550,
+                        "durationMicroseconds": 612,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "color",
                         "line": 55
@@ -102,7 +102,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 23,
-                        "durationMicroseconds": 34,
+                        "durationMicroseconds": 39,
                         "errorMessage": "Cannot access value for name scanButton",
                         "functionName": "text",
                         "line": 59
@@ -110,7 +110,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 23,
-                        "durationMicroseconds": 63,
+                        "durationMicroseconds": 27,
                         "errorMessage": "Cannot access value for name scanButton",
                         "functionName": "font",
                         "line": 60
@@ -118,7 +118,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 38,
-                        "durationMicroseconds": 340,
+                        "durationMicroseconds": 317,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
                         "line": 62
@@ -126,7 +126,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 331,
+                        "durationMicroseconds": 304,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
                         "line": 63
@@ -150,7 +150,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 35,
+                        "durationMicroseconds": 34,
                         "errorMessage": "Cannot load property buttonWidth from const QMetaObject.",
                         "functionName": "preferredWidth",
                         "line": 71
@@ -158,7 +158,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 37,
-                        "durationMicroseconds": 25,
+                        "durationMicroseconds": 22,
                         "errorMessage": "Cannot load property buttonHeight from const QMetaObject.",
                         "functionName": "preferredHeight",
                         "line": 72
@@ -166,7 +166,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 25,
-                        "durationMicroseconds": 235,
+                        "durationMicroseconds": 219,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "radius",
                         "line": 81
@@ -174,7 +174,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 24,
-                        "durationMicroseconds": 612,
+                        "durationMicroseconds": 615,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "color",
                         "line": 82
@@ -182,7 +182,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 23,
-                        "durationMicroseconds": 92,
+                        "durationMicroseconds": 46,
                         "errorMessage": "Cannot access value for name selectButton",
                         "functionName": "text",
                         "line": 86
@@ -190,7 +190,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 23,
-                        "durationMicroseconds": 38,
+                        "durationMicroseconds": 29,
                         "errorMessage": "Cannot access value for name selectButton",
                         "functionName": "font",
                         "line": 87
@@ -198,7 +198,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 38,
-                        "durationMicroseconds": 325,
+                        "durationMicroseconds": 257,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
                         "line": 89
@@ -206,7 +206,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 266,
+                        "durationMicroseconds": 257,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
                         "line": 90
@@ -342,7 +342,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 17,
-                        "durationMicroseconds": 158,
+                        "durationMicroseconds": 122,
                         "errorMessage": "",
                         "functionName": "target",
                         "line": 160

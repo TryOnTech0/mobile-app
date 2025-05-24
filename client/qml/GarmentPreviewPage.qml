@@ -140,47 +140,34 @@ Page {
                 }
 
                 Entity {
-                    components: DirectionalLight {
-                        intensity: 0.4
-                        worldDirection: Qt.vector3d(0.5, -0.5, 0.5)
-                    }
-                }
-
-                Entity {
                     id: modelEntity
 
-                    // Ensure model is centered in the view
                     components: [
+                        Transform {
+                            id: modelTransform
+                            scale3D: Qt.vector3d(scaleValue, scaleValue, scaleValue)
+                            rotationX: modelRotationX
+                            rotationY: modelRotationY
+                            rotationZ: modelRotationZ
+                        },
                         Mesh {
-                            source: "qrc:/garments/" + garmentId.split('_')[0] + "/model.obj"
+                            id: modelMesh
+                            source: qmlManager.garments.find(g => g.id === garmentId)?.modelUrl || ""
+                            onMeshStatusChanged: {
+                                if (modelMesh.status === Mesh.Error) {
+                                    console.log("Error loading 3D model:", modelMesh.source)
+                                    modelError.visible = true
+                                } else {
+                                    modelError.visible = false
+                                }
+                            }
                         },
                         PhongMaterial {
-                            diffuse: "white"
-                            ambient: "gray"
-                            shininess: 100
-                        },
-                        Transform {
-                            id: garmentTransform
-                            // Keep model centered and rotate it around its own axes
-                            matrix: {
-                                let m = Qt.matrix4x4();
-
-                                // First translate to origin if needed (for models not centered at origin)
-                                // m.translate(-modelCenter) would go here if we knew model center
-
-                                // Apply rotations around the model's own axes
-                                m.rotate(modelRotationX, Qt.vector3d(1, 0, 0));
-                                m.rotate(modelRotationY, Qt.vector3d(0, 1, 0));
-                                m.rotate(modelRotationZ, Qt.vector3d(0, 0, 1));
-
-                                // Scale the model
-                                m.scale(garmentPreviewPage.scaleValue);
-
-                                // Translate back if needed
-                                // m.translate(modelCenter) would go here if we translated earlier
-
-                                return m;
-                            }
+                            id: modelMaterial
+                            ambient: Qt.rgba(0.4, 0.4, 0.4, 1.0)
+                            diffuse: Qt.rgba(0.8, 0.8, 0.8, 1.0)
+                            specular: Qt.rgba(1.0, 1.0, 1.0, 1.0)
+                            shininess: 50
                         }
                     ]
                 }

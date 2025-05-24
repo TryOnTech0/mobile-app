@@ -98,26 +98,23 @@ Module {
             Parameter { name: "authenticator"; type: "QAuthenticator"; isPointer: true }
         }
         Method {
-            name: "onSslErrors"
-            Parameter { name: "reply"; type: "QNetworkReply"; isPointer: true }
-            Parameter { name: "errors"; type: "QSslError"; isList: true }
-        }
-        Method {
             name: "handleGarmentsResponse"
-            Parameter { name: "reply"; type: "QNetworkReply"; isPointer: true }
-        }
-        Method {
-            name: "handleGarmentDetailsResponse"
             Parameter { name: "reply"; type: "QNetworkReply"; isPointer: true }
         }
         Method {
             name: "handleAuthResponse"
             Parameter { name: "reply"; type: "QNetworkReply"; isPointer: true }
+            Parameter { name: "isRegistration"; type: "bool" }
         }
         Method {
             name: "processNetworkError"
             Parameter { name: "error"; type: "QNetworkReply::NetworkError" }
         }
+        Method {
+            name: "handleUploadFinished"
+            Parameter { name: "reply"; type: "QNetworkReply"; isPointer: true }
+        }
+        Method { name: "fetchUserData" }
         Method {
             name: "connectToDatabase"
             type: "bool"
@@ -145,10 +142,6 @@ Module {
         }
         Method { name: "fetchGarments"; isCloned: true }
         Method {
-            name: "fetchGarmentDetails"
-            Parameter { name: "garmentId"; type: "QString" }
-        }
-        Method {
             name: "uploadGarment"
             Parameter { name: "garmentData"; type: "QJsonObject" }
             Parameter { name: "previewPath"; type: "QString" }
@@ -163,11 +156,6 @@ Module {
         Method {
             name: "uploadGarment"
             isCloned: true
-            Parameter { name: "garmentData"; type: "QJsonObject" }
-        }
-        Method {
-            name: "updateGarment"
-            Parameter { name: "garmentId"; type: "QString" }
             Parameter { name: "garmentData"; type: "QJsonObject" }
         }
         Method {

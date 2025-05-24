@@ -1,52 +1,158 @@
-// qml/MainPage.qml
+// qml/AuthorizationPage.qml - Fixed sizing version
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import ARClothTryOn 1.0
 
 Page {
-    id: authorizationPage
+    id: authPage
 
-    // Fix: Explicit import of Style
-    background: Rectangle { color: Style.backgroundColor }
+    // Make sure the page fills available space
+    anchors.fill: parent // Ensure full parent filling
 
-    QMLManager {
-        id: qmlManager
-        onPermissionGranted: {
-            console.log("Camera permission granted")
-            permissionDialog.close()
-            stackView.push("qrc:/ARClothTryOn/qml/CameraPage.qml")
+    background: Rectangle { 
+        color: Style.backgroundColor 
+        anchors.fill: parent
+    }
+
+    property bool isRegisterMode: true
+
+    Component.onCompleted: {
+        console.log("AuthorizationPage loaded successfully")
+        console.log("Page size:", width, "x", height)
+        console.log("Page visible:", visible)
+        console.log("Parent size:", parent ? (parent.width + "x" + parent.height) : "no parent")
+    }
+
+    NetworkManager {
+        id: networkManager
+        onRegistrationSucceeded: {
+            console.log("Registration succeeded")
+            loadingIndicator.running = false
+            // Find the StackView by going up the parent chain
+            var stackView = authPage.StackView.view
+            if (stackView) {
+                stackView.push("qrc:/ARClothTryOn/qml/MainPage.qml")
+            } else {
+                console.log("Could not find StackView")
+            }
         }
-        onPermissionDenied: {
-            console.log("Camera permission denied")
-            permissionDialog.close()
-            permissionErrorDialog.open()
+        onRegistrationFailed: {
+            console.log("Registration failed:", error)
+            loadingIndicator.running = false
+            errorLabel.text = error
+            errorLabel.visible = true
         }
-        onGarmentsChanged: {
-            stackView.push("qrc:/ARClothTryOn/qml/GarmentSelectionPage.qml")
+        onUserLoggedIn: {
+            console.log("User logged in")
+            loadingIndicator.running = false
+            var stackView = authPage.StackView.view
+            if (stackView) {
+                stackView.push("qrc:/ARClothTryOn/qml/MainPage.qml")
+            }
+        }
+        onAuthenticationFailed: {
+            console.log("Authentication failed:", error)
+            loadingIndicator.running = false
+            errorLabel.text = error
+            errorLabel.visible = true
         }
     }
 
     ColumnLayout {
         anchors.centerIn: parent
         spacing: Style.gridSpacing * 2
+        width: Math.min(parent.width * 0.8, 400)
 
-        // Scan Cloth Button
+        Label {
+            text: isRegisterMode ? qsTr("Create Account") : qsTr("Welcome Back")
+            font.pixelSize: 24
+            Layout.alignment: Qt.AlignHCenter
+            color: Style.primaryTextColor
+        }
+
+        // Username Field (Visible only in registration mode)
+        TextField {
+            id: usernameField
+            placeholderText: qsTr("Username")
+            visible: isRegisterMode
+            font: Style.inputFont
+            Layout.fillWidth: true
+            Layout.preferredHeight: 40
+
+            background: Rectangle {
+                color: "white"
+                border.color: "#cccccc"
+                radius: 4
+            }
+        }
+
+        // Email Field
+        TextField {
+            id: emailField
+            placeholderText: qsTr("Email address")
+            font: Style.inputFont
+            Layout.fillWidth: true
+            Layout.preferredHeight: 40
+
+            background: Rectangle {
+                color: "white"
+                border.color: "#cccccc"
+                radius: 4
+            }
+        }
+
+        // Password Field
+        TextField {
+            id: passwordField
+            placeholderText: qsTr("Password")
+            echoMode: TextInput.Password
+            font: Style.inputFont
+            Layout.fillWidth: true
+            Layout.preferredHeight: 40
+
+            background: Rectangle {
+                color: "white"
+                border.color: "#cccccc"
+                radius: 4
+            }
+        }
+
+        // Error Message
+        Label {
+            id: errorLabel
+            visible: false
+            color: Style.errorColor
+            wrapMode: Text.WordWrap
+            Layout.fillWidth: true
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        // Submit Button
         Button {
-            id: scanButton
-            text: qsTr("Register")
+            id: submitButton
+            text: isRegisterMode ? qsTr("Register") : qsTr("Log In")
             Layout.preferredWidth: Style.buttonWidth
             Layout.preferredHeight: Style.buttonHeight
+            Layout.alignment: Qt.AlignHCenter
             font: Style.buttonFont
 
             onClicked: {
-                console.log("Register button clicked")
-                if(qmlManager.hasCameraPermission()) {
-                    console.log("Camera permission already granted, opening camera")
-                    stackView.push("qrc:/ARClothTryOn/qml/CameraPage.qml")
+                console.log("Submit button clicked, mode:", isRegisterMode ? "register" : "login")
+                errorLabel.visible = false
+                loadingIndicator.running = true
+
+                if(isRegisterMode) {
+                    networkManager.registerUser(
+                        usernameField.text,
+                        emailField.text,
+                        passwordField.text
+                    )
                 } else {
-                    console.log("Requesting camera permission")
-                    permissionDialog.open()
+                    networkManager.loginUser(
+                        emailField.text,
+                        passwordField.text
+                    )
                 }
             }
 
@@ -56,91 +162,38 @@ Page {
             }
 
             contentItem: Text {
-                text: scanButton.text
-                font: scanButton.font
+                text: submitButton.text
+                font: submitButton.font
                 color: "white"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
         }
 
-        // Select Garment Button
+        // Toggle Mode
         Button {
-            id: selectButton
-            text: qsTr("Log In")
-            Layout.preferredWidth: Style.buttonWidth
-            Layout.preferredHeight: Style.buttonHeight
-            font: Style.buttonFont
+            text: isRegisterMode ? qsTr("Already have an account? Log In")
+                                : qsTr("Need an account? Register")
+            flat: true
+            Layout.alignment: Qt.AlignHCenter
 
             onClicked: {
-                console.log("Log In button clicked")
-                qmlManager.loadGarments()
-            }
-
-            background: Rectangle {
-                radius: Style.buttonRadius
-                color: parent.down ? Qt.darker(Style.secondaryColor, 1.2) : Style.secondaryColor
+                console.log("Toggle mode clicked")
+                isRegisterMode = !isRegisterMode
+                errorLabel.visible = false
+                usernameField.clear()
+                emailField.clear()
+                passwordField.clear()
             }
 
             contentItem: Text {
-                text: selectButton.text
-                font: selectButton.font
-                color: "white"
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+                text: parent.text
+                color: Style.secondaryTextColor
+                font.pixelSize: 14
             }
-        }
-    }
 
-    // Permission Request Dialog
-    Dialog {
-        id: permissionDialog
-        anchors.centerIn: parent
-        title: "Camera Access Required"
-        modal: true
-        closePolicy: Dialog.CloseOnEscape
-
-        contentItem: Label {
-            text: "This app needs camera access to scan garments.\nPlease grant camera permissions."
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-        }
-
-        footer: DialogButtonBox {
-            Button {
-                text: "Cancel"
-                DialogButtonBox.buttonRole: DialogButtonBox.RejectRole
-            }
-            Button {
-                text: "Grant Permission"
-                DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
-            }
-        }
-
-        onAccepted: {
-            console.log("Permission dialog accepted, requesting camera permission")
-            qmlManager.requestCameraPermission()
-        }
-        onRejected: close()
-    }
-
-    // Permission Error Dialog
-    Dialog {
-        id: permissionErrorDialog
-        anchors.centerIn: parent
-        title: "Permission Denied"
-        modal: true
-
-        contentItem: Label {
-            text: "Camera permission is required to use this feature.\nPlease enable it in device settings."
-            wrapMode: Text.WordWrap
-            horizontalAlignment: Text.AlignHCenter
-        }
-
-        footer: DialogButtonBox {
-            Button {
-                text: "OK"
-                DialogButtonBox.buttonRole: DialogButtonBox.AcceptRole
+            background: Rectangle {
+                color: "transparent"
             }
         }
     }
@@ -153,19 +206,5 @@ Page {
         visible: running
         width: Style.buttonHeight * 1.5
         height: width
-    }
-
-    // Connection Handlers
-    Connections {
-        target: qmlManager
-
-        function onScanProgressChanged(progress) {
-            console.log("Scan progress: " + progress)
-            if(progress > 0 && progress < 100) {
-                loadingIndicator.running = true
-            } else {
-                loadingIndicator.running = false
-            }
-        }
     }
 }
