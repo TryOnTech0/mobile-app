@@ -46,10 +46,11 @@ QMLManager::QMLManager(QObject* parent)
 void QMLManager::initializeApp() {
     // Connect to database and fetch garments on app startup
     if (m_networkManager) {
-        uploadNewGarment();
-        m_networkManager->fetchGarments();
+        // uploadNewGarment();
+        // m_networkManager->fetchGarments(true);
     }
 }
+
 void QMLManager::handleNetworkStatusChanged(bool isConnected) {
     qDebug() << "Network status changed. Connected:" << isConnected;
     // You can emit a QML signal or update UI state here if needed
@@ -69,20 +70,16 @@ void QMLManager::handleGarmentsReceived(const QJsonArray& garments) {
         QJsonObject garmentObj = garmentValue.toObject();
         QVariantMap entry;
         
-        // Map fields according to server schema
-        entry["garmentId"] = garmentObj["garmentId"].toString(); // Unique garmentId
+        // Corrected key: "id" instead of "garmentId"
+        entry["id"] = garmentObj["garmentId"].toString(); // Match QML's model.modelData.id
         entry["name"] = garmentObj["name"].toString();
         entry["previewUrl"] = garmentObj["previewUrl"].toString();
         entry["modelUrl"] = garmentObj["modelUrl"].toString();
+        entry["createdBy"] = garmentObj["createdBy"].toString();
         
-        // User ID (createdBy is ObjectId string, not a nested object)
-        entry["createdBy"] = garmentObj["createdBy"].toString(); // Direct string
+        // Add "isAvailable" with a default value if missing in the data
+        entry["isAvailable"] = true; // Ensure QML's model.modelData.isAvailable exists
         
-        // Date parsing (ISO format)
-        QString dateString = garmentObj["createdAt"].toString();
-        QDateTime createdAt = QDateTime::fromString(dateString, Qt::ISODate);
-
-
         m_garments.append(entry);
     }
     

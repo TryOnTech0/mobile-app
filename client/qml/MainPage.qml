@@ -22,9 +22,9 @@ Page {
             permissionDialog.close()
             permissionErrorDialog.open()
         }
-        onGarmentsChanged: {
-            stackView.push("qrc:/ARClothTryOn/qml/GarmentSelectionPage.qml")
-        }
+        // onGarmentsChanged: {
+        //     stackView.push("qrc:/ARClothTryOn/qml/GarmentSelectionPage.qml")
+        // }
     }
     // Enable console.log output in QML
     Component.onCompleted: {
@@ -79,6 +79,8 @@ Page {
 
             onClicked: {
                 console.log("Select garment button clicked")
+                // qmlManager.fetchGarments()
+                stackView.push("qrc:/ARClothTryOn/qml/GarmentSelectionPage.qml")
             }
 
             background: Rectangle {

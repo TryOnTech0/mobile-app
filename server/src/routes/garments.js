@@ -147,6 +147,7 @@ router.get('/', auth, async (req, res) => {
     const garments = await Garment.find({ createdBy: req.user.id })
       .select('-__v')
       .sort({ createdAt: -1 });
+    console.log(garments);
     res.json(garments);
   } catch (err) {
     console.error(err);

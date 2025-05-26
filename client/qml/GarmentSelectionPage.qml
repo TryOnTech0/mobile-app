@@ -181,7 +181,8 @@ Page {
                         try {
                             stackView.push(pagePath, {
                                 "garmentId": model.modelData.id,
-                                "previewImage": model.modelData.previewUrl
+                                "previewImage": model.modelData.previewUrl,
+                                "modelObject": model.modelData.modelwUrl
                             });
                         } catch (e) {
                             console.error("Failed to push page: " + e)
@@ -244,7 +245,7 @@ Page {
         console.log("GarmentSelectionPage completed")
         if(gridView.count === 0) {
             loadingIndicator.visible = true
-            // qmlManager.loadGarments()
+            qmlManager.fetchGarments()
         }
     }
 

@@ -19,8 +19,8 @@ NetworkManager::NetworkManager(QObject* parent)
 {
     #ifdef Q_OS_ANDROID
         //eduroam
-        m_serverUrl = "http://10.1.247.79:5000/api";
-        // m_serverUrl = "http://192.168.1.15:5000/api";
+        // m_serverUrl = "http://10.1.247.79:5000/api";
+        m_serverUrl = "http://192.168.1.5:5000/api";
     #else
         m_serverUrl = "http://localhost:5000/api";
     #endif
@@ -131,12 +131,17 @@ void NetworkManager::setServerUrl(const QString& url) {
 // ---- Fetch All Garments (GET /garments) ----
 void NetworkManager::fetchGarments(bool forceRefresh) {
     QUrl url(m_serverUrl + "/garments");
+    qDebug() << "Starting garments fetch from:" << url.toString();
+    
     QNetworkRequest request = createAuthenticatedRequest(url);
     QNetworkReply *reply = m_networkManager->get(request);
+    
     connect(reply, &QNetworkReply::finished, this, [this, reply]() {
         handleGarmentsResponse(reply);
     });
+    
     connect(reply, &QNetworkReply::errorOccurred, this, [this, reply](QNetworkReply::NetworkError error) {
+        qDebug() << "Network error occurred during fetch";
         processNetworkError(error);
     });
 }
@@ -144,11 +149,18 @@ void NetworkManager::fetchGarments(bool forceRefresh) {
 void NetworkManager::handleGarmentsResponse(QNetworkReply* reply) {
     bool ok;
     QJsonDocument doc = parseJsonReply(reply, ok);
-    if (ok && doc.isArray()) {
-        emit garmentsReceived(doc.array());
+    
+    if(ok && doc.isArray()) {
+        QJsonArray garmentsArray = doc.array();
+        QString jsonString = QString::fromUtf8(doc.toJson());
+        qDebug().noquote() << "Fetched garments data:\n" << jsonString;
+        emit garmentsReceived(garmentsArray);
     } else {
+        qDebug() << "Failed to parse garments response. Raw response:"
+                 << QString::fromUtf8(reply->readAll());
         emit networkError(tr("Failed to fetch garments."));
     }
+    
     reply->deleteLater();
 }
 

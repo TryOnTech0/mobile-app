@@ -12,6 +12,7 @@ Page {
     id: garmentPreviewPage
     property string garmentId
     property url previewImage
+    property url modelObject
 
     // State variables for garment manipulation (model only)
     property real scaleValue: 1.0
@@ -152,7 +153,7 @@ Page {
                         },
                         Mesh {
                             id: modelMesh
-                            source: qmlManager.garments.find(g => g.id === garmentId)?.modelUrl || ""
+                            source: modelObject
                             onMeshStatusChanged: {
                                 if (modelMesh.status === Mesh.Error) {
                                     console.log("Error loading 3D model:", modelMesh.source)

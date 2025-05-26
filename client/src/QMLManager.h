@@ -40,6 +40,7 @@ public:
     Q_INVOKABLE void requestCameraPermission();
     Q_INVOKABLE bool hasCameraPermission() const;
     Q_INVOKABLE void fetchGarments(bool forceRefresh = false);
+    // Q_INVOKABLE void fetchGarments();
 
     // Property getters
     int scanProgress() const;
