@@ -36,7 +36,6 @@ public:
     Q_INVOKABLE void initializeApp();
     Q_INVOKABLE void startScanning();
     Q_INVOKABLE void saveScan();
-    Q_INVOKABLE void loadGarments();
     Q_INVOKABLE void tryOnGarment(const QString& garmentId);
     Q_INVOKABLE void requestCameraPermission();
     Q_INVOKABLE bool hasCameraPermission() const;

@@ -6,17 +6,47 @@ const authRoutes = require('./routes/auth');
 const garmentRoutes = require('./routes/garments');
 const userRoutes = require('./routes/users');
 const cors = require('cors');
+const fs = require('fs');
 
 const app = express();
 
 // Connect Database
 connectDB();
 
+const allowedOrigins = [
+    'http://10.1.247.79:5000', // Server IP
+    'capacitor://localhost',    // Android
+    'http://localhost'          // Development
+];
+
+    app.use(cors({
+    origin: allowedOrigins,
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+const uploadsDir = path.join(__dirname, 'uploads');
+
+// Create uploads directory if it doesn't exist
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+app.use(express.json({ limit: '200mb' }));
+app.use(express.urlencoded({ 
+  extended: true, 
+  limit: '200mb',
+  parameterLimit: 10000 // Handle large numbers of parameters
+}));
+
+// Then serve static files
+app.use('/uploads', express.static(uploadsDir));
+
 // Middleware
 app.use(express.json());
 app.use(cors({
     origin: '*', // Allow all origins for development
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
@@ -39,14 +69,23 @@ app.use('/api/garments', garmentRoutes);
 app.use('/api/users', userRoutes);
 
 // Database connection test endpoint
-app.get('/api/database/connect', (req, res) => {
-    // This can be used by your Qt app to test database connectivity
-    res.json({ 
-        success: true, 
-        message: 'Database connected successfully',
-        database: process.env.DB_NAME || 'tryonDB'
-    });
-});
+app.get('/api/database/health', async (req, res) => {
+    try {
+      // Ping the database to verify connection
+      await mongoose.connection.db.admin().ping();
+      res.json({ 
+        success: true,
+        message: 'Database connection healthy',
+        database: mongoose.connection.name 
+      });
+    } catch (err) {
+      res.status(500).json({
+        success: false,
+        error: 'Database connection failed',
+        details: err.message
+      });
+    }
+  });
 
 // Error Handling
 app.use((err, req, res, next) => {
@@ -71,8 +110,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server started on port ${PORT}`);
     console.log(`Server running on http://0.0.0.0:${PORT}`);
-    console.log(`For Android development, use your laptop's IP address`);
-    console.log(`Example: http://192.168.1.XXX:${PORT}/api/status`);
     
     // Log network interfaces to help find the right IP
     const os = require('os');

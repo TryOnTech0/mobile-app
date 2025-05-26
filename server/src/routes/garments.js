@@ -15,24 +15,61 @@ const s3Client = new S3Client({
   }
 });
 
+// Add validation before upload
+const uploadFileToS3 = async (file) => {
+  if (!process.env.AWS_S3_BUCKET_NAME) {
+    throw new Error('AWS_S3_BUCKET_NAME environment variable not set');
+  }
+
+  const key = `${Date.now()}-${file.originalname}`;
+  
+  const uploadParams = {
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
+    Key: key,
+    Body: file.buffer,
+    ContentType: file.mimetype,
+  };
+
+  try {
+    const command = new PutObjectCommand(uploadParams);
+    await s3Client.send(command);
+    
+    // Return both URL and key with proper formatting
+    return {
+      url: `https://${process.env.AWS_S3_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`,
+      key: key
+    };
+  } catch (error) {
+    console.error('S3 Upload Error:', error);
+    throw new Error(`File upload failed: ${error.message}`);
+  }
+};
+
 // Configure Multer with file filtering
 const storage = multer.memoryStorage();
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
   fileFilter: (req, file, cb) => {
-    // Validate preview file type
     if (file.fieldname === 'preview') {
-      if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+      // Validate image files
+      if (file.mimetype.startsWith('image/')) {
         cb(null, true);
       } else {
-        cb(new Error('Preview must be JPG/PNG image'), false);
+        cb(new Error('Preview must be an image file'), false);
       }
-    } else {
-      cb(null, true);
+    } else if (file.fieldname === 'model') {
+      // Validate 3D model files
+      if (file.mimetype === 'application/octet-stream' || 
+          file.originalname.endsWith('.obj')) {
+        cb(null, true);
+      } else {
+        cb(new Error('Model must be an OBJ file'), false);
+      }
     }
   },
   limits: {
-    fileSize: 10 * 1024 * 1024 // 10MB limit for preview
+    fileSize: 200 * 1024 * 1024, // 200MB for both files
+    files: 2 // Strictly 2 files per request
   }
 });
 
@@ -51,36 +88,15 @@ const generateGarmentId = async () => {
   return garmentId;
 };
 
-// Helper function to upload file to S3
-const uploadFileToS3 = async (file) => {
-  const bucketName = process.env.AWS_S3_BUCKET_NAME;
-  const key = `${Date.now()}-${file.originalname}`;
 
-  const uploadParams = {
-    Bucket: bucketName,
-    Key: key,
-    Body: file.buffer,
-    ContentType: file.mimetype,
-  };
-
-  try {
-    const command = new PutObjectCommand(uploadParams);
-    await s3Client.send(command);
-    return {
-      url: `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`,
-      key: key
-    };
-  } catch (error) {
-    console.error('Error uploading to S3:', error);
-    throw error;
-  }
-};
 
 // Add new garment with type-specific handling
 router.post('/', auth, upload.fields([
   { name: 'preview', maxCount: 1 },
   { name: 'model', maxCount: 1 }
 ]), async (req, res) => {
+  console.log('Using bucket:', process.env.AWS_S3_BUCKET_NAME);
+  console.log('Using region:', process.env.AWS_REGION);
   try {
     if (!req.files || !req.files.preview || !req.files.model) {
       return res.status(400).json({ error: 'Both preview and model files are required' });

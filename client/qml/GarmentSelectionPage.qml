@@ -244,7 +244,7 @@ Page {
         console.log("GarmentSelectionPage completed")
         if(gridView.count === 0) {
             loadingIndicator.visible = true
-            qmlManager.loadGarments()
+            // qmlManager.loadGarments()
         }
     }
 

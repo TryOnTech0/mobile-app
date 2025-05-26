@@ -4,6 +4,9 @@
 #include "ImageConverter.h"
 #include <QUrl>
 #include <QLocale>
+#include <QStandardPaths>  // Added missing include
+#include <QDir>            // Added missing include
+#include <QFileInfo>   
 
 QMLManager::QMLManager(QObject* parent)
     : QObject(parent),
@@ -38,6 +41,15 @@ QMLManager::QMLManager(QObject* parent)
                 // Handle upload failure
             });
 }
+
+// Initialize the application
+void QMLManager::initializeApp() {
+    // Connect to database and fetch garments on app startup
+    if (m_networkManager) {
+        uploadNewGarment();
+        m_networkManager->fetchGarments();
+    }
+}
 void QMLManager::handleNetworkStatusChanged(bool isConnected) {
     qDebug() << "Network status changed. Connected:" << isConnected;
     // You can emit a QML signal or update UI state here if needed
@@ -48,15 +60,6 @@ void QMLManager::handleUploadProgress(int percent) {
     // You can emit a signal to QML for progress updates here
 }
 
-// Initialize the application
-void QMLManager::initializeApp() {
-    // Connect to database and fetch garments on app startup
-    if (m_networkManager) {
-        m_networkManager->connectToDatabase("tryonDB", "user", "password");
-        uploadNewGarment();
-        m_networkManager->fetchGarments();
-    }
-}
 
 // Handle received garments from network
 void QMLManager::handleGarmentsReceived(const QJsonArray& garments) {
@@ -66,38 +69,19 @@ void QMLManager::handleGarmentsReceived(const QJsonArray& garments) {
         QJsonObject garmentObj = garmentValue.toObject();
         QVariantMap entry;
         
-        // Required fields
-        entry["id"] = garmentObj["_id"].toString();
+        // Map fields according to server schema
+        entry["garmentId"] = garmentObj["garmentId"].toString(); // Unique garmentId
         entry["name"] = garmentObj["name"].toString();
         entry["previewUrl"] = garmentObj["previewUrl"].toString();
         entry["modelUrl"] = garmentObj["modelUrl"].toString();
         
-        // Category with validation
-        QString category = garmentObj["category"].toString("shirt");
-        entry["category"] = category;
-
-        // Optional description
-        if (garmentObj.contains("description")) {
-            entry["description"] = garmentObj["description"].toString();
-        }
-
-        // User reference
-        QJsonObject createdBy = garmentObj["createdBy"].toObject();
-        if (!createdBy.isEmpty()) {
-            entry["createdById"] = createdBy["_id"].toString();
-            entry["createdByName"] = createdBy.value("username").toString();
-        }
-
-        // Date handling - Fixed potential crash
+        // User ID (createdBy is ObjectId string, not a nested object)
+        entry["createdBy"] = garmentObj["createdBy"].toString(); // Direct string
+        
+        // Date parsing (ISO format)
         QString dateString = garmentObj["createdAt"].toString();
-        if (!dateString.isEmpty()) {
-            QDateTime createdAt = QDateTime::fromString(dateString, Qt::ISODate);
-            if (createdAt.isValid()) {
-                entry["createdAt"] = createdAt.toString(QLocale::system().toString(createdAt.date(), QLocale::ShortFormat));
-            } else {
-                entry["createdAt"] = dateString; // Fallback to original string
-            }
-        }
+        QDateTime createdAt = QDateTime::fromString(dateString, Qt::ISODate);
+
 
         m_garments.append(entry);
     }
@@ -231,40 +215,121 @@ void QMLManager::fetchGarments(bool forceRefresh) {
         m_networkManager->fetchGarments(forceRefresh);
     } else {
         qWarning() << "NetworkManager not initialized";
-        // Fallback to loading test garments
-        loadGarments();
+       
     }
 }
 
 // Upload new garment with proper error handling
+// void QMLManager::uploadNewGarment() {
+//     if (!m_networkManager) {
+//         qWarning() << "NetworkManager not initialized";
+//         return;
+//     }
+
+//     // Example shirt data
+//     QJsonObject shirt_data;
+//     shirt_data["name"] = "White Shirt";
+    
+//     m_networkManager->uploadGarment(shirt_data,
+//                                   "garments/shirt/preview.png",
+//                                   "garments/shirt/model.obj");
+
+//     // Example pants data
+//     QJsonObject pants_data;
+//     pants_data["name"] = "Classic Pants";
+    
+//     m_networkManager->uploadGarment(pants_data,
+//                                   "garments/pants/preview.png",
+//                                   "garments/pants/model.obj");
+// }
+
 void QMLManager::uploadNewGarment() {
     if (!m_networkManager) {
         qWarning() << "NetworkManager not initialized";
         return;
     }
 
-    // Example shirt data
-    QJsonObject shirt_data;
-    shirt_data["name"] = "White Shirt";
-    shirt_data["category"] = "shirt";
-    shirt_data["size"] = "M";
-    shirt_data["description"] = "Classic white dress shirt";
-    
-    m_networkManager->uploadGarment(shirt_data,
-                                  "../../server/uploads/previews/shirt.png",
-                                  "../../server/uploads/models/shirt.obj");
+    // Helper function to copy asset to temporary file
+    auto copyAssetToTemp = [](const QString &assetPath) -> QString {
+        QString tempDir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+        QDir().mkpath(tempDir);
+        
+        QString fileName = QFileInfo(assetPath).fileName();
+        QString tempPath = tempDir + "/" + fileName;
+        
+        // Remove existing temp file
+        QFile::remove(tempPath);
+        
+        // Copy from assets
+        if (QFile::copy(assetPath, tempPath)) {
+            // Make sure the temp file is readable
+            QFile::setPermissions(tempPath, QFile::ReadOwner | QFile::WriteOwner);
+            qDebug() << "Copied asset to temp:" << tempPath;
+            return tempPath;
+        } else {
+            qWarning() << "Failed to copy asset:" << assetPath << "to" << tempPath;
+            return QString();
+        }
+    };
 
-    // Example pants data
-    QJsonObject pants_data;
-    pants_data["name"] = "Classic Pants";
-    pants_data["category"] = "pants";
-    pants_data["size"] = "M";
-    pants_data["description"] = "Formal business pants";
+    // Platform-independent path resolution
+    auto resolvePath = [&](const QString &relativePath) -> QString {
+        // Try different asset path formats for Android
+        QStringList assetPaths = {
+            "assets:/" + relativePath,
+            ":/" + relativePath,
+            "qrc:/" + relativePath,
+            ":/assets/" + relativePath
+        };
+        
+        for (const QString &assetPath : assetPaths) {
+            if (QFile::exists(assetPath)) {
+                qDebug() << "Found asset at:" << assetPath;
+                // Copy to temporary location for upload
+                return copyAssetToTemp(assetPath);
+            }
+        }
+        
+        // Fallback for desktop development
+        QString desktopPath = QCoreApplication::applicationDirPath() + "/" + relativePath;
+        if (QFile::exists(desktopPath)) {
+            qDebug() << "Found desktop file at:" << desktopPath;
+            return desktopPath;
+        }
+        
+        qWarning() << "Asset not found in any location:" << relativePath;
+        return QString();
+    };
+
+    // Upload shirt
+    QString shirtPreview = resolvePath("garments/shirt/preview.jpg");
+    QString shirtModel = resolvePath("garments/shirt/model.obj");
     
-    m_networkManager->uploadGarment(pants_data,
-                                  "../../server/uploads/previews/pants.png",
-                                  "../../server/uploads/models/pants.obj");
+    if (!shirtPreview.isEmpty() && !shirtModel.isEmpty()) {
+        QJsonObject shirtData;
+        shirtData["name"] = "White Shirt";
+        
+        qDebug() << "Uploading shirt with preview:" << shirtPreview << "model:" << shirtModel;
+        m_networkManager->uploadGarment(shirtData, shirtPreview, shirtModel);
+    } else {
+        qWarning() << "Shirt files not found - Preview:" << shirtPreview << "Model:" << shirtModel;
+    }
+
+    // Upload pants
+    QString pantsPreview = resolvePath("garments/pants/preview.jpg");
+    QString pantsModel = resolvePath("garments/pants/model.obj");
+    
+    if (!pantsPreview.isEmpty() && !pantsModel.isEmpty()) {
+        QJsonObject pantsData;
+        pantsData["name"] = "Classic Pants";
+        
+        qDebug() << "Uploading pants with preview:" << pantsPreview << "model:" << pantsModel;
+        m_networkManager->uploadGarment(pantsData, pantsPreview, pantsModel);
+    } else {
+        qWarning() << "Pants files not found - Preview:" << pantsPreview << "Model:" << pantsModel;
+    }
 }
+
 
 // Try on garment with AR - Fixed connection handling
 void QMLManager::tryOnGarment(const QString& garmentId) {

@@ -23,19 +23,19 @@ class NetworkManager : public QObject {
 
     Q_PROPERTY(bool isConnected READ isConnected NOTIFY connectionStatusChanged)
     Q_PROPERTY(QString serverUrl READ serverUrl WRITE setServerUrl NOTIFY serverUrlChanged)
+    
 
 public:
     explicit NetworkManager(QObject* parent = nullptr);
     ~NetworkManager();
 
-    // MongoDB connection methods
-    Q_INVOKABLE bool connectToDatabase(const QString& dbName,
-                                       const QString& username = QString(),
-                                       const QString& password = QString());
-    Q_INVOKABLE void disconnectFromDatabase();
+    // // MongoDB connection methods
+    // Q_INVOKABLE bool connectToDatabase(const QString& dbName,
+    //                                    const QString& username = QString(),
+    //                                    const QString& password = QString());
+    // Q_INVOKABLE void disconnectFromDatabase();
 
     // Properties
-    bool isConnected() const;
     QString serverUrl() const;
     void setServerUrl(const QString& url);
 
@@ -91,6 +91,9 @@ private slots:
     void processNetworkError(QNetworkReply::NetworkError error);
     void handleUploadFinished(QNetworkReply* reply);
     void fetchUserData();
+    bool isConnected() const { return !m_authToken.isEmpty(); }
+    void verifyAuthToken();
+    void verifyServerConnectivity();
 #ifndef QT_NO_SSL
     void onSslErrors(QNetworkReply* reply, const QList<QSslError>& errors);
 #endif

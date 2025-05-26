@@ -13,19 +13,19 @@ const GarmentSchema = new mongoose.Schema({
   },
   previewUrl: {
     type: String,
-    required: true
+    required: [true, 'Preview URL is required']
   },
   previewKey: {
     type: String,
-    required: true
+    required: [true, 'Preview key is required']
   },
   modelUrl: {
     type: String,
-    required: true
+    required: [true, 'Model URL is required']
   },
   modelKey: {
     type: String,
-    required: true
+    required: [true, 'Model key is required']
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
