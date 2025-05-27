@@ -118,15 +118,16 @@ Page {
                         source: model.modelData.previewUrl
                         fillMode: Image.PreserveAspectCrop
                         asynchronous: true
-                        sourceSize: Qt.size(200, 200)  // Preload at a reasonable size
+                        sourceSize: Qt.size(200, 200)
 
-                        // Error handling for image loading
+                        // Enhanced error handling
                         onStatusChanged: {
                             if (status === Image.Error) {
                                 console.log("Error loading image:", source)
-                                // Show error state
+                                console.log("Possible SSL/TLS issue - check if OpenSSL is properly configured")
                                 errorOverlay.visible = true
-                            } else {
+                                errorText.text = "Network Error\n(Check SSL config)"
+                            } else if (status === Image.Ready) {
                                 errorOverlay.visible = false
                             }
                         }
@@ -134,14 +135,46 @@ Page {
                         Rectangle {
                             id: errorOverlay
                             anchors.fill: parent
-                            color: "transparent"
+                            color: Qt.rgba(0.5, 0.5, 0.5, 0.8)
                             visible: false
+                            radius: 8
 
-                            Text {
+                            Column {
                                 anchors.centerIn: parent
-                                text: "Unavailable"
-                                color: "white"
-                                font.bold: true
+                                spacing: 5
+
+                                Text {
+                                    id: errorText
+                                    text: "Unavailable"
+                                    color: "white"
+                                    font.bold: true
+                                    horizontalAlignment: Text.AlignHCenter
+                                }
+
+                                // Retry button
+                                Rectangle {
+                                    width: 60
+                                    height: 25
+                                    color: Style.primaryColor
+                                    radius: 4
+
+                                    Text {
+                                        anchors.centerIn: parent
+                                        text: "Retry"
+                                        color: "white"
+                                        font.pixelSize: 10
+                                    }
+
+                                    MouseArea {
+                                        anchors.fill: parent
+                                        onClicked: {
+                                            // Force reload the image
+                                            var oldSource = previewImage.source
+                                            previewImage.source = ""
+                                            previewImage.source = oldSource
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -174,28 +207,30 @@ Page {
                     if (model.modelData.isAvailable) {
                         selectedGarmentId = model.modelData.id  // Access id
 
-                        // Debug log the path we're attempting to load
-                        var pagePath = "qrc:/qml/GarmentPreviewPage.qml"
-                        console.log("Attempting to load: " + pagePath)
-
-                        try {
-                            stackView.push(pagePath, {
+                        // Create the preview page component
+                        var component = Qt.createComponent("GarmentPreviewPage.qml");
+                        if (component.status === Component.Ready) {
+                            var page = component.createObject(null, {
                                 "garmentId": model.modelData.id,
                                 "previewImage": model.modelData.previewUrl,
                                 "modelObject": model.modelData.modelwUrl
                             });
-                        } catch (e) {
-                            console.error("Failed to push page: " + e)
+                            stackView.push(page);
+                        } else if (component.status === Component.Error) {
+                            console.error("Error loading component: " + component.errorString());
 
-                            // Try alternate paths if the first one fails
+                            // Fallback: Try direct push with relative path
                             try {
                                 stackView.push("GarmentPreviewPage.qml", {
                                     "garmentId": model.modelData.id,
-                                    "previewImage": model.modelData.previewUrl
+                                    "previewImage": model.modelData.previewUrl,
+                                    "modelObject": model.modelData.modelwUrl
                                 });
-                            } catch (e2) {
-                                console.error("Failed second attempt: " + e2)
+                            } catch (e) {
+                                console.error("Fallback navigation failed: " + e);
                             }
+                        } else {
+                            console.log("Component not ready, status: " + component.status);
                         }
                     }
                 }

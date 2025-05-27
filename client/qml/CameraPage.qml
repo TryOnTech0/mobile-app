@@ -12,6 +12,7 @@ Page {
     property string capturedPhotoPath: ""
     property string selectedCategory: ""
     property string processedModelUrl: ""
+    property var capturedFrame: null
 
     states: [
         State {
@@ -94,12 +95,6 @@ Page {
                 }
             }
 
-            // onCameraStatusChanged: {
-            //     if(cameraStatus === Camera.ActiveStatus) {
-            //         captureButton.visible = true
-            //     }
-            // }
-
             onErrorOccurred: (error, errorString) => {
                 errorLabel.text = "Camera Error: " + errorString
                 errorLabel.visible = true
@@ -108,9 +103,9 @@ Page {
         }
         imageCapture: ImageCapture {
             id: imageCapture
-            onImageSaved: (id, path) => {
-                capturedPhotoPath = path
-                cameraPage.state = "categorySelection"
+            onImageCaptured: (requestId, frame) => {
+                capturedFrame = frame;
+                cameraPage.state = "categorySelection";
             }
         }
         videoOutput: videoOutput
@@ -120,6 +115,15 @@ Page {
         id: videoOutput
         anchors.fill: parent
         fillMode: VideoOutput.PreserveAspectCrop
+    }
+
+    Label {
+        id: errorLabel
+        visible: false
+        color: "red"
+        font.bold: true
+        Layout.alignment: Qt.AlignCenter
+        anchors.centerIn: parent
     }
 
     // Capture Button
@@ -140,8 +144,8 @@ Page {
         }
 
         onClicked: {
-            const picturesPath = StandardPaths.writableLocation(StandardPaths.PicturesLocation)
-            imageCapture.captureToFile(picturesPath + "/scan_photo.jpg")
+            // Directly capture to memory instead of file
+            imageCapture.capture()
             cameraPage.state = "capturing"
         }
 
@@ -161,6 +165,17 @@ Page {
         anchors.centerIn: parent
         modal: true
         visible: false
+
+        onAccepted: {
+            qmlManager.setScanCategory(selectedCategory)
+            if (capturedFrame) {
+                qmlManager.handleCapturedFrame(capturedFrame)
+                capturedFrame = null // clear after sending
+                cameraPage.state = "capturing"
+            } else {
+                console.warn("No captured frame available.")
+            }
+        }
 
         ColumnLayout {
             spacing: 20
@@ -183,11 +198,7 @@ Page {
             }
             Button {
                 text: "Confirm"
-                onClicked: {
-                    qmlManager.uploadScan(capturedPhotoPath, selectedCategory)
-                    cameraPage.state = "capturing"
-                    categoryDialog.close()
-                }
+                onClicked: categoryDialog.accept() // Changed from onAccepted
             }
         }
     }

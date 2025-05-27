@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/auth');
 const garmentRoutes = require('./routes/garments');
 const userRoutes = require('./routes/users');
+const scanRoutes = require('./routes/scans');
 const cors = require('cors');
 const fs = require('fs');
 
@@ -15,7 +16,8 @@ connectDB();
 
 const allowedOrigins = [
     'http://192.168.1.5:5000', // home wi-fi
-    'http://10.1.247.79:5000', // Server IP eduroam
+    // 'http://10.1.247.79:5000', // Server IP eduroam
+    'http://10.1.239.113:5000', // Server IP eduroam
     'capacitor://localhost',    // Android
     'http://localhost'          // Development
 ];
@@ -68,6 +70,7 @@ app.get('/api/status', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/garments', garmentRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/scans', scanRoutes);
 
 // Database connection test endpoint
 app.get('/api/database/health', async (req, res) => {

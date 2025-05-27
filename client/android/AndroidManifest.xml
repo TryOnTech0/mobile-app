@@ -5,7 +5,7 @@
     android:versionName="1.0">
 
     <uses-sdk
-        android:minSdkVersion="24"
+        android:minSdkVersion="28"
         android:targetSdkVersion="34" />
 
     <!-- Permissions -->
@@ -13,17 +13,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <!-- Camera features -->
     <uses-feature android:name="android.hardware.camera" android:required="true" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature android:name="android.hardware.camera.ar" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
     
     <!-- Graphics requirements -->
     <uses-feature android:glEsVersion="0x00030000" android:required="true" />
-    <uses-feature android:name="android.hardware.opengles.aep" android:required="true" />
 
     <application
         android:name="org.qtproject.qt.android.bindings.QtApplication"
@@ -31,17 +28,15 @@
         android:icon="@drawable/icon"
         android:theme="@style/AppTheme"
         android:allowBackup="true"
-        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         android:hardwareAccelerated="true">
 
-        <!-- Splash Screen Configuration -->
+        <!-- Main Activity - Let Qt handle all metadata automatically -->
         <activity
-            android:name="org.qtproject.example.ARClothTryOn.ARClothTryOnActivity"
+            android:name="org.qtproject.qt.android.bindings.QtActivity"
             android:label="@string/app_name"
-            android:theme="@style/SplashTheme"
             android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="unspecified"
             android:launchMode="singleTop"
             android:exported="true">
 
@@ -50,31 +45,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- Splash screen meta-data -->
-            <meta-data
-                android:name="android.app.splash_screen_drawable"
-                android:resource="@drawable/splash" />
-
-            <!-- Qt configuration -->
+            <!-- Only essential Qt metadata -->
             <meta-data android:name="android.app.lib_name" android:value="ARClothTryOn" />
-            <meta-data android:name="android.app.extract_android_style" android:value="minimal" />
-            
-            <!-- ARCore configuration -->
-            <meta-data 
-                android:name="com.google.ar.core" 
-                android:value="optional" />
         </activity>
-
-        <!-- ARCore service -->
-        <service
-            android:name="com.google.ar.core.InstallActivity"
-            android:exported="false"
-            android:enabled="true" />
 
     </application>
 
-    <!-- ABI support -->
-    <supports-abi android:abi="arm64-v8a" />
-
 </manifest>
- <!-- <supports-abi android:abi="x86_64" /> -->

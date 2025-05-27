@@ -19,7 +19,7 @@ NetworkManager::NetworkManager(QObject* parent)
 {
     #ifdef Q_OS_ANDROID
         //eduroam
-        // m_serverUrl = "http://10.1.247.79:5000/api";
+        // m_serverUrl = "http://10.1.239.113:5000/api";
         m_serverUrl = "http://192.168.1.5:5000/api";
     #else
         m_serverUrl = "http://localhost:5000/api";
@@ -112,8 +112,55 @@ void NetworkManager::onSslErrors(QNetworkReply* reply, const QList<QSslError>& e
 }
 #endif
 
+// Method for scan uploads
+void NetworkManager::uploadScan(const QByteArray& imageData, const QString& category) {
+    qDebug() << "Uploading scan with:";
+    qDebug() << " - Category:" << category;
+    qDebug() << " - Image size:" << imageData.size() << "bytes";
 
+    QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    
+    // Add category part
+    QHttpPart categoryPart;
+    categoryPart.setHeader(QNetworkRequest::ContentDispositionHeader, 
+                         QVariant("form-data; name=\"category\""));
+    categoryPart.setBody(category.toUtf8());
+    multiPart->append(categoryPart);
 
+    // Add image part
+    QHttpPart imagePart;
+    imagePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
+    imagePart.setHeader(QNetworkRequest::ContentDispositionHeader,
+                      QVariant("form-data; name=\"image\"; filename=\"scan.jpg\""));
+    imagePart.setBody(imageData);
+    multiPart->append(imagePart);
+
+    QUrl url(m_serverUrl + "/scans");
+    QNetworkRequest request = createAuthenticatedRequest(url);
+    
+    QNetworkReply* reply = m_networkManager->post(request, multiPart);
+    multiPart->setParent(reply);
+
+    connect(reply, &QNetworkReply::uploadProgress, [this](qint64 sent, qint64 total) {
+        emit scanProgressChanged(static_cast<int>((sent * 100) / total));
+    });
+
+    connect(reply, &QNetworkReply::finished, [this, reply]() {
+        bool ok;
+        QJsonDocument response = parseJsonReply(reply, ok);
+        
+        if(ok && response.object().contains("imageUrl")) {
+            emit scanUploaded(
+                response.object()["imageId"].toString(),
+                response.object()["imageUrl"].toString()
+            );
+        } else {
+            emit networkError("Scan upload failed: " + 
+                response.object()["error"].toString());
+        }
+        reply->deleteLater();
+    });
+}
 // Get server URL
 QString NetworkManager::serverUrl() const {
     return m_serverUrl;

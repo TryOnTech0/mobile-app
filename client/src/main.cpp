@@ -4,6 +4,7 @@
 #include <QQuickStyle>
 #include "QMLManager.h"
 #include <Qt3DRender/QRenderAspect>
+#include <QSslSocket>
 
 #ifdef Q_OS_ANDROID
 #include <QtCore/private/qandroidextras_p.h>
@@ -28,6 +29,9 @@ int main(int argc, char *argv[])
     qputenv("QT3D_RENDERER", "opengl");  // Force OpenGL backend
     qputenv("QSG_RHI_BACKEND", "opengl"); // Force Qt Quick to use OpenGL
     QGuiApplication app(argc, argv);
+
+    qDebug() << "SSL support:" << QSslSocket::supportsSsl();
+    qDebug() << "SSL version:" << QSslSocket::sslLibraryVersionString();
 
     qmlRegisterSingletonType(QUrl("qrc:/ARClothTryOn/qml/Style.qml"), "ARClothTryOn", 1, 0, "Style");
     // Register QMLManager

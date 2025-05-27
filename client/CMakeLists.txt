@@ -11,7 +11,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 
-# Find Qt packages - Core components for HTTP-only networking
+# Find Qt packages - INCLUDING SSL SUPPORT
 find_package(Qt6 REQUIRED COMPONENTS
     Core
     Quick
@@ -54,6 +54,7 @@ qt_add_executable(ARClothTryOn
 )
 
 qt_policy(SET QTP0004 NEW)
+qt_policy(SET QTP0002 NEW)
 
 # Add QML module
 qt_add_qml_module(ARClothTryOn
@@ -80,7 +81,7 @@ target_include_directories(ARClothTryOn PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-# Link libraries - REMOVED SSL DEPENDENCIES FOR HTTP-ONLY
+# Link libraries - WITH SSL SUPPORT
 target_link_libraries(ARClothTryOn PRIVATE
     Qt6::Core
     Qt6::Quick
@@ -104,10 +105,84 @@ if(ANDROID)
     # Set Android package source directory
     set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
 
-    # Update deployment rules WITHOUT SSL dependencies
+    # Method 1: REMOVED automatic SSL deployment due to Qt SSL not found
+    # set_target_properties(ARClothTryOn PROPERTIES
+    #     QT_ANDROID_DEPLOYMENT_DEPENDENCIES "ssl"
+    # )
+
+    # Method 2: Manual SSL library inclusion
+    # Path to OpenSSL libraries in your project structure
+    # The CMakeLists.txt is in the "client" directory, so android/libs is correct
+    set(OPENSSL_ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android/libs")
+
+    # Set OpenSSL library paths for arm64-v8a
+    if(CMAKE_ANDROID_ARCH_ABI STREQUAL "arm64-v8a")
+        set(OPENSSL_CRYPTO_LIBRARY "${OPENSSL_ROOT_DIR}/arm64-v8a/libcrypto_3.so")
+        set(OPENSSL_SSL_LIBRARY "${OPENSSL_ROOT_DIR}/arm64-v8a/libssl_3.so")
+    elseif(CMAKE_ANDROID_ARCH_ABI STREQUAL "x86_64")
+        set(OPENSSL_CRYPTO_LIBRARY "${OPENSSL_ROOT_DIR}/x86_64/libcrypto_3.so")
+        set(OPENSSL_SSL_LIBRARY "${OPENSSL_ROOT_DIR}/x86_64/libssl_3.so")
+    endif()
+
+    # Debug: Print library paths during configuration
+    message(STATUS "CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+    message(STATUS "OPENSSL_ROOT_DIR: ${OPENSSL_ROOT_DIR}")
+    message(STATUS "Looking for SSL library at: ${OPENSSL_SSL_LIBRARY}")
+    message(STATUS "Looking for Crypto library at: ${OPENSSL_CRYPTO_LIBRARY}")
+
+    # Verify that the SSL libraries exist
+    if(EXISTS "${OPENSSL_SSL_LIBRARY}")
+        message(STATUS "✓ SSL library found")
+    else()
+        message(WARNING "✗ SSL library not found at: ${OPENSSL_SSL_LIBRARY}")
+    endif()
+
+    if(EXISTS "${OPENSSL_CRYPTO_LIBRARY}")
+        message(STATUS "✓ Crypto library found")
+    else()
+        message(WARNING "✗ Crypto library not found at: ${OPENSSL_CRYPTO_LIBRARY}")
+    endif()
+
+    # Include OpenSSL libraries in deployment
+    set(ANDROID_EXTRA_LIBS "")
+
+    # Add C++ shared library (correct path for newer NDK versions)
+    if(CMAKE_ANDROID_NDK)
+        # Try multiple possible locations for libc++_shared.so
+        set(CPP_SHARED_LIB_PATHS
+            "${CMAKE_ANDROID_NDK}/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so"
+            "${CMAKE_ANDROID_NDK}/sources/cxx-stl/llvm-libc++/libs/${CMAKE_ANDROID_ARCH_ABI}/libc++_shared.so"
+            "${CMAKE_ANDROID_NDK}/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so"
+        )
+
+        foreach(LIB_PATH ${CPP_SHARED_LIB_PATHS})
+            if(EXISTS "${LIB_PATH}")
+                list(APPEND ANDROID_EXTRA_LIBS "${LIB_PATH}")
+                message(STATUS "Found libc++_shared.so at: ${LIB_PATH}")
+                break()
+            endif()
+        endforeach()
+    endif()
+
+    # Add SSL libraries if they exist
+    if(EXISTS "${OPENSSL_SSL_LIBRARY}" AND EXISTS "${OPENSSL_CRYPTO_LIBRARY}")
+        list(APPEND ANDROID_EXTRA_LIBS
+            ${OPENSSL_CRYPTO_LIBRARY}
+            ${OPENSSL_SSL_LIBRARY}
+        )
+        message(STATUS "Added SSL libraries to ANDROID_EXTRA_LIBS")
+    endif()
+
+    # Debug: Print all extra libs being included
+    message(STATUS "Final ANDROID_EXTRA_LIBS:")
+    foreach(LIB ${ANDROID_EXTRA_LIBS})
+        message(STATUS "  - ${LIB}")
+    endforeach()
+
+    # Update deployment rules WITH SSL dependencies
     if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/android/deployment-rules.cmake")
         file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/android/deployment-rules.cmake"
-            "# Auto-generated deployment rules for HTTP-only networking\n"
+            "# Auto-generated deployment rules with HTTPS/SSL support\n"
             "set(QT_ANDROID_DEPLOYMENT_DEPENDENCIES\n"
             "    # Core libraries\n"
             "    libQt6Core.so\n"
@@ -127,22 +202,26 @@ if(ANDROID)
             "    libQt6ShaderTools.so\n"
             "    # Android extras\n"
             "    libqtandroid.so\n"
-            "    # Network support (HTTP only)\n"
+            "    # Network support with SSL\n"
             "    libQt6Network.so\n"
+            "    # OpenSSL libraries for HTTPS\n"
+            "    libssl_3.so\n"
+            "    libcrypto_3.so\n"
             ")\n"
         )
     endif()
 
-    # Additional libraries needed for Android
-    set(ANDROID_EXTRA_LIBS
-        ${CMAKE_ANDROID_NDK}/sources/cxx-stl/llvm-libc++/libs/${CMAKE_ANDROID_ARCH_ABI}/libc++_shared.so
-    )
-
     # Define JNI libs search path
     set(ANDROID_JNI_LIBS_DIRECTORIES ${CMAKE_CURRENT_SOURCE_DIR}/android/libs/${CMAKE_ANDROID_ARCH_ABI})
 
-    # Add compile definition to disable SSL features
-    target_compile_definitions(ARClothTryOn PRIVATE QT_NO_SSL)
+    # Set Android deployment settings
+    set_target_properties(ARClothTryOn PROPERTIES
+        QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android"
+        QT_ANDROID_EXTRA_LIBS "${ANDROID_EXTRA_LIBS}"
+    )
+
+    # Enable SSL support without Qt's auto-deployment
+    target_compile_definitions(ARClothTryOn PRIVATE QT_NETWORK_SSL)
 endif()
 
 # Install target

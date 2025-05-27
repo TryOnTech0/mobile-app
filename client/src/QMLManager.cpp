@@ -6,7 +6,8 @@
 #include <QLocale>
 #include <QStandardPaths>  // Added missing include
 #include <QDir>            // Added missing include
-#include <QFileInfo>   
+#include <QFileInfo>
+#include <QBuffer>
 
 QMLManager::QMLManager(QObject* parent)
     : QObject(parent),
@@ -61,6 +62,27 @@ void QMLManager::handleUploadProgress(int percent) {
     // You can emit a signal to QML for progress updates here
 }
 
+void QMLManager::handleCapturedFrame(const QImage& frame) {
+    if(frame.isNull()) return;
+
+    QByteArray imageData;
+    QBuffer buffer(&imageData);
+    buffer.open(QIODevice::WriteOnly);
+    frame.save(&buffer, "JPEG", 85);
+    
+    if(m_networkManager) {
+        if(m_currentCategory.isEmpty()) {
+            qWarning() << "Category not selected";
+            emit scanProcessingFailed("Please select a category");
+        }
+        m_networkManager->uploadScan(imageData, m_currentCategory);
+    }
+}
+
+// Add category setter
+void QMLManager::setScanCategory(const QString& category) {
+    m_currentCategory = category;
+}
 
 // Handle received garments from network
 void QMLManager::handleGarmentsReceived(const QJsonArray& garments) {
@@ -135,6 +157,12 @@ void QMLManager::updateScanProgress(int percent) {
         emit scanProgressChanged(percent);
     }
 }
+
+// void QMLManager::scanProcessingFailed(const QString& error) {
+//     qWarning() << "Scan processing failed:" << error;
+//     emit scanProcessingFailed(error);
+// }
+
 
 // Save current scan
 void QMLManager::saveScan() {

@@ -40,12 +40,14 @@ public:
     Q_INVOKABLE void requestCameraPermission();
     Q_INVOKABLE bool hasCameraPermission() const;
     Q_INVOKABLE void fetchGarments(bool forceRefresh = false);
+    Q_INVOKABLE void handleCapturedFrame(const QImage& frame);
     // Q_INVOKABLE void fetchGarments();
-
+    Q_INVOKABLE void setScanCategory(const QString& category);
     // Property getters
     int scanProgress() const;
     QVariantList garments() const;
     bool isNetworkConnected() const { return m_networkConnected; }
+    
 
 signals:
     // Permission signals
@@ -56,6 +58,7 @@ signals:
     void scanProgressChanged(int progress);
     void scanCompleted();
     void scanFailed(const QString& error);
+    void scanProcessingFailed(const QString& error);  // ADDED MISSING SIGNAL
     
     // Garment signals
     void garmentsChanged();
@@ -101,6 +104,7 @@ private:
     QVariantList m_garments;
     int m_scanProgress = 0;
     bool m_networkConnected = false;
+    QString m_currentCategory;
     
     // Helper methods
     void setupConnections();
