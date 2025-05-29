@@ -28,6 +28,231 @@
     {
         "classes": [
             {
+                "className": "CameraFrameProcessor",
+                "lineNumber": 12,
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "serverUrl",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 12,
+                        "name": "startArProcessing",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 13,
+                        "name": "stopArProcessing",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "camera",
+                                "type": "QObject*"
+                            }
+                        ],
+                        "index": 14,
+                        "name": "monitorCameraStatus",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "name": "arActive",
+                        "notify": "arActiveChanged",
+                        "read": "isArActive",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 1,
+                        "name": "cameraReady",
+                        "notify": "cameraReadyChanged",
+                        "read": "isCameraReady",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 2,
+                        "name": "videoSink",
+                        "notify": "videoSinkChanged",
+                        "read": "videoSink",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QObject*",
+                        "user": false,
+                        "write": "setVideoSink"
+                    }
+                ],
+                "qualifiedClassName": "CameraFrameProcessor",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "active",
+                                "type": "bool"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "arActiveChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "ready",
+                                "type": "bool"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "cameraReadyChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "videoSink",
+                                "type": "QObject*"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "videoSinkChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 3,
+                        "name": "arErrorOccurred",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "frame",
+                                "type": "QImage"
+                            }
+                        ],
+                        "index": 4,
+                        "name": "processedFrameReady",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "status",
+                                "type": "int"
+                            }
+                        ],
+                        "index": 5,
+                        "name": "cameraStatusChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "frame",
+                                "type": "QVideoFrame"
+                            }
+                        ],
+                        "index": 6,
+                        "name": "handleVideoFrame",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 7,
+                        "name": "handleWebSocketConnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 8,
+                        "name": "handleWebSocketDisconnected",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "message",
+                                "type": "QByteArray"
+                            }
+                        ],
+                        "index": 9,
+                        "name": "handleBinaryMessageReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "error",
+                                "type": "QAbstractSocket::SocketError"
+                            }
+                        ],
+                        "index": 10,
+                        "name": "handleWebSocketError",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "index": 11,
+                        "name": "checkCameraStatus",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "CameraFrameProcessor.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
                 "className": "ClothScanner",
                 "lineNumber": 6,
                 "object": true,
@@ -94,47 +319,9 @@
                             {
                                 "name": "garmentData",
                                 "type": "QJsonObject"
-                            },
-                            {
-                                "name": "previewPath",
-                                "type": "QString"
-                            },
-                            {
-                                "name": "modelPath",
-                                "type": "QString"
                             }
                         ],
                         "index": 34,
-                        "name": "uploadGarment",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "garmentData",
-                                "type": "QJsonObject"
-                            },
-                            {
-                                "name": "previewPath",
-                                "type": "QString"
-                            }
-                        ],
-                        "index": 35,
-                        "isCloned": true,
-                        "name": "uploadGarment",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "garmentData",
-                                "type": "QJsonObject"
-                            }
-                        ],
-                        "index": 36,
-                        "isCloned": true,
                         "name": "uploadGarment",
                         "returnType": "void"
                     },
@@ -146,7 +333,7 @@
                                 "type": "QString"
                             }
                         ],
-                        "index": 37,
+                        "index": 35,
                         "name": "deleteGarment",
                         "returnType": "void"
                     },
@@ -166,7 +353,7 @@
                                 "type": "QString"
                             }
                         ],
-                        "index": 38,
+                        "index": 36,
                         "name": "uploadScan",
                         "returnType": "void"
                     },
@@ -178,7 +365,7 @@
                                 "type": "QString"
                             }
                         ],
-                        "index": 39,
+                        "index": 37,
                         "name": "getProcessedModel",
                         "returnType": "void"
                     },
@@ -198,7 +385,7 @@
                                 "type": "QString"
                             }
                         ],
-                        "index": 40,
+                        "index": 38,
                         "name": "registerUser",
                         "returnType": "void"
                     },
@@ -214,32 +401,32 @@
                                 "type": "QString"
                             }
                         ],
-                        "index": 41,
+                        "index": 39,
                         "name": "loginUser",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 42,
+                        "index": 40,
                         "name": "logoutUser",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 43,
+                        "index": 41,
                         "isConst": true,
                         "name": "isUserLoggedIn",
                         "returnType": "bool"
                     },
                     {
                         "access": "public",
-                        "index": 44,
+                        "index": 42,
                         "name": "syncUserData",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 45,
+                        "index": 43,
                         "name": "checkServerStatus",
                         "returnType": "void"
                     }
@@ -434,11 +621,19 @@
                         "access": "public",
                         "arguments": [
                             {
-                                "name": "imageId",
+                                "name": "modelUrl",
                                 "type": "QString"
                             },
                             {
-                                "name": "modelUrl",
+                                "name": "previewUrl",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "modelKey",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "previewKey",
                                 "type": "QString"
                             }
                         ],
@@ -666,24 +861,18 @@
                     {
                         "access": "public",
                         "index": 22,
-                        "name": "uploadNewGarment",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "index": 23,
                         "name": "initializeApp",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 24,
+                        "index": 23,
                         "name": "startScanning",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 25,
+                        "index": 24,
                         "name": "saveScan",
                         "returnType": "void"
                     },
@@ -695,19 +884,19 @@
                                 "type": "QString"
                             }
                         ],
-                        "index": 26,
+                        "index": 25,
                         "name": "tryOnGarment",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 27,
+                        "index": 26,
                         "name": "requestCameraPermission",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 28,
+                        "index": 27,
                         "isConst": true,
                         "name": "hasCameraPermission",
                         "returnType": "bool"
@@ -720,13 +909,13 @@
                                 "type": "bool"
                             }
                         ],
-                        "index": 29,
+                        "index": 28,
                         "name": "fetchGarments",
                         "returnType": "void"
                     },
                     {
                         "access": "public",
-                        "index": 30,
+                        "index": 29,
                         "isCloned": true,
                         "name": "fetchGarments",
                         "returnType": "void"
@@ -743,7 +932,7 @@
                                 "type": "QString"
                             }
                         ],
-                        "index": 31,
+                        "index": 30,
                         "name": "handleCapturedFrame",
                         "returnType": "void"
                     },
@@ -755,7 +944,7 @@
                                 "type": "QString"
                             }
                         ],
-                        "index": 32,
+                        "index": 31,
                         "name": "setScanCategory",
                         "returnType": "void"
                     },
@@ -771,15 +960,27 @@
                                 "type": "QString"
                             },
                             {
+                                "name": "modelUrl",
+                                "type": "QString"
+                            },
+                            {
                                 "name": "previewUrl",
                                 "type": "QString"
                             },
                             {
-                                "name": "modelUrl",
+                                "name": "modelKey",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "previewKey",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "category",
                                 "type": "QString"
                             }
                         ],
-                        "index": 33,
+                        "index": 32,
                         "name": "saveGarment",
                         "returnType": "void"
                     }
@@ -912,6 +1113,14 @@
                             },
                             {
                                 "name": "previewUrl",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "modelKey",
+                                "type": "QString"
+                            },
+                            {
+                                "name": "previewKey",
                                 "type": "QString"
                             }
                         ],

@@ -13,24 +13,18 @@
                 {
                     "access": "public",
                     "index": 22,
-                    "name": "uploadNewGarment",
-                    "returnType": "void"
-                },
-                {
-                    "access": "public",
-                    "index": 23,
                     "name": "initializeApp",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 24,
+                    "index": 23,
                     "name": "startScanning",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 25,
+                    "index": 24,
                     "name": "saveScan",
                     "returnType": "void"
                 },
@@ -42,19 +36,19 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 26,
+                    "index": 25,
                     "name": "tryOnGarment",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 27,
+                    "index": 26,
                     "name": "requestCameraPermission",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 28,
+                    "index": 27,
                     "isConst": true,
                     "name": "hasCameraPermission",
                     "returnType": "bool"
@@ -67,13 +61,13 @@
                             "type": "bool"
                         }
                     ],
-                    "index": 29,
+                    "index": 28,
                     "name": "fetchGarments",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 30,
+                    "index": 29,
                     "isCloned": true,
                     "name": "fetchGarments",
                     "returnType": "void"
@@ -90,7 +84,7 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 31,
+                    "index": 30,
                     "name": "handleCapturedFrame",
                     "returnType": "void"
                 },
@@ -102,7 +96,7 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 32,
+                    "index": 31,
                     "name": "setScanCategory",
                     "returnType": "void"
                 },
@@ -118,15 +112,27 @@
                             "type": "QString"
                         },
                         {
+                            "name": "modelUrl",
+                            "type": "QString"
+                        },
+                        {
                             "name": "previewUrl",
                             "type": "QString"
                         },
                         {
-                            "name": "modelUrl",
+                            "name": "modelKey",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "previewKey",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "category",
                             "type": "QString"
                         }
                     ],
-                    "index": 33,
+                    "index": 32,
                     "name": "saveGarment",
                     "returnType": "void"
                 }
@@ -259,6 +265,14 @@
                         },
                         {
                             "name": "previewUrl",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "modelKey",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "previewKey",
                             "type": "QString"
                         }
                     ],

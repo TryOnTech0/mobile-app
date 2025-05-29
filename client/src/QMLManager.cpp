@@ -35,8 +35,8 @@ QMLManager::QMLManager(QObject* parent)
     });
 
     connect(m_networkManager.get(), &NetworkManager::processedModelReady,
-        this, [this](const QString& modelUrl, const QString& previewUrl) {
-            emit processedModelUrlReady(modelUrl, previewUrl);
+        this, [this](const QString& modelUrl, const QString& previewUrl, const QString& modelKey, const QString& previewKey) {
+            emit processedModelUrlReady(modelUrl, previewUrl, modelKey, previewKey);
     });
 
     connect(m_networkManager.get(), &NetworkManager::garmentUploadSucceeded,
@@ -255,103 +255,111 @@ void QMLManager::fetchGarments(bool forceRefresh) {
 }
 
 void QMLManager::saveGarment(const QString& garmentId,
-                             const QString& name, 
+                             const QString& name,
+                             const QString& modelUrl,
                              const QString& previewUrl, 
-                             const QString& modelUrl) {
+                             const QString& modelKey,
+                             const QString& previewKey,
+                             const QString& category) {
     // Create garment data
     QJsonObject garmentData;
     garmentData["name"] = name;    
     garmentData["garmentId"] = garmentId; 
+    garmentData["modelUrl"] = modelUrl;
+    garmentData["previewUrl"] = previewUrl;
+    garmentData["modelKey"] = modelKey;
+    garmentData["previewKey"] = previewKey;
+    garmentData["category"] = category;
     // Upload garment (preview will be generated server-side)
-    m_networkManager->uploadGarment(garmentData, previewUrl, modelUrl);
+    m_networkManager->uploadGarment(garmentData);
 }
 
-void QMLManager::uploadNewGarment() {
-    if (!m_networkManager) {
-        qWarning() << "NetworkManager not initialized";
-        return;
-    }
+// void QMLManager::uploadNewGarment() {
+//     if (!m_networkManager) {
+//         qWarning() << "NetworkManager not initialized";
+//         return;
+//     }
 
-    // Helper function to copy asset to temporary file
-    auto copyAssetToTemp = [](const QString &assetPath) -> QString {
-        QString tempDir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
-        QDir().mkpath(tempDir);
+//     // Helper function to copy asset to temporary file
+//     auto copyAssetToTemp = [](const QString &assetPath) -> QString {
+//         QString tempDir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+//         QDir().mkpath(tempDir);
         
-        QString fileName = QFileInfo(assetPath).fileName();
-        QString tempPath = tempDir + "/" + fileName;
+//         QString fileName = QFileInfo(assetPath).fileName();
+//         QString tempPath = tempDir + "/" + fileName;
         
-        // Remove existing temp file
-        QFile::remove(tempPath);
+//         // Remove existing temp file
+//         QFile::remove(tempPath);
         
-        // Copy from assets
-        if (QFile::copy(assetPath, tempPath)) {
-            // Make sure the temp file is readable
-            QFile::setPermissions(tempPath, QFile::ReadOwner | QFile::WriteOwner);
-            qDebug() << "Copied asset to temp:" << tempPath;
-            return tempPath;
-        } else {
-            qWarning() << "Failed to copy asset:" << assetPath << "to" << tempPath;
-            return QString();
-        }
-    };
+//         // Copy from assets
+//         if (QFile::copy(assetPath, tempPath)) {
+//             // Make sure the temp file is readable
+//             QFile::setPermissions(tempPath, QFile::ReadOwner | QFile::WriteOwner);
+//             qDebug() << "Copied asset to temp:" << tempPath;
+//             return tempPath;
+//         } else {
+//             qWarning() << "Failed to copy asset:" << assetPath << "to" << tempPath;
+//             return QString();
+//         }
+//     };
 
-    // Platform-independent path resolution
-    auto resolvePath = [&](const QString &relativePath) -> QString {
-        // Try different asset path formats for Android
-        QStringList assetPaths = {
-            "assets:/" + relativePath,
-            ":/" + relativePath,
-            "qrc:/" + relativePath,
-            ":/assets/" + relativePath
-        };
+//     // Platform-independent path resolution
+//     auto resolvePath = [&](const QString &relativePath) -> QString {
+//         // Try different asset path formats for Android
+//         QStringList assetPaths = {
+//             "assets:/" + relativePath,
+//             ":/" + relativePath,
+//             "qrc:/" + relativePath,
+//             ":/assets/" + relativePath
+//         };
         
-        for (const QString &assetPath : assetPaths) {
-            if (QFile::exists(assetPath)) {
-                qDebug() << "Found asset at:" << assetPath;
-                // Copy to temporary location for upload
-                return copyAssetToTemp(assetPath);
-            }
-        }
+//         for (const QString &assetPath : assetPaths) {
+//             if (QFile::exists(assetPath)) {
+//                 qDebug() << "Found asset at:" << assetPath;
+//                 // Copy to temporary location for upload
+//                 return copyAssetToTemp(assetPath);
+//             }
+//         }
         
-        // Fallback for desktop development
-        QString desktopPath = QCoreApplication::applicationDirPath() + "/" + relativePath;
-        if (QFile::exists(desktopPath)) {
-            qDebug() << "Found desktop file at:" << desktopPath;
-            return desktopPath;
-        }
+//         // Fallback for desktop development
+//         QString desktopPath = QCoreApplication::applicationDirPath() + "/" + relativePath;
+//         if (QFile::exists(desktopPath)) {
+//             qDebug() << "Found desktop file at:" << desktopPath;
+//             return desktopPath;
+//         }
         
-        qWarning() << "Asset not found in any location:" << relativePath;
-        return QString();
-    };
+//         qWarning() << "Asset not found in any location:" << relativePath;
+//         return QString();
+//     };
 
-    // Upload shirt
-    QString shirtPreview = resolvePath("garments/shirt/preview.jpg");
-    QString shirtModel = resolvePath("garments/shirt/model.obj");
+//     // Upload shirt
+//     QString shirtPreview = resolvePath("garments/shirt/preview.jpg");
+//     QString shirtModel = resolvePath("garments/shirt/model.obj");
     
-    if (!shirtPreview.isEmpty() && !shirtModel.isEmpty()) {
-        QJsonObject shirtData;
-        shirtData["name"] = "White Shirt";
+//     if (!shirtPreview.isEmpty() && !shirtModel.isEmpty()) {
+//         QJsonObject shirtData;
+//         shirtData["name"] = "White Shirt";
         
-        qDebug() << "Uploading shirt with preview:" << shirtPreview << "model:" << shirtModel;
-        m_networkManager->uploadGarment(shirtData, shirtPreview, shirtModel);
-    } else {
-        qWarning() << "Shirt files not found - Preview:" << shirtPreview << "Model:" << shirtModel;
-    }
+//         qDebug() << "Uploading shirt with preview:" << shirtPreview << "model:" << shirtModel;
+//         m_networkManager->uploadGarment(shirtData, shirtPreview, shirtModel);
+//     } else {
+//         qWarning() << "Shirt files not found - Preview:" << shirtPreview << "Model:" << shirtModel;
+//     }
 
-    // Upload pants
-    QString pantsPreview = resolvePath("garments/pants/preview.jpg");
-    QString pantsModel = resolvePath("garments/pants/model.obj");
+//     // Upload pants
+//     QString pantsPreview = resolvePath("garments/pants/preview.jpg");
+//     QString pantsModel = resolvePath("garments/pants/model.obj");
     
-    if (!pantsPreview.isEmpty() && !pantsModel.isEmpty()) {
-        QJsonObject pantsData;
-        pantsData["name"] = "Classic Pants";
+//     if (!pantsPreview.isEmpty() && !pantsModel.isEmpty()) {
+//         QJsonObject pantsData;
+//         pantsData["name"] = "Classic Pants";
         
-        qDebug() << "Uploading pants with preview:" << pantsPreview << "model:" << pantsModel;
-        m_networkManager->uploadGarment(pantsData, pantsPreview, pantsModel);
-    } else {
-        qWarning() << "Pants files not found - Preview:" << pantsPreview << "Model:" << pantsModel;
-    }
-}
+//         qDebug() << "Uploading pants with preview:" << pantsPreview << "model:" << pantsModel;
+//         m_networkManager->uploadGarment(pantsData, pantsPreview, pantsModel);
+//     } else {
+//         qWarning() << "Pants files not found - Preview:" << pantsPreview << "Model:" << pantsModel;
+//     }
+// }
 
 
 // Try on garment with AR - Fixed connection handling

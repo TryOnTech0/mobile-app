@@ -279,8 +279,10 @@ void NetworkManager::getProcessedModel(const QString& garmentId) {
                 if (status == "completed" && obj.contains("modelUrl")) {
                     QString modelUrl = obj["modelUrl"].toString();
                     QString previewUrl = obj["previewUrl"].toString();
+                    QString modelKey = obj["modelKey"].toString();
+                    QString previewKey = obj["previewKey"].toString();
                     qDebug() << "3D model ready for garment" << garmentId << ":" << modelUrl;
-                    emit processedModelReady(modelUrl, previewUrl);
+                    emit processedModelReady(modelUrl, previewUrl, modelKey, previewKey);
                     reply->deleteLater();
                     return;
                 } else if (status == "failed") {
@@ -298,8 +300,10 @@ void NetworkManager::getProcessedModel(const QString& garmentId) {
                 // Fallback: direct modelUrl without status field
                 QString modelUrl = obj["modelUrl"].toString();
                 QString previewUrl = obj["previewUrl"].toString();
+                QString modelKey = obj["modelKey"].toString();
+                QString previewKey = obj["previewKey"].toString();
                 qDebug() << "3D model ready for garment" << garmentId << ":" << modelUrl;
-                emit processedModelReady(modelUrl, previewUrl);
+                emit processedModelReady(modelUrl, previewUrl, modelKey, previewKey);
                 reply->deleteLater();
                 return;
             }
@@ -323,25 +327,22 @@ void NetworkManager::getProcessedModel(const QString& garmentId) {
 
 
 // Upload a new garment
-void NetworkManager::uploadGarment(const QJsonObject& garmentData, 
-                                   const QString& previewPath, 
-                                   const QString& modelPath) {
+void NetworkManager::uploadGarment(const QJsonObject& garmentData) {
     
     qDebug() << "Starting garment upload";
-    qDebug() << "Preview path:" << previewPath;
-    qDebug() << "Model path:" << modelPath;
+    // qDebug() << "Model path:" << modelPath;
     qDebug() << "Garment data:" << garmentData;
     
-    // Validate files exist
-    if (!QFile::exists(previewPath)) {
-        emit garmentUploadFailed(tr("Preview file not found: %1").arg(previewPath));
-        return;
-    }
+    // // Validate files exist
+    // if (!QFile::exists(previewPath)) {
+    //     emit garmentUploadFailed(tr("Preview file not found: %1").arg(previewPath));
+    //     return;
+    // }
     
-    if (!QFile::exists(modelPath)) {
-        emit garmentUploadFailed(tr("Model file not found: %1").arg(modelPath));
-        return;
-    }
+    // if (!QFile::exists(modelPath)) {
+    //     emit garmentUploadFailed(tr("Model file not found: %1").arg(modelPath));
+    //     return;
+    // }
     
     QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
     
@@ -355,47 +356,47 @@ void NetworkManager::uploadGarment(const QJsonObject& garmentData,
     }
 
     // Add preview file
-    QFile *previewFile = new QFile(previewPath);
-    if (!previewFile->open(QIODevice::ReadOnly)) {
-        emit garmentUploadFailed(tr("Cannot open preview file: %1").arg(previewPath));
-        delete previewFile;
-        delete multiPart;
-        return;
-    }
+    // QFile *previewFile = new QFile(previewPath);
+    // if (!previewFile->open(QIODevice::ReadOnly)) {
+    //     emit garmentUploadFailed(tr("Cannot open preview file: %1").arg(previewPath));
+    //     delete previewFile;
+    //     delete multiPart;
+    //     return;
+    // }
     
-    QHttpPart previewPart;
-    QString previewMimeType = QMimeDatabase().mimeTypeForFile(previewPath).name();
-    previewPart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant(previewMimeType));
-    previewPart.setHeader(QNetworkRequest::ContentDispositionHeader, 
-        QVariant(QString("form-data; name=\"preview\"; filename=\"%1\"").arg(QFileInfo(previewPath).fileName())));
-    previewPart.setBodyDevice(previewFile);
-    previewFile->setParent(multiPart); // Ensure cleanup
-    multiPart->append(previewPart);
+    // QHttpPart previewPart;
+    // QString previewMimeType = QMimeDatabase().mimeTypeForFile(previewPath).name();
+    // previewPart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant(previewMimeType));
+    // previewPart.setHeader(QNetworkRequest::ContentDispositionHeader, 
+    //     QVariant(QString("form-data; name=\"preview\"; filename=\"%1\"").arg(QFileInfo(previewPath).fileName())));
+    // previewPart.setBodyDevice(previewFile);
+    // previewFile->setParent(multiPart); // Ensure cleanup
+    // multiPart->append(previewPart);
 
-    // Add model file
-    QFile *modelFile = new QFile(modelPath);
-    if (!modelFile->open(QIODevice::ReadOnly)) {
-        emit garmentUploadFailed(tr("Cannot open model file: %1").arg(modelPath));
-        delete modelFile;
-        delete multiPart;
-        return;
-    }
+    // // Add model file
+    // QFile *modelFile = new QFile(modelPath);
+    // if (!modelFile->open(QIODevice::ReadOnly)) {
+    //     emit garmentUploadFailed(tr("Cannot open model file: %1").arg(modelPath));
+    //     delete modelFile;
+    //     delete multiPart;
+    //     return;
+    // }
     
-    QHttpPart modelPart;
-    QString modelMimeType = QMimeDatabase().mimeTypeForFile(modelPath).name();
-    if (modelMimeType == "application/octet-stream" || modelMimeType.isEmpty()) {
-        // Set specific MIME type for .obj files
-        if (modelPath.endsWith(".obj", Qt::CaseInsensitive)) {
-            modelMimeType = "text/plain"; // or "model/obj" if server supports it
-        }
-    }
+    // QHttpPart modelPart;
+    // QString modelMimeType = QMimeDatabase().mimeTypeForFile(modelPath).name();
+    // if (modelMimeType == "application/octet-stream" || modelMimeType.isEmpty()) {
+    //     // Set specific MIME type for .obj files
+    //     if (modelPath.endsWith(".obj", Qt::CaseInsensitive)) {
+    //         modelMimeType = "text/plain"; // or "model/obj" if server supports it
+    //     }
+    // }
     
-    modelPart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant(modelMimeType));
-    modelPart.setHeader(QNetworkRequest::ContentDispositionHeader, 
-        QVariant(QString("form-data; name=\"model\"; filename=\"%1\"").arg(QFileInfo(modelPath).fileName())));
-    modelPart.setBodyDevice(modelFile);
-    modelFile->setParent(multiPart); // Ensure cleanup
-    multiPart->append(modelPart);
+    // modelPart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant(modelMimeType));
+    // modelPart.setHeader(QNetworkRequest::ContentDispositionHeader, 
+    //     QVariant(QString("form-data; name=\"model\"; filename=\"%1\"").arg(QFileInfo(modelPath).fileName())));
+    // modelPart.setBodyDevice(modelFile);
+    // modelFile->setParent(multiPart); // Ensure cleanup
+    // multiPart->append(modelPart);
 
     // Send request
     QUrl url(m_serverUrl + "/garments");
@@ -406,16 +407,16 @@ void NetworkManager::uploadGarment(const QJsonObject& garmentData,
     QNetworkReply *reply = m_networkManager->post(request, multiPart);
     multiPart->setParent(reply); // Delete multiPart with reply
     
-    connect(reply, &QNetworkReply::finished, this, [this, reply, previewPath, modelPath]() {
+    connect(reply, &QNetworkReply::finished, this, [this, reply/*, previewPath, modelPath*/]() {
         // Clean up temporary files if they were created
-        if (previewPath.contains(QStandardPaths::writableLocation(QStandardPaths::TempLocation))) {
-            QFile::remove(previewPath);
-            qDebug() << "Cleaned up temp preview file:" << previewPath;
-        }
-        if (modelPath.contains(QStandardPaths::writableLocation(QStandardPaths::TempLocation))) {
-            QFile::remove(modelPath);
-            qDebug() << "Cleaned up temp model file:" << modelPath;
-        }
+        // if (previewPath.contains(QStandardPaths::writableLocation(QStandardPaths::TempLocation))) {
+        //     QFile::remove(previewPath);
+        //     qDebug() << "Cleaned up temp preview file:" << previewPath;
+        // }
+        // if (modelPath.contains(QStandardPaths::writableLocation(QStandardPaths::TempLocation))) {
+        //     QFile::remove(modelPath);
+        //     qDebug() << "Cleaned up temp model file:" << modelPath;
+        // }
         
         handleUploadFinished(reply);
     });

@@ -6,6 +6,10 @@ const ModelProcessedSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  category: {
+    type: String,
+    required: [true, 'Category is required']
+  },
   previewUrl: {
     type: String,
     required: [true, 'Preview URL is required']

@@ -8,5 +8,6 @@ ScanResultPage 1.0 qml/ScanResultPage.qml
 GarmentSelectionPage 1.0 qml/GarmentSelectionPage.qml
 GarmentPreviewPage 1.0 qml/GarmentPreviewPage.qml
 AuthorizationPage 1.0 qml/AuthorizationPage.qml
+ARCamera 1.0 qml/ARCamera.qml
 Style 1.0 qml/Style.qml
 

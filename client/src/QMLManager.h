@@ -32,7 +32,7 @@ public:
     ~QMLManager() = default;
 
     // Q_INVOKABLE methods for QML
-    Q_INVOKABLE void uploadNewGarment();
+    // Q_INVOKABLE void uploadNewGarment();
     Q_INVOKABLE void initializeApp();
     Q_INVOKABLE void startScanning();
     Q_INVOKABLE void saveScan();
@@ -44,9 +44,12 @@ public:
     // Q_INVOKABLE void fetchGarments();
     Q_INVOKABLE void setScanCategory(const QString& category);
     Q_INVOKABLE void saveGarment(const QString& garmentId,
-                             const QString& name, 
+                             const QString& name,
+                             const QString& modelUrl,
                              const QString& previewUrl, 
-                             const QString& modelUrl);
+                             const QString& modelKey,
+                             const QString& previewKey,
+                             const QString& category);
     // Property getters
     int scanProgress() const;
     QVariantList garments() const;
@@ -67,7 +70,7 @@ signals:
     // Garment signals
     void garmentsChanged();
     void garmentLoadFailed(const QString& error);
-    void processedModelUrlReady(const QString& modelUrl, const QString& previewUrl);
+    void processedModelUrlReady(const QString& modelUrl, const QString& previewUrl, const QString& modelKey, const QString& previewKey);
     
     // AR signals
     void arSessionReady();

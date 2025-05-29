@@ -1,4 +1,5 @@
 C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_autogen/include/../UVLADIE3JM/moc_BodyTracker.cpp.json
+C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_autogen/include/../UVLADIE3JM/moc_CameraFrameProcessor.cpp.json
 C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_autogen/include/../UVLADIE3JM/moc_ClothScanner.cpp.json
 C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_autogen/include/../UVLADIE3JM/moc_NetworkManager.cpp.json
 C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn_autogen/include/../UVLADIE3JM/moc_QMLManager.cpp.json

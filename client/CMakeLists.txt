@@ -11,7 +11,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 
-# Find Qt packages - INCLUDING SSL SUPPORT
+# Find Qt packages - INCLUDING SSL SUPPORT AND 3D/GLB SUPPORT
 find_package(Qt6 REQUIRED COMPONENTS
     Core
     Quick
@@ -19,15 +19,23 @@ find_package(Qt6 REQUIRED COMPONENTS
     Multimedia
     Qml
     Network
+    WebSockets
     Quick3D
+    Quick3DAssetImport      # NEW: Essential for GLB/GLTF import
+    Quick3DAssetUtils       # NEW: Asset utilities for 3D models
+    Quick3DRuntimeRender    # NEW: Runtime rendering for Quick3D
+    Quick3DUtils            # NEW: Additional 3D utilities
     DataVisualization
     3DCore
     3DRender
     3DInput
     3DExtras
+    3DAnimation            # NEW: For 3D animations in GLB files
+    3DLogic                # NEW: For 3D logic components
     OpenGL
     ShaderTools
     Svg
+    Concurrent             # NEW: May be needed for async GLB loading
 )
 
 # Add Qt resources
@@ -49,6 +57,8 @@ qt_add_executable(ARClothTryOn
     src/ImageConverter.cpp
     src/NetworkManager.cpp
     src/NetworkManager.h
+    src/CameraFrameProcessor.cpp
+    src/CameraFrameProcessor.h
     resources.qrc
     ${QRC_FILES}
 )
@@ -68,12 +78,11 @@ qt_add_qml_module(ARClothTryOn
         qml/GarmentSelectionPage.qml
         qml/GarmentPreviewPage.qml
         qml/AuthorizationPage.qml
+        qml/ARCamera.qml
         qml/Style.qml
     RESOURCES
         qml/qmldir
     RESOURCE_PREFIX /
-    SOURCES src/NetworkManager.cpp
-    SOURCES src/NetworkManager.h
 )
 
 # Include directories
@@ -81,7 +90,7 @@ target_include_directories(ARClothTryOn PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-# Link libraries - WITH SSL SUPPORT
+# Link libraries - WITH SSL SUPPORT AND ENHANCED 3D SUPPORT
 target_link_libraries(ARClothTryOn PRIVATE
     Qt6::Core
     Qt6::Quick
@@ -89,15 +98,29 @@ target_link_libraries(ARClothTryOn PRIVATE
     Qt6::Multimedia
     Qt6::Qml
     Qt6::Network
+    Qt6::WebSockets
     Qt6::CorePrivate
     Qt6::Quick3D
+    Qt6::Quick3DAssetImport      # NEW: Essential for GLB/GLTF import
+    Qt6::Quick3DAssetUtils       # NEW: Asset utilities
+    Qt6::Quick3DRuntimeRender    # NEW: Runtime rendering
+    Qt6::Quick3DUtils            # NEW: 3D utilities
     Qt6::DataVisualization
     Qt6::3DCore
     Qt6::3DRender
     Qt6::3DInput
     Qt6::3DExtras
+    Qt6::3DAnimation            # NEW: 3D animations
+    Qt6::3DLogic                # NEW: 3D logic
     Qt6::OpenGL
     Qt6::ShaderTools
+    Qt6::Concurrent             # NEW: Concurrent processing
+)
+
+# Enable 3D asset import features (GLB/GLTF support)
+target_compile_definitions(ARClothTryOn PRIVATE
+    QT_3D_ASSET_IMPORT          # Enable 3D asset import
+    QT_QUICK3D_ENABLE_GLTF      # Enable GLTF/GLB support
 )
 
 # Android configuration
@@ -179,27 +202,36 @@ if(ANDROID)
         message(STATUS "  - ${LIB}")
     endforeach()
 
-    # Update deployment rules WITH SSL dependencies
+    # Update deployment rules WITH SSL dependencies AND 3D SUPPORT
     if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/android/deployment-rules.cmake")
         file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/android/deployment-rules.cmake"
-            "# Auto-generated deployment rules with HTTPS/SSL support\n"
+            "# Auto-generated deployment rules with HTTPS/SSL support and 3D/GLB support\n"
             "set(QT_ANDROID_DEPLOYMENT_DEPENDENCIES\n"
             "    # Core libraries\n"
             "    libQt6Core.so\n"
             "    libQt6Gui.so\n"
             "    libQt6Network.so\n"
+            "    libQt6WebSockets.so\n"
             "    libQt6QmlModels.so\n"
             "    libQt6Qml.so\n"
             "    libQt6Quick.so\n"
             "    libQt6QuickControls2.so\n"
             "    libQt6Multimedia.so\n"
-            "    # 3D rendering\n"
+            "    # 3D rendering libraries\n"
             "    libQt63DCore.so\n"
             "    libQt63DRender.so\n"
             "    libQt63DInput.so\n"
             "    libQt63DExtras.so\n"
+            "    libQt63DAnimation.so\n"
+            "    libQt63DLogic.so\n"
             "    libQt6OpenGL.so\n"
             "    libQt6ShaderTools.so\n"
+            "    # Quick3D libraries for GLB support\n"
+            "    libQt6Quick3D.so\n"
+            "    libQt6Quick3DAssetImport.so\n"
+            "    libQt6Quick3DAssetUtils.so\n"
+            "    libQt6Quick3DRuntimeRender.so\n"
+            "    libQt6Quick3DUtils.so\n"
             "    # Android extras\n"
             "    libqtandroid.so\n"
             "    # Network support with SSL\n"
@@ -207,6 +239,8 @@ if(ANDROID)
             "    # OpenSSL libraries for HTTPS\n"
             "    libssl_3.so\n"
             "    libcrypto_3.so\n"
+            "    # Concurrent processing\n"
+            "    libQt6Concurrent.so\n"
             ")\n"
         )
     endif()
@@ -221,7 +255,11 @@ if(ANDROID)
     )
 
     # Enable SSL support without Qt's auto-deployment
-    target_compile_definitions(ARClothTryOn PRIVATE QT_NETWORK_SSL)
+    target_compile_definitions(ARClothTryOn PRIVATE
+        QT_NETWORK_SSL
+        QT_3D_ASSET_IMPORT          # Enable 3D asset import on Android
+        QT_QUICK3D_ENABLE_GLTF      # Enable GLTF/GLB support on Android
+    )
 endif()
 
 # Install target

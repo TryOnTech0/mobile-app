@@ -6,7 +6,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 329,
+                        "durationMicroseconds": 349,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "color",
                         "line": 8
@@ -14,7 +14,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 40,
-                        "durationMicroseconds": 181,
+                        "durationMicroseconds": 191,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "color",
                         "line": 13
@@ -22,7 +22,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 23,
-                        "durationMicroseconds": 31,
+                        "durationMicroseconds": 14,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "fill",
                         "line": 17
@@ -46,7 +46,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 35,
-                        "durationMicroseconds": 69,
+                        "durationMicroseconds": 60,
                         "errorMessage": "Cannot access value for name Qt",
                         "functionName": "alignment",
                         "line": 27
@@ -70,7 +70,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 110,
+                        "durationMicroseconds": 127,
                         "errorMessage": "Cannot retrieve a non-object type by ID: loadingIndicator",
                         "functionName": "onGarmentsChanged",
                         "line": 52
@@ -78,7 +78,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 20,
-                        "durationMicroseconds": 3911,
+                        "durationMicroseconds": 4832,
                         "errorMessage": "Cannot load property gridSpacing from const QMetaObject.",
                         "functionName": "cellWidth",
                         "line": 69
@@ -86,7 +86,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 21,
-                        "durationMicroseconds": 276,
+                        "durationMicroseconds": 294,
                         "errorMessage": "",
                         "functionName": "cellHeight",
                         "line": 70
@@ -94,7 +94,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 18,
-                        "durationMicroseconds": 186,
+                        "durationMicroseconds": 184,
                         "errorMessage": "",
                         "functionName": "top",
                         "line": 63
@@ -102,7 +102,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 19,
-                        "durationMicroseconds": 146,
+                        "durationMicroseconds": 152,
                         "errorMessage": "",
                         "functionName": "left",
                         "line": 64
@@ -110,7 +110,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 20,
-                        "durationMicroseconds": 104,
+                        "durationMicroseconds": 121,
                         "errorMessage": "",
                         "functionName": "right",
                         "line": 65
@@ -118,7 +118,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 21,
-                        "durationMicroseconds": 143,
+                        "durationMicroseconds": 117,
                         "errorMessage": "",
                         "functionName": "bottom",
                         "line": 66
@@ -134,7 +134,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 20,
-                        "durationMicroseconds": 50,
+                        "durationMicroseconds": 36,
                         "errorMessage": "Cannot access value for name gridView",
                         "functionName": "width",
                         "line": 74
@@ -150,7 +150,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 71,
+                        "durationMicroseconds": 82,
                         "errorMessage": "",
                         "functionName": "fill",
                         "line": 80
@@ -158,7 +158,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 27,
-                        "durationMicroseconds": 123,
+                        "durationMicroseconds": 109,
                         "errorMessage": "",
                         "functionName": "when",
                         "line": 88
@@ -166,7 +166,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 33,
-                        "durationMicroseconds": 72,
+                        "durationMicroseconds": 79,
                         "errorMessage": "",
                         "functionName": "target",
                         "line": 90
@@ -182,7 +182,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 26,
-                        "durationMicroseconds": 60,
+                        "durationMicroseconds": 34,
                         "errorMessage": "Cannot load property gridSpacing from const QMetaObject.",
                         "functionName": "spacing",
                         "line": 98
@@ -190,7 +190,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 111,
+                        "durationMicroseconds": 79,
                         "errorMessage": "",
                         "functionName": "fill",
                         "line": 99
@@ -198,7 +198,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 34,
-                        "durationMicroseconds": 46,
+                        "durationMicroseconds": 36,
                         "errorMessage": "Cannot load property gridSpacing from const QMetaObject.",
                         "functionName": "margins",
                         "line": 100
@@ -206,7 +206,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 28,
+                        "durationMicroseconds": 24,
                         "errorMessage": "Cannot load property backgroundColor from const QMetaObject.",
                         "functionName": "color",
                         "line": 108
@@ -214,7 +214,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 45,
-                        "durationMicroseconds": 69,
+                        "durationMicroseconds": 59,
                         "errorMessage": "Cannot access value for name gridView",
                         "functionName": "preferredHeight",
                         "line": 106
@@ -222,7 +222,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 35,
-                        "durationMicroseconds": 50,
+                        "durationMicroseconds": 29,
                         "errorMessage": "Cannot load property secondaryColor from const QMetaObject.",
                         "functionName": "color",
                         "line": 109
@@ -230,7 +230,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 33,
-                        "durationMicroseconds": 57,
+                        "durationMicroseconds": 70,
                         "errorMessage": "Cannot access value for name model",
                         "functionName": "source",
                         "line": 118
@@ -238,7 +238,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 120,
+                        "durationMicroseconds": 96,
                         "errorMessage": "",
                         "functionName": "fillMode",
                         "line": 119
@@ -246,7 +246,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 37,
-                        "durationMicroseconds": 326,
+                        "durationMicroseconds": 16586,
                         "errorMessage": "",
                         "functionName": "sourceSize",
                         "line": 121
@@ -254,7 +254,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 42,
-                        "durationMicroseconds": 990,
+                        "durationMicroseconds": 1405,
                         "errorMessage": "",
                         "functionName": "onStatusChanged",
                         "line": 124
@@ -262,7 +262,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 84,
+                        "durationMicroseconds": 108,
                         "errorMessage": "",
                         "functionName": "fill",
                         "line": 115
@@ -270,7 +270,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 289,
+                        "durationMicroseconds": 308,
                         "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
                         "functionName": "color",
                         "line": 138
@@ -278,7 +278,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 43,
-                        "durationMicroseconds": 62,
+                        "durationMicroseconds": 77,
                         "errorMessage": "",
                         "functionName": "fill",
                         "line": 137
@@ -286,7 +286,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 51,
-                        "durationMicroseconds": 65,
+                        "durationMicroseconds": 70,
                         "errorMessage": "",
                         "functionName": "centerIn",
                         "line": 143
@@ -294,7 +294,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 58,
-                        "durationMicroseconds": 298,
+                        "durationMicroseconds": 114,
                         "errorMessage": "",
                         "functionName": "horizontalAlignment",
                         "line": 151
@@ -302,7 +302,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 44,
-                        "durationMicroseconds": 60,
+                        "durationMicroseconds": 45,
                         "errorMessage": "Cannot load property primaryColor from const QMetaObject.",
                         "functionName": "color",
                         "line": 158
@@ -310,7 +310,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 59,
-                        "durationMicroseconds": 150,
+                        "durationMicroseconds": 72,
                         "errorMessage": "",
                         "functionName": "centerIn",
                         "line": 162
@@ -318,7 +318,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 52,
-                        "durationMicroseconds": 483,
+                        "durationMicroseconds": 963,
                         "errorMessage": "",
                         "functionName": "onClicked",
                         "line": 170
@@ -326,7 +326,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 55,
-                        "durationMicroseconds": 95,
+                        "durationMicroseconds": 145,
                         "errorMessage": "",
                         "functionName": "fill",
                         "line": 169
@@ -358,7 +358,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 27,
-                        "durationMicroseconds": 74,
+                        "durationMicroseconds": 69,
                         "errorMessage": "Cannot access value for name model",
                         "functionName": "text",
                         "line": 191
@@ -366,7 +366,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 35,
+                        "durationMicroseconds": 34,
                         "errorMessage": "Cannot load property primaryColor from const QMetaObject.",
                         "functionName": "color",
                         "line": 192
@@ -374,7 +374,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 27,
-                        "durationMicroseconds": 28,
+                        "durationMicroseconds": 24,
                         "errorMessage": "Cannot load property buttonFont from const QMetaObject.",
                         "functionName": "font",
                         "line": 193
@@ -382,7 +382,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 28,
-                        "durationMicroseconds": 180,
+                        "durationMicroseconds": 149,
                         "errorMessage": "",
                         "functionName": "elide",
                         "line": 194
@@ -390,7 +390,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 42,
-                        "durationMicroseconds": 139,
+                        "durationMicroseconds": 135,
                         "errorMessage": "",
                         "functionName": "horizontalAlignment",
                         "line": 195
@@ -398,7 +398,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 2522,
+                        "durationMicroseconds": 2860,
                         "errorMessage": "Cannot access value for name model",
                         "functionName": "onClicked",
                         "line": 205
@@ -406,7 +406,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 284,
+                        "durationMicroseconds": 223,
                         "errorMessage": "Cannot load property primaryColor from const QMetaObject.",
                         "functionName": "onPressed",
                         "line": 238
@@ -414,7 +414,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 29,
-                        "durationMicroseconds": 107,
+                        "durationMicroseconds": 180,
                         "errorMessage": "Cannot load property primaryColor from const QMetaObject.",
                         "functionName": "onReleased",
                         "line": 245
@@ -422,7 +422,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 118,
+                        "durationMicroseconds": 110,
                         "errorMessage": "",
                         "functionName": "fill",
                         "line": 202
@@ -510,7 +510,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 143,
+                        "durationMicroseconds": 156,
                         "errorMessage": "Cannot retrieve a non-object type by ID: loadingIndicator",
                         "functionName": "onCompleted",
                         "line": 279
@@ -518,7 +518,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 17,
-                        "durationMicroseconds": 132,
+                        "durationMicroseconds": 192,
                         "errorMessage": "",
                         "functionName": "target",
                         "line": 289
@@ -526,7 +526,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 9,
-                        "durationMicroseconds": 81,
+                        "durationMicroseconds": 83,
                         "errorMessage": "Cannot retrieve a non-object type by ID: loadingIndicator",
                         "functionName": "onGarmentsChanged",
                         "line": 290

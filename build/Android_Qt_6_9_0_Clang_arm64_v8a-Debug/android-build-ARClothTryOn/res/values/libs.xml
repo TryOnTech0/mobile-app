@@ -15,10 +15,11 @@
         <item>arm64-v8a;Qt6Gui_arm64-v8a</item>
         <item>arm64-v8a;Qt6Network_arm64-v8a</item>
         <item>arm64-v8a;Qt63DCore_arm64-v8a</item>
-        <item>arm64-v8a;Qt63DInput_arm64-v8a</item>
-        <item>arm64-v8a;Qt63DLogic_arm64-v8a</item>
         <item>arm64-v8a;Qt6OpenGL_arm64-v8a</item>
         <item>arm64-v8a;Qt63DRender_arm64-v8a</item>
+        <item>arm64-v8a;Qt63DAnimation_arm64-v8a</item>
+        <item>arm64-v8a;Qt63DInput_arm64-v8a</item>
+        <item>arm64-v8a;Qt63DLogic_arm64-v8a</item>
         <item>arm64-v8a;Qt63DExtras_arm64-v8a</item>
         <item>arm64-v8a;Qt6DataVisualization_arm64-v8a</item>
         <item>arm64-v8a;Qt6Multimedia_arm64-v8a</item>
@@ -28,11 +29,15 @@
         <item>arm64-v8a;Qt6QmlMeta_arm64-v8a</item>
         <item>arm64-v8a;Qt6Quick_arm64-v8a</item>
         <item>arm64-v8a;Qt6Quick3DUtils_arm64-v8a</item>
+        <item>arm64-v8a;Qt6Quick3DAssetImport_arm64-v8a</item>
         <item>arm64-v8a;Qt6ShaderTools_arm64-v8a</item>
         <item>arm64-v8a;Qt6Quick3DRuntimeRender_arm64-v8a</item>
         <item>arm64-v8a;Qt6Quick3D_arm64-v8a</item>
+        <item>arm64-v8a;Qt6QuickTimeline_arm64-v8a</item>
+        <item>arm64-v8a;Qt6Quick3DAssetUtils_arm64-v8a</item>
         <item>arm64-v8a;Qt6QuickTemplates2_arm64-v8a</item>
         <item>arm64-v8a;Qt6QuickControls2_arm64-v8a</item>
+        <item>arm64-v8a;Qt6WebSockets_arm64-v8a</item>
         <item>arm64-v8a;Qt6Svg_arm64-v8a</item>
         <item>arm64-v8a;avutil</item>
         <item>arm64-v8a;swresample</item>
@@ -41,7 +46,6 @@
         <item>arm64-v8a;Qt6FFmpegStub-ssl_arm64-v8a</item>
         <item>arm64-v8a;avformat</item>
         <item>arm64-v8a;swscale</item>
-        <item>arm64-v8a;Qt63DAnimation_arm64-v8a</item>
         <item>arm64-v8a;Qt63DQuick_arm64-v8a</item>
         <item>arm64-v8a;Qt63DQuickScene2D_arm64-v8a</item>
         <item>arm64-v8a;Qt6QuickControls2Impl_arm64-v8a</item>
@@ -61,10 +65,10 @@
         <item>arm64-v8a;Qt6QuickShapes_arm64-v8a</item>
         <item>arm64-v8a;Qt6LabsQmlModels_arm64-v8a</item>
         <item>arm64-v8a;Qt6MultimediaQuick_arm64-v8a</item>
+        <item>arm64-v8a;Qt6QmlCore_arm64-v8a</item>
         <item>arm64-v8a;Qt6QuickDialogs2Utils_arm64-v8a</item>
         <item>arm64-v8a;Qt6QuickDialogs2QuickImpl_arm64-v8a</item>
         <item>arm64-v8a;Qt6QuickDialogs2_arm64-v8a</item>
-        <item>arm64-v8a;Qt6QmlCore_arm64-v8a</item>
         <item>arm64-v8a;Qt63DQuickRender_arm64-v8a</item>
         <item>arm64-v8a;Qt63DQuickInput_arm64-v8a</item>
         <item>arm64-v8a;Qt63DQuickExtras_arm64-v8a</item>

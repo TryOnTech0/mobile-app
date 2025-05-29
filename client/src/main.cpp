@@ -3,6 +3,8 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include "QMLManager.h"
+#include "NetworkManager.h"
+#include "CameraFrameProcessor.h"
 #include <Qt3DRender/QRenderAspect>
 #include <QSslSocket>
 
@@ -37,6 +39,7 @@ int main(int argc, char *argv[])
     // Register QMLManager
     qmlRegisterType<QMLManager>("ARClothTryOn", 1, 0, "QMLManager");
     qmlRegisterType<NetworkManager>("ARClothTryOn", 1, 0, "NetworkManager");
+    qmlRegisterType<CameraFrameProcessor>("ARClothTryOn", 1, 0, "CameraFrameProcessor");
 
 #ifdef Q_OS_ANDROID
     // Initialize Qt Android platform integration
@@ -68,19 +71,3 @@ int main(int argc, char *argv[])
     return app.exec();
 }
 
-
-
-
-// int main(int argc, char *argv[]) {
-//     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-//     QGuiApplication app(argc, argv);
-
-//     // Verify SSL availability
-//     if (!QSslSocket::supportsSsl()) {
-//         qDebug() << "SSL NOT SUPPORTED. Available backends:"
-//                  << QSslSocket::availableBackends();
-//         exit(1);
-//     }
-
-//     // ... rest of your code
-// }

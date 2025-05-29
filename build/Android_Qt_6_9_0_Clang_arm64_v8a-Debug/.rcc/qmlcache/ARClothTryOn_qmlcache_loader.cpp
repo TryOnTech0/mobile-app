@@ -54,6 +54,13 @@ namespace _0x5f_ARClothTryOn_qml_AuthorizationPage_qml {
         reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
     };
 }
+namespace _0x5f_ARClothTryOn_qml_ARCamera_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
 namespace _0x5f_ARClothTryOn_qml_Style_qml { 
     extern const unsigned char qmlData[];
     extern const QQmlPrivate::AOTCompiledFunction aotBuiltFunctions[];
@@ -82,6 +89,7 @@ Registry::Registry() {
     resourcePathToCachedUnit.insert(QStringLiteral("/ARClothTryOn/qml/GarmentSelectionPage.qml"), &QmlCacheGeneratedCode::_0x5f_ARClothTryOn_qml_GarmentSelectionPage_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/ARClothTryOn/qml/GarmentPreviewPage.qml"), &QmlCacheGeneratedCode::_0x5f_ARClothTryOn_qml_GarmentPreviewPage_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/ARClothTryOn/qml/AuthorizationPage.qml"), &QmlCacheGeneratedCode::_0x5f_ARClothTryOn_qml_AuthorizationPage_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/ARClothTryOn/qml/ARCamera.qml"), &QmlCacheGeneratedCode::_0x5f_ARClothTryOn_qml_ARCamera_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/ARClothTryOn/qml/Style.qml"), &QmlCacheGeneratedCode::_0x5f_ARClothTryOn_qml_Style_qml::unit);
     QQmlPrivate::RegisterQmlUnitCacheHook registration;
     registration.structVersion = 0;

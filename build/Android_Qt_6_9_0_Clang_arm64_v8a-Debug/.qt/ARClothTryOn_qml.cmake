@@ -16,6 +16,8 @@ set(src_and_dest_list
     "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn/qml/GarmentPreviewPage.qml"
     "C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/qml/AuthorizationPage.qml"
     "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn/qml/AuthorizationPage.qml"
+    "C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/qml/ARCamera.qml"
+    "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn/qml/ARCamera.qml"
     "C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/qml/Style.qml"
     "C:/ProgramData/QtCreator/Links/348752b97bcdd4f89f435c6ba36a1a4e/ARClothTryOn/qml/Style.qml"
 

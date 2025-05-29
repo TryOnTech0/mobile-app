@@ -57,20 +57,20 @@ router.post('/', auth, upload.fields([
   console.log('Using bucket:', process.env.AWS_S3_BUCKET_NAME);
   console.log('Using region:', process.env.AWS_REGION);
   try {
-    if (!req.files || !req.files.preview || !req.files.model) {
-      return res.status(400).json({ error: 'Both preview and model files are required' });
-    }
+    // if (!req.files || !req.files.preview || !req.files.model) {
+    //   return res.status(400).json({ error: 'Both preview and model files are required' });
+    // }
 
-    const uploadedFiles = {
-      preview: req.files.preview[0],
-      model: req.files.model[0]
-    };
+    // const uploadedFiles = {
+    //   preview: req.files.preview[0],
+    //   model: req.files.model[0]
+    // };
 
-    // Upload files with different handling
-    const [previewData, modelData] = await Promise.all([
-      uploadFileToS3(uploadedFiles.preview),
-      uploadFileToS3(uploadedFiles.model)
-    ]);
+    // // Upload files with different handling
+    // const [previewData, modelData] = await Promise.all([
+    //   uploadFileToS3(uploadedFiles.preview),
+    //   uploadFileToS3(uploadedFiles.model)
+    // ]);
 
     // Use provided garmentId or generate new one
     let garmentId;
@@ -88,10 +88,10 @@ router.post('/', auth, upload.fields([
     const newGarment = new Garment({
       garmentId,
       name: req.body.name,
-      previewUrl: previewData.url,
-      previewKey: previewData.key,
-      modelUrl: modelData.url,
-      modelKey: modelData.key,
+      previewUrl: req.body.previewUrl,
+      previewKey: req.body.previewKey,
+      modelUrl: req.body.modelUrl,
+      modelKey: req.body.modelKey,
       createdBy: req.user.id
     });
 

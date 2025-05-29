@@ -3,6 +3,7 @@
         <file>qml/Main.qml</file>
         <file>qml/MainPage.qml</file>
         <file>qml/CameraPage.qml</file>
+        <file>qml/ARCamera.qml</file>
         <file>qml/ScanResultPage.qml</file>
         <file>qml/GarmentSelectionPage.qml</file>
         <file>qml/GarmentPreviewPage.qml</file>

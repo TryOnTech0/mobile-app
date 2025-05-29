@@ -11,6 +11,10 @@ const GarmentSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  category: {
+    type: String,
+    required: [true, 'Category is required']
+  },
   previewUrl: {
     type: String,
     required: [true, 'Preview URL is required']

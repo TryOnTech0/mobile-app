@@ -41,9 +41,7 @@ public:
 
     // CRUD operations
     Q_INVOKABLE void fetchGarments(bool forceRefresh = false);
-    Q_INVOKABLE void uploadGarment(const QJsonObject& garmentData, 
-                              const QString& previewPath = QString(),
-                              const QString& modelPath = QString());
+    Q_INVOKABLE void uploadGarment(const QJsonObject& garmentData);
     Q_INVOKABLE void deleteGarment(const QString& garmentId);
     Q_INVOKABLE void uploadScan(const QByteArray& imageData, const QString& category, const QString& garmentId);
     Q_INVOKABLE void getProcessedModel(const QString& imageId);
@@ -77,7 +75,7 @@ signals:
     // Scan upload signals - ADDED MISSING SIGNAL
     void scanUploaded(const QString& imageId, const QString& imageUrl);
     void scanProgressChanged(int progress);
-    void processedModelReady(const QString& imageId, const QString& modelUrl);
+    void processedModelReady(const QString& modelUrl, const QString& previewUrl, const QString& modelKey, const QString& previewKey);
 
 
 

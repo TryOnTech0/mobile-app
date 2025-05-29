@@ -3,6 +3,8 @@ ARClothTryOn_autogen/timestamp: \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/resources.qrc \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/BodyTracker.cpp \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/BodyTracker.h \
+	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/CameraFrameProcessor.cpp \
+	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/CameraFrameProcessor.h \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/ClothFitter.cpp \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/ClothFitter.h \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/ClothScanner.cpp \
@@ -781,6 +783,7 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QSharedDataPointer \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QString \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QStringList \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QTimer \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QUrl \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QUrlQuery \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QVariant \
@@ -938,6 +941,7 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qtformat_impl.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qthread.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qthreadpool.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qtimer.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qtimezone.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qtmetamacros.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qtnoop.h \
@@ -979,17 +983,34 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtGui/qtguiglobal.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtGui/qtransform.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtGui/qwindowdefs.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/QCamera \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/QMediaCaptureSession \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/QVideoSink \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qcamera.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qcameradevice.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qmediacapturesession.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qtmultimedia-config.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qtmultimediaexports.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qtmultimediaglobal.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qtvideo.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qvideoframe.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qvideoframeformat.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qvideosink.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QAbstractSocket \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QAuthenticator \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QNetworkAccessManager \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QNetworkProxy \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QNetworkReply \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QNetworkRequest \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QSslConfiguration \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QSslError \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QSslPreSharedKeyAuthenticator \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qabstractsocket.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qauthenticator.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qhostaddress.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qhttpheaders.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkaccessmanager.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkproxy.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkreply.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkrequest.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qssl.h \
@@ -1004,6 +1025,11 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qtnetworkglobal.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtQml/qqmlregistration.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtQmlIntegration/qqmlintegration.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtWebSockets/QWebSocket \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtWebSockets/qtwebsocketsexports.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtWebSockets/qwebsocket.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtWebSockets/qwebsocketprotocol.h \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtWebSockets/qwebsockets_global.h \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules/ECMFindModuleHelpersStub.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules/FindEGL.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/3rdparty/extra-cmake-modules/modules/ECMFindModuleHelpers.cmake \
@@ -1048,6 +1074,21 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/QtPublicToolHelpers.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/QtPublicWalkLibsHelpers.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/QtPublicWindowsHelpers.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimation/Qt63DAnimationAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimation/Qt63DAnimationConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimation/Qt63DAnimationConfigVersion.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimation/Qt63DAnimationConfigVersionImpl.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimation/Qt63DAnimationDependencies.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimation/Qt63DAnimationTargets-relwithdebinfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimation/Qt63DAnimationTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimation/Qt63DAnimationVersionlessAliasTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimationPrivate/Qt63DAnimationPrivateAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimationPrivate/Qt63DAnimationPrivateConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimationPrivate/Qt63DAnimationPrivateConfigVersion.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimationPrivate/Qt63DAnimationPrivateConfigVersionImpl.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimationPrivate/Qt63DAnimationPrivateDependencies.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimationPrivate/Qt63DAnimationPrivateTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DAnimationPrivate/Qt63DAnimationPrivateVersionlessAliasTargets.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DCore/Qt63DCoreAdditionalTargetInfo.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DCore/Qt63DCoreConfig.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt63DCore/Qt63DCoreConfigVersion.cmake \
@@ -1399,6 +1440,10 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlwavefrontmeshpluginConfig.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlwavefrontmeshpluginTargets-relwithdebinfo.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlwavefrontmeshpluginTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlwebsocketsAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlwebsocketsConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlwebsocketsTargets-relwithdebinfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlwebsocketsTargets.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlxmllistmodelpluginAdditionalTargetInfo.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlxmllistmodelpluginConfig.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Qml/QmlPlugins/Qt6qmlxmllistmodelpluginTargets-relwithdebinfo.cmake \
@@ -1753,6 +1798,41 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3D/Qt6Quick3DTargets-relwithdebinfo.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3D/Qt6Quick3DTargets.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3D/Qt6Quick3DVersionlessAliasTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6AssimpImporterPluginAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6AssimpImporterPluginConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6AssimpImporterPluginTargets-relwithdebinfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6AssimpImporterPluginTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6Quick3DAssetImportAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6Quick3DAssetImportConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6Quick3DAssetImportConfigVersion.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6Quick3DAssetImportConfigVersionImpl.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6Quick3DAssetImportDependencies.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6Quick3DAssetImportPlugins.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6Quick3DAssetImportTargets-relwithdebinfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6Quick3DAssetImportTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImport/Qt6Quick3DAssetImportVersionlessAliasTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImportPrivate/Qt6Quick3DAssetImportPrivateAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImportPrivate/Qt6Quick3DAssetImportPrivateConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImportPrivate/Qt6Quick3DAssetImportPrivateConfigVersion.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImportPrivate/Qt6Quick3DAssetImportPrivateConfigVersionImpl.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImportPrivate/Qt6Quick3DAssetImportPrivateDependencies.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImportPrivate/Qt6Quick3DAssetImportPrivateTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetImportPrivate/Qt6Quick3DAssetImportPrivateVersionlessAliasTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtils/Qt6Quick3DAssetUtilsAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtils/Qt6Quick3DAssetUtilsConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtils/Qt6Quick3DAssetUtilsConfigVersion.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtils/Qt6Quick3DAssetUtilsConfigVersionImpl.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtils/Qt6Quick3DAssetUtilsDependencies.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtils/Qt6Quick3DAssetUtilsTargets-relwithdebinfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtils/Qt6Quick3DAssetUtilsTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtils/Qt6Quick3DAssetUtilsVersionlessAliasTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtilsPrivate/Qt6Quick3DAssetUtilsPrivateAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtilsPrivate/Qt6Quick3DAssetUtilsPrivateConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtilsPrivate/Qt6Quick3DAssetUtilsPrivateConfigVersion.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtilsPrivate/Qt6Quick3DAssetUtilsPrivateConfigVersionImpl.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtilsPrivate/Qt6Quick3DAssetUtilsPrivateDependencies.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtilsPrivate/Qt6Quick3DAssetUtilsPrivateTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DAssetUtilsPrivate/Qt6Quick3DAssetUtilsPrivateVersionlessAliasTargets.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DPrivate/Qt6Quick3DPrivateAdditionalTargetInfo.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DPrivate/Qt6Quick3DPrivateConfig.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6Quick3DPrivate/Qt6Quick3DPrivateConfigVersion.cmake \
@@ -1827,6 +1907,21 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTemplates2Private/Qt6QuickTemplates2PrivateDependencies.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTemplates2Private/Qt6QuickTemplates2PrivateTargets.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTemplates2Private/Qt6QuickTemplates2PrivateVersionlessAliasTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimeline/Qt6QuickTimelineAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimeline/Qt6QuickTimelineConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimeline/Qt6QuickTimelineConfigVersion.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimeline/Qt6QuickTimelineConfigVersionImpl.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimeline/Qt6QuickTimelineDependencies.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimeline/Qt6QuickTimelineTargets-relwithdebinfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimeline/Qt6QuickTimelineTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimeline/Qt6QuickTimelineVersionlessAliasTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimelinePrivate/Qt6QuickTimelinePrivateAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimelinePrivate/Qt6QuickTimelinePrivateConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimelinePrivate/Qt6QuickTimelinePrivateConfigVersion.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimelinePrivate/Qt6QuickTimelinePrivateConfigVersionImpl.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimelinePrivate/Qt6QuickTimelinePrivateDependencies.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimelinePrivate/Qt6QuickTimelinePrivateTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6QuickTimelinePrivate/Qt6QuickTimelinePrivateVersionlessAliasTargets.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6ShaderTools/Qt6ShaderToolsAdditionalTargetInfo.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6ShaderTools/Qt6ShaderToolsConfig.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6ShaderTools/Qt6ShaderToolsConfigVersion.cmake \
@@ -1857,6 +1952,21 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6SvgPrivate/Qt6SvgPrivateDependencies.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6SvgPrivate/Qt6SvgPrivateTargets.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6SvgPrivate/Qt6SvgPrivateVersionlessAliasTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSockets/Qt6WebSocketsAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSockets/Qt6WebSocketsConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSockets/Qt6WebSocketsConfigVersion.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSockets/Qt6WebSocketsConfigVersionImpl.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSockets/Qt6WebSocketsDependencies.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSockets/Qt6WebSocketsTargets-relwithdebinfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSockets/Qt6WebSocketsTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSockets/Qt6WebSocketsVersionlessAliasTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSocketsPrivate/Qt6WebSocketsPrivateAdditionalTargetInfo.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSocketsPrivate/Qt6WebSocketsPrivateConfig.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSocketsPrivate/Qt6WebSocketsPrivateConfigVersion.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSocketsPrivate/Qt6WebSocketsPrivateConfigVersionImpl.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSocketsPrivate/Qt6WebSocketsPrivateDependencies.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSocketsPrivate/Qt6WebSocketsPrivateTargets.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6WebSocketsPrivate/Qt6WebSocketsPrivateVersionlessAliasTargets.cmake \
 	D:/progs/6.9.0/mingw_64/lib/cmake/Qt6CoreTools/Qt6CoreToolsAdditionalTargetInfo.cmake \
 	D:/progs/6.9.0/mingw_64/lib/cmake/Qt6CoreTools/Qt6CoreToolsConfig.cmake \
 	D:/progs/6.9.0/mingw_64/lib/cmake/Qt6CoreTools/Qt6CoreToolsConfigVersion.cmake \

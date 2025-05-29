@@ -28,6 +28,7 @@ Page {
             "Background color:", Style.backgroundColor,
             "Button font:", Style.buttonFont
         )
+        console.log("Model object URL:", modelObject)
     }
 
     background: Rectangle { color: Style.backgroundColor }
@@ -140,8 +141,24 @@ Page {
                     }
                 }
 
+                // Additional lighting for better GLB visualization
+                Entity {
+                    components: DirectionalLight {
+                        intensity: 0.5
+                        worldDirection: Qt.vector3d(1, 1, -1)
+                    }
+                }
+
+                Entity {
+                    components: DirectionalLight {
+                        intensity: 0.3
+                        worldDirection: Qt.vector3d(-1, -1, 1)
+                    }
+                }
+
                 Entity {
                     id: modelEntity
+                    enabled: true  // Use enabled instead of visible for Qt3D entities
 
                     components: [
                         Transform {
@@ -151,17 +168,72 @@ Page {
                             rotationY: modelRotationY
                             rotationZ: modelRotationZ
                         },
+                        SceneLoader {
+                            id: sceneLoader
+                            source: modelObject
+
+                            Component.onCompleted: {
+                                console.log("SceneLoader initialized with source:", source)
+
+                                sceneLoader.statusChanged.connect(function() {
+                                    console.log("SceneLoader status changed:", sceneLoader.status)
+
+                                    switch(sceneLoader.status) {
+                                        case SceneLoader.None:
+                                            console.log("SceneLoader: None")
+                                            break;
+                                        case SceneLoader.Loading:
+                                            console.log("SceneLoader: Loading...")
+                                            loadingIndicator.visible = true
+                                            modelError.visible = false
+                                            break;
+                                        case SceneLoader.Ready:
+                                            console.log("SceneLoader: Ready - GLB loaded successfully!")
+                                            loadingIndicator.visible = false
+                                            modelError.visible = false
+                                            fallbackMesh.enabled = false  // Use enabled instead of visible
+                                            break;
+                                        case SceneLoader.Error:
+                                            console.log("SceneLoader: Error loading GLB:", sceneLoader.source)
+                                            loadingIndicator.visible = false
+                                            modelError.visible = true
+                                            // Try fallback mesh approach
+                                            fallbackMesh.enabled = true  // Use enabled instead of visible
+                                            break;
+                                    }
+                                })
+                            }
+                        }
+                    ]
+                }
+
+                // Fallback mesh entity if SceneLoader fails
+                Entity {
+                    id: fallbackMesh
+                    enabled: false  // Use enabled instead of visible for Qt3D entities
+
+                    components: [
+                        Transform {
+                            scale3D: Qt.vector3d(scaleValue, scaleValue, scaleValue)
+                            rotationX: modelRotationX
+                            rotationY: modelRotationY
+                            rotationZ: modelRotationZ
+                        },
                         Mesh {
                             id: modelMesh
                             source: modelObject
 
-                            // Fix: Use proper signal connection syntax
                             Component.onCompleted: {
+                                console.log("Fallback Mesh initialized with source:", source)
+
                                 modelMesh.statusChanged.connect(function() {
+                                    console.log("Fallback Mesh status:", modelMesh.status)
+
                                     if (modelMesh.status === Mesh.Error) {
-                                        console.log("Error loading 3D model:", modelMesh.source)
+                                        console.log("Error loading 3D model with fallback mesh:", modelMesh.source)
                                         modelError.visible = true
                                     } else if (modelMesh.status === Mesh.Ready) {
+                                        console.log("Fallback mesh loaded successfully!")
                                         modelError.visible = false
                                     }
                                 })
@@ -179,13 +251,13 @@ Page {
             }
         }
 
-        // Error overlay for 3D model loading issues
+        // Loading indicator
         Rectangle {
-            id: modelError
+            id: loadingIndicator
             anchors.centerIn: parent
             width: 200
             height: 100
-            color: Qt.rgba(0.5, 0.5, 0.5, 0.8)
+            color: Qt.rgba(0.2, 0.2, 0.2, 0.8)
             radius: 8
             visible: false
 
@@ -194,16 +266,84 @@ Page {
                 spacing: 10
 
                 Text {
-                    text: "3D Model Error"
+                    text: "Loading 3D Model..."
                     color: "white"
                     font.bold: true
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
 
-                Text {
-                    text: "Failed to load model"
-                    color: "white"
+                Rectangle {
+                    width: 100
+                    height: 4
+                    color: "gray"
+                    radius: 2
                     anchors.horizontalCenter: parent.horizontalCenter
+
+                    Rectangle {
+                        id: progressBar
+                        width: 0
+                        height: parent.height
+                        color: Style.primaryColor
+                        radius: parent.radius
+
+                        SequentialAnimation on width {
+                            running: loadingIndicator.visible
+                            loops: Animation.Infinite
+                            NumberAnimation { to: 100; duration: 1000 }
+                            NumberAnimation { to: 0; duration: 1000 }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Error overlay for 3D model loading issues
+        Rectangle {
+            id: modelError
+            anchors.centerIn: parent
+            width: 300
+            height: 150
+            color: Qt.rgba(0.5, 0.2, 0.2, 0.9)
+            radius: 8
+            visible: false
+
+            Column {
+                anchors.centerIn: parent
+                spacing: 10
+
+                Text {
+                    text: "3D Model Loading Error"
+                    color: "white"
+                    font.bold: true
+                    font.pixelSize: 16
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                Text {
+                    text: "Failed to load GLB file"
+                    color: "white"
+                    font.pixelSize: 14
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                Text {
+                    text: "Please check file format and path"
+                    color: "lightgray"
+                    font.pixelSize: 12
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                Button {
+                    text: "Retry"
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    onPressed: {
+                        modelError.visible = false
+                        // Force reload
+                        var tempSource = sceneLoader.source
+                        sceneLoader.source = ""
+                        sceneLoader.source = tempSource
+                    }
                 }
             }
         }
@@ -295,14 +435,15 @@ Page {
             color: "#80000000"
             width: debugText.width + 20
             height: debugText.height + 10
-            visible: false // Set to true for debugging
+            visible: true // Enable for debugging GLB loading
 
             Text {
                 id: debugText
                 anchors.centerIn: parent
-                text: `Scale: ${scaleValue.toFixed(2)}, Rotation: (${modelRotationX.toFixed(1)}, ${modelRotationY.toFixed(1)})`
+                text: `Scale: ${scaleValue.toFixed(2)}, Rotation: (${modelRotationX.toFixed(1)}, ${modelRotationY.toFixed(1)})
+SceneLoader: ${sceneLoader.status}, Source: ${modelObject}`
                 color: "white"
-                font.pixelSize: 12
+                font.pixelSize: 10
             }
         }
     }
@@ -562,7 +703,7 @@ Page {
 
                 onPressed: {
                     qmlManager.tryOnGarment(garmentId)
-                    stackView.push("CameraPage.qml")
+                    stackView.push("ARCamera.qml", {"garmentId": garmentId})
                 }
             }
         }

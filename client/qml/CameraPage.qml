@@ -16,7 +16,8 @@ Page {
     property var capturedFrame: null
     property string currentGarmentId: ""
     property string processedPreviewUrl: ""
-
+    property string processedModelKey: ""
+    property string processedPreviewKey: ""
     // Generate unique garment ID
     function generateGarmentId() {
         const timestamp = Date.now();
@@ -26,6 +27,11 @@ Page {
     }
 
     states: [
+        State {
+            name: "initial"
+            PropertyChanges { target: captureButton; visible: true }
+            PropertyChanges { target: progressOverlay; visible: false }
+        },
         State {
             name: "capturing"
             PropertyChanges { target: captureButton; visible: false }
@@ -89,9 +95,11 @@ Page {
         }
 
         // Handle processed model ready
-        onProcessedModelUrlReady: function(modelUrl, previewUrl) {
+        onProcessedModelUrlReady: function(modelUrl, previewUrl, modelKey, previewKey) {
             processedModelUrl = modelUrl
             processedPreviewUrl = previewUrl  // Store the preview URL
+            processedModelKey = modelKey
+            processedPreviewKey = previewKey
             cameraPage.state = "modelPreview"
         }
 
@@ -200,6 +208,7 @@ Page {
         onClicked: {
             // Generate new garment ID for this capture
             currentGarmentId = generateGarmentId()
+            // currentGarmentId = "254858648"
             console.log("Garment id from QT: ", currentGarmentId)
             // Capture image to memory
             imageCapture.capture()
@@ -348,7 +357,7 @@ Page {
                 Layout.alignment: Qt.AlignCenter
             }
 
-            // 3D Preview Component placeholder
+            // 3D Preview Component with actual image
             Rectangle {
                 Layout.preferredWidth: 300
                 Layout.preferredHeight: 300
@@ -358,11 +367,54 @@ Page {
                 border.width: 1
                 radius: 5
 
+                Image {
+                    id: previewImage
+                    anchors.fill: parent
+                    anchors.margins: 2
+                    source: processedPreviewUrl
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
+                    cache: false
+                    visible: processedPreviewUrl !== ""
+
+                    // Loading indicator
+                    BusyIndicator {
+                        anchors.centerIn: parent
+                        running: previewImage.status === Image.Loading
+                        width: 50
+                        height: 50
+                        visible: processedPreviewUrl !== "" && previewImage.status === Image.Loading
+                    }
+
+                    // Error handling for image loading
+                    onStatusChanged: {
+                        if (status === Image.Error) {
+                            errorLabel.text = "Failed to load preview image"
+                            errorLabel.visible = true
+                        }
+                    }
+                }
+
+                // Fallback placeholder when no image is available
                 Label {
                     anchors.centerIn: parent
-                    text: "3D Model Preview\n" + processedModelUrl
+                    text: processedPreviewUrl === "" ?
+                          "Generating preview...\nPlease wait" :
+                          "Preview Image\n" + processedModelUrl
                     horizontalAlignment: Text.AlignHCenter
                     color: "#666"
+                    visible: processedPreviewUrl === "" || previewImage.status === Image.Error
+                    font.pixelSize: 12
+                }
+
+                // Zoom/interaction overlay (optional)
+                MouseArea {
+                    anchors.fill: parent
+                    enabled: previewImage.visible && previewImage.status === Image.Ready
+                    onClicked: {
+                        // Optional: Show full-screen preview
+                        fullScreenPreview.visible = true
+                    }
                 }
             }
 
@@ -379,10 +431,16 @@ Page {
 
                 Button {
                     text: "Save Garment"
-                    enabled: garmentName.text.trim() !== ""
+                    enabled: garmentName.text.trim() !== "" && processedPreviewUrl !== ""
                     onClicked: {
                         if (garmentName.text.trim() === "") {
                             errorLabel.text = "Please enter a garment name"
+                            errorLabel.visible = true
+                            return
+                        }
+
+                        if (processedPreviewUrl === "") {
+                            errorLabel.text = "Preview image not ready. Please wait..."
                             errorLabel.visible = true
                             return
                         }
@@ -391,12 +449,15 @@ Page {
                         qmlManager.saveGarment(
                             currentGarmentId,           // garmentId (generated in QML)
                             garmentName.text.trim(),    // name
-                            processedPreviewUrl,                         // previewUrl (will be generated server-side)
-                            processedModelUrl           // modelUrl
+                            processedModelUrl,          // modelUrl
+                            processedPreviewUrl,        // previewUrl
+                            processedModelKey,
+                            processedPreviewKey,
+                            selectedCategory
                         )
 
                         // Show processing state
-                        cameraPage.state = "capturing"
+                        cameraPage.state = "initial"
                     }
                 }
 
@@ -410,14 +471,13 @@ Page {
                         currentGarmentId = ""
                         selectedCategory = ""
                         garmentName.text = ""
-                        cameraPage.state = "preview"
+                        cameraPage.state = "initial"
                         camera.start()
                     }
                 }
             }
         }
     }
-
     // Handle permission results
     Connections {
         target: qmlManager

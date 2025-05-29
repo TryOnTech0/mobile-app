@@ -79,8 +79,10 @@ Module {
         }
         Signal {
             name: "processedModelReady"
-            Parameter { name: "imageId"; type: "QString" }
             Parameter { name: "modelUrl"; type: "QString" }
+            Parameter { name: "previewUrl"; type: "QString" }
+            Parameter { name: "modelKey"; type: "QString" }
+            Parameter { name: "previewKey"; type: "QString" }
         }
         Signal {
             name: "userLoggedIn"
@@ -144,19 +146,6 @@ Module {
         Method { name: "fetchGarments"; isCloned: true }
         Method {
             name: "uploadGarment"
-            Parameter { name: "garmentData"; type: "QJsonObject" }
-            Parameter { name: "previewPath"; type: "QString" }
-            Parameter { name: "modelPath"; type: "QString" }
-        }
-        Method {
-            name: "uploadGarment"
-            isCloned: true
-            Parameter { name: "garmentData"; type: "QJsonObject" }
-            Parameter { name: "previewPath"; type: "QString" }
-        }
-        Method {
-            name: "uploadGarment"
-            isCloned: true
             Parameter { name: "garmentData"; type: "QJsonObject" }
         }
         Method {
@@ -244,6 +233,8 @@ Module {
             name: "processedModelUrlReady"
             Parameter { name: "modelUrl"; type: "QString" }
             Parameter { name: "previewUrl"; type: "QString" }
+            Parameter { name: "modelKey"; type: "QString" }
+            Parameter { name: "previewKey"; type: "QString" }
         }
         Signal { name: "arSessionReady" }
         Signal {
@@ -294,7 +285,6 @@ Module {
             name: "handleUploadProgress"
             Parameter { name: "progress"; type: "int" }
         }
-        Method { name: "uploadNewGarment" }
         Method { name: "initializeApp" }
         Method { name: "startScanning" }
         Method { name: "saveScan" }
@@ -322,8 +312,11 @@ Module {
             name: "saveGarment"
             Parameter { name: "garmentId"; type: "QString" }
             Parameter { name: "name"; type: "QString" }
-            Parameter { name: "previewUrl"; type: "QString" }
             Parameter { name: "modelUrl"; type: "QString" }
+            Parameter { name: "previewUrl"; type: "QString" }
+            Parameter { name: "modelKey"; type: "QString" }
+            Parameter { name: "previewKey"; type: "QString" }
+            Parameter { name: "category"; type: "QString" }
         }
     }
 }
