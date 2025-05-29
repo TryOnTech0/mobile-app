@@ -29,6 +29,14 @@ Page {
             "Button font:", Style.buttonFont
         )
         console.log("Model object URL:", modelObject)
+        console.log("URL toString:", modelObject.toString())
+
+        // Check file format
+        if (modelObject.toString().includes(".glb")) {
+            console.log("Loading GLB format")
+        } else if (modelObject.toString().includes(".obj")) {
+            console.log("Loading OBJ format")
+        }
     }
 
     background: Rectangle { color: Style.backgroundColor }
@@ -174,40 +182,59 @@ Page {
 
                             Component.onCompleted: {
                                 console.log("SceneLoader initialized with source:", source)
+                                console.log("File exists check - URL:", source)
 
+                                // Add more detailed logging
                                 sceneLoader.statusChanged.connect(function() {
                                     console.log("SceneLoader status changed:", sceneLoader.status)
+                                    console.log("Source URL:", sceneLoader.source)
 
                                     switch(sceneLoader.status) {
                                         case SceneLoader.None:
-                                            console.log("SceneLoader: None")
+                                            console.log("SceneLoader: None - No source set")
                                             break;
                                         case SceneLoader.Loading:
-                                            console.log("SceneLoader: Loading...")
+                                            console.log("SceneLoader: Loading... File being processed")
                                             loadingIndicator.visible = true
                                             modelError.visible = false
                                             break;
                                         case SceneLoader.Ready:
-                                            console.log("SceneLoader: Ready - GLB loaded successfully!")
+                                            console.log("SceneLoader: Ready - Model loaded successfully!")
+                                            console.log("Entity count:", sceneLoader.entity ? "Entity created" : "No entity")
                                             loadingIndicator.visible = false
                                             modelError.visible = false
-                                            fallbackMesh.enabled = false  // Use enabled instead of visible
+                                            fallbackMesh.enabled = false
                                             break;
                                         case SceneLoader.Error:
-                                            console.log("SceneLoader: Error loading GLB:", sceneLoader.source)
+                                            console.log("SceneLoader: Error loading model")
+                                            console.log("Error details - Source:", sceneLoader.source)
                                             loadingIndicator.visible = false
                                             modelError.visible = true
-                                            // Try fallback mesh approach
-                                            fallbackMesh.enabled = true  // Use enabled instead of visible
+                                            // Try fallback approaches
+                                            tryFallbackLoading()
                                             break;
                                     }
                                 })
+                            }
+
+                            // Add this function to try different loading methods
+                            function tryFallbackLoading() {
+                                console.log("Trying fallback loading methods...")
+
+                                // Try with Mesh component instead
+                                fallbackMesh.enabled = true
+
+                                // If GLB fails, suggest OBJ format
+                                if (source.toString().includes(".glb")) {
+                                    console.log("GLB loading failed. Consider converting to OBJ format.")
+                                    modelError.errorText = "GLB format issue. Try OBJ format instead."
+                                }
                             }
                         }
                     ]
                 }
 
-                // Fallback mesh entity if SceneLoader fails
+                // Enhanced fallback mesh with better material
                 Entity {
                     id: fallbackMesh
                     enabled: false  // Use enabled instead of visible for Qt3D entities
@@ -230,21 +257,34 @@ Page {
                                     console.log("Fallback Mesh status:", modelMesh.status)
 
                                     if (modelMesh.status === Mesh.Error) {
-                                        console.log("Error loading 3D model with fallback mesh:", modelMesh.source)
+                                        console.log("Error: Both SceneLoader and Mesh failed")
+                                        console.log("File might be corrupted or unsupported format")
+                                        modelError.errorText = "Model file is corrupted or unsupported format"
                                         modelError.visible = true
+                                        // Show placeholder geometry
+                                        showPlaceholderGeometry()
                                     } else if (modelMesh.status === Mesh.Ready) {
                                         console.log("Fallback mesh loaded successfully!")
                                         modelError.visible = false
                                     }
                                 })
                             }
+
+                            function showPlaceholderGeometry() {
+                                // Replace mesh with a placeholder cube
+                                modelMesh.source = ""  // Clear failed source
+                                // You could add a CuboidMesh or other primitive here as ultimate fallback
+                            }
                         },
+                        // Enhanced material for better visibility
                         PhongMaterial {
                             id: modelMaterial
-                            ambient: Qt.rgba(0.4, 0.4, 0.4, 1.0)
-                            diffuse: Qt.rgba(0.8, 0.8, 0.8, 1.0)
-                            specular: Qt.rgba(1.0, 1.0, 1.0, 1.0)
-                            shininess: 50
+                            ambient: Qt.rgba(0.3, 0.3, 0.4, 1.0)
+                            diffuse: Qt.rgba(0.7, 0.7, 0.8, 1.0)
+                            specular: Qt.rgba(0.9, 0.9, 1.0, 1.0)
+                            shininess: 80
+                            // Add normal map if available
+                            // normalMap: Texture2D { source: "normal_map.png" }
                         }
                     ]
                 }
@@ -297,52 +337,71 @@ Page {
             }
         }
 
-        // Error overlay for 3D model loading issues
+        // Enhanced error display
         Rectangle {
             id: modelError
             anchors.centerIn: parent
-            width: 300
-            height: 150
+            width: 350
+            height: 200
             color: Qt.rgba(0.5, 0.2, 0.2, 0.9)
             radius: 8
             visible: false
 
+            property string errorText: "Failed to load 3D model"
+
             Column {
                 anchors.centerIn: parent
-                spacing: 10
+                spacing: 15
 
                 Text {
                     text: "3D Model Loading Error"
                     color: "white"
                     font.bold: true
-                    font.pixelSize: 16
+                    font.pixelSize: 18
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
 
                 Text {
-                    text: "Failed to load GLB file"
+                    text: modelError.errorText
                     color: "white"
                     font.pixelSize: 14
                     anchors.horizontalCenter: parent.horizontalCenter
+                    wrapMode: Text.WordWrap
+                    width: parent.parent.width - 40
+                    horizontalAlignment: Text.AlignHCenter
                 }
 
                 Text {
-                    text: "Please check file format and path"
+                    text: "File: " + modelObject.toString().split('/').pop()
                     color: "lightgray"
                     font.pixelSize: 12
                     anchors.horizontalCenter: parent.horizontalCenter
                 }
 
-                Button {
-                    text: "Retry"
+                Row {
                     anchors.horizontalCenter: parent.horizontalCenter
+                    spacing: 10
 
-                    onPressed: {
-                        modelError.visible = false
-                        // Force reload
-                        var tempSource = sceneLoader.source
-                        sceneLoader.source = ""
-                        sceneLoader.source = tempSource
+                    Button {
+                        text: "Retry"
+                        onPressed: {
+                            modelError.visible = false
+                            // Force reload
+                            var tempSource = sceneLoader.source
+                            sceneLoader.source = ""
+                            Qt.callLater(function() {
+                                sceneLoader.source = tempSource
+                            })
+                        }
+                    }
+
+                    Button {
+                        text: "Use Fallback"
+                        onPressed: {
+                            modelError.visible = false
+                            fallbackMesh.enabled = true
+                            sceneLoader.enabled = false
+                        }
                     }
                 }
             }
@@ -428,7 +487,7 @@ Page {
             }
         }
 
-        // Debug View
+        // Enhanced Debug View
         Rectangle {
             anchors.top: parent.top
             anchors.left: parent.left
@@ -441,7 +500,8 @@ Page {
                 id: debugText
                 anchors.centerIn: parent
                 text: `Scale: ${scaleValue.toFixed(2)}, Rotation: (${modelRotationX.toFixed(1)}, ${modelRotationY.toFixed(1)})
-SceneLoader: ${sceneLoader.status}, Source: ${modelObject}`
+SceneLoader: ${sceneLoader.status}, Fallback: ${fallbackMesh.enabled}
+Source: ${modelObject.toString().split('/').pop()}`
                 color: "white"
                 font.pixelSize: 10
             }

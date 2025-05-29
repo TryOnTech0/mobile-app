@@ -12,10 +12,9 @@
 class CameraFrameProcessor : public QObject
 {
     Q_OBJECT
-    // QML_ELEMENT
+    Q_PROPERTY(QObject* videoSink READ videoSink WRITE setVideoSink NOTIFY videoSinkChanged)
     Q_PROPERTY(bool arActive READ isArActive NOTIFY arActiveChanged)
     Q_PROPERTY(bool cameraReady READ isCameraReady NOTIFY cameraReadyChanged)
-    Q_PROPERTY(QObject* videoSink READ videoSink WRITE setVideoSink NOTIFY videoSinkChanged)
 
 public:
     explicit CameraFrameProcessor(QObject *parent = nullptr);
@@ -56,11 +55,13 @@ private:
     QByteArray convertImageToBytes(const QImage &image);
 
     // Core components
-    QVideoSink *m_videoSink;
     QWebSocket m_webSocket;
-    QObject *m_currentVideoSink;
     QTimer m_connectionTimer;
     QObject *m_monitoredCamera;
+    
+    // Video sinks
+    QVideoSink* m_videoSink;           // The actual display sink
+    QObject* m_currentVideoSink;       // QObject wrapper for QML
     
     // State management
     bool m_arActive;
@@ -70,6 +71,11 @@ private:
     // Performance optimization
     int m_frameSkipCounter;
     const int m_maxFrameSkip = 2; // Process every 3rd frame
+    
+    // Response handling
+    QByteArray m_pendingResponse;
+    quint32 m_expectedResponseSize = 0;
+    bool m_waitingForSize = true;
 };
 
 #endif // CAMERAFRAMEPROCESSOR_H

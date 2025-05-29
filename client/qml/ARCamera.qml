@@ -15,10 +15,10 @@ Page {
     // Fixed CameraFrameProcessor with proper parameter declarations
     CameraFrameProcessor {
         id: frameProcessor
-        videoSink: videoOutput.videoSink
+        videoSink: videoOutput.videoSink  // Connect to the display output
 
         onArActiveChanged: cameraPage.arActive = arActive
-        onArErrorOccurred: function(error) { showError(error) } // Fixed parameter declaration
+        onArErrorOccurred: function(error) { showError(error) }
         onProcessedFrameReady: function(frame) {
             console.log("Received processed frame")
         }
@@ -29,7 +29,6 @@ Page {
             }
         }
     }
-
     header: ToolBar {
         background: Rectangle {
             color: Style.primaryColor
@@ -86,6 +85,7 @@ Page {
         videoOutput: videoOutput
     }
 
+    // Single VideoOutput that shows either camera or processed frames
     VideoOutput {
         id: videoOutput
         anchors.fill: parent
@@ -262,7 +262,7 @@ Page {
     // Start AR processing
     function startArProcessing() {
         // Replace with your actual server URL
-        const serverUrl = "tcp://5.tcp.eu.ngrok.io:15846"
+        const serverUrl = "wss://40e5-193-140-134-140.ngrok-free.app"
         frameProcessor.startArProcessing(serverUrl)
     }
 

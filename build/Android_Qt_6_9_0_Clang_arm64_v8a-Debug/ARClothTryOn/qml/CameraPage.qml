@@ -453,7 +453,7 @@ Page {
                             processedPreviewUrl,        // previewUrl
                             processedModelKey,
                             processedPreviewKey,
-                            category
+                            selectedCategory
                         )
 
                         // Show processing state

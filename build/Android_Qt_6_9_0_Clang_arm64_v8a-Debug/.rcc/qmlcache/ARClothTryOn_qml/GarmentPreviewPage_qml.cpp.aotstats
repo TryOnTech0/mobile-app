@@ -6,7 +6,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 37,
-                        "durationMicroseconds": 431,
+                        "durationMicroseconds": 478,
                         "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method vector2d, returning QVariant -> QVector2D stored as QVariant",
                         "functionName": "lastTouchPos",
                         "line": 22
@@ -14,7 +14,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 4272,
+                        "durationMicroseconds": 5337,
                         "errorMessage": "Cannot load property primaryColor from const QMetaObject.",
                         "functionName": "onCompleted",
                         "line": 25
@@ -22,34 +22,34 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 235,
+                        "durationMicroseconds": 238,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "color",
-                        "line": 34
+                        "line": 42
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 23,
-                        "durationMicroseconds": 98,
+                        "durationMicroseconds": 103,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 40
+                        "line": 48
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 26,
-                        "durationMicroseconds": 157,
+                        "durationMicroseconds": 154,
                         "errorMessage": "",
                         "functionName": "top",
-                        "line": 45
+                        "line": 53
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 28,
-                        "durationMicroseconds": 139,
+                        "durationMicroseconds": 118,
                         "errorMessage": "",
                         "functionName": "right",
-                        "line": 46
+                        "line": 54
                     },
                     {
                         "codegenSuccessfull": false,
@@ -57,39 +57,39 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"pressed\".",
                         "functionName": "onPressed",
-                        "line": 71
+                        "line": 79
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 43,
-                        "durationMicroseconds": 32,
+                        "durationMicroseconds": 39,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "centerIn",
-                        "line": 60
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 28,
-                        "durationMicroseconds": 1001,
-                        "errorMessage": "Cannot access value for name zoomInButton",
-                        "functionName": "color",
-                        "line": 65
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 29,
-                        "durationMicroseconds": 37,
-                        "errorMessage": "Cannot access value for name width",
-                        "functionName": "radius",
                         "line": 68
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
+                        "durationMicroseconds": 1215,
+                        "errorMessage": "Cannot access value for name zoomInButton",
+                        "functionName": "color",
+                        "line": 73
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 29,
+                        "durationMicroseconds": 31,
+                        "errorMessage": "Cannot access value for name width",
+                        "functionName": "radius",
+                        "line": 76
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"pressed\".",
                         "functionName": "onPressed",
-                        "line": 99
+                        "line": 107
                     },
                     {
                         "codegenSuccessfull": false,
@@ -97,76 +97,68 @@
                         "durationMicroseconds": 15,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "centerIn",
-                        "line": 88
+                        "line": 96
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 978,
+                        "durationMicroseconds": 926,
                         "errorMessage": "Cannot access value for name zoomOutButton",
                         "functionName": "color",
-                        "line": 93
+                        "line": 101
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 29,
-                        "durationMicroseconds": 25,
+                        "durationMicroseconds": 19,
                         "errorMessage": "Cannot access value for name width",
                         "functionName": "radius",
-                        "line": 96
+                        "line": 104
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 22,
-                        "durationMicroseconds": 230,
+                        "durationMicroseconds": 234,
                         "errorMessage": "",
                         "functionName": "aspects",
-                        "line": 111
+                        "line": 119
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 27,
-                        "durationMicroseconds": 93,
+                        "durationMicroseconds": 81,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 109
+                        "line": 117
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 37,
-                        "durationMicroseconds": 94,
+                        "durationMicroseconds": 101,
                         "errorMessage": "",
                         "functionName": "camera",
-                        "line": 120
+                        "line": 128
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 31,
-                        "durationMicroseconds": 290,
+                        "durationMicroseconds": 298,
                         "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method vector3d, returning QVariant -> QVector3D stored as QVariant",
                         "functionName": "position",
-                        "line": 130
+                        "line": 138
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 33,
-                        "durationMicroseconds": 258,
+                        "durationMicroseconds": 245,
                         "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method vector3d, returning QVariant -> QVector3D stored as QVariant",
                         "functionName": "viewCenter",
-                        "line": 131
+                        "line": 139
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 41,
-                        "durationMicroseconds": 314,
-                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method vector3d, returning QVariant -> QVector3D stored as QVariant",
-                        "functionName": "worldDirection",
-                        "line": 140
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 41,
-                        "durationMicroseconds": 257,
+                        "durationMicroseconds": 340,
                         "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method vector3d, returning QVariant -> QVector3D stored as QVariant",
                         "functionName": "worldDirection",
                         "line": 148
@@ -174,122 +166,146 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 41,
-                        "durationMicroseconds": 252,
+                        "durationMicroseconds": 282,
                         "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method vector3d, returning QVariant -> QVector3D stored as QVariant",
                         "functionName": "worldDirection",
-                        "line": 155
+                        "line": 156
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 41,
+                        "durationMicroseconds": 244,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method vector3d, returning QVariant -> QVector3D stored as QVariant",
+                        "functionName": "worldDirection",
+                        "line": 163
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 37,
-                        "durationMicroseconds": 53,
+                        "durationMicroseconds": 59,
                         "errorMessage": "Cannot access value for name modelObject",
                         "functionName": "source",
-                        "line": 173
+                        "line": 181
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 29,
+                        "durationMicroseconds": 742,
+                        "errorMessage": "Cannot generate efficient code for call to untyped JavaScript function",
+                        "functionName": "tryFallbackLoading",
+                        "line": 221
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 52,
-                        "durationMicroseconds": 433,
+                        "durationMicroseconds": 466,
                         "errorMessage": "Cannot generate efficient code for lookup of function property.",
                         "functionName": "onCompleted",
+                        "line": 183
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 38,
+                        "durationMicroseconds": 232,
+                        "errorMessage": "Cannot access value for name scaleValue",
+                        "functionName": "scale3D",
+                        "line": 174
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 40,
+                        "durationMicroseconds": 38,
+                        "errorMessage": "Cannot access value for name modelRotationX",
+                        "functionName": "rotationX",
                         "line": 175
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 38,
-                        "durationMicroseconds": 229,
-                        "errorMessage": "Cannot access value for name scaleValue",
-                        "functionName": "scale3D",
-                        "line": 166
-                    },
-                    {
-                        "codegenSuccessfull": false,
                         "column": 40,
-                        "durationMicroseconds": 50,
-                        "errorMessage": "Cannot access value for name modelRotationX",
-                        "functionName": "rotationX",
-                        "line": 167
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 40,
-                        "durationMicroseconds": 32,
+                        "durationMicroseconds": 35,
                         "errorMessage": "Cannot access value for name modelRotationY",
                         "functionName": "rotationY",
-                        "line": 168
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 40,
-                        "durationMicroseconds": 37,
-                        "errorMessage": "Cannot access value for name modelRotationZ",
-                        "functionName": "rotationZ",
-                        "line": 169
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 38,
-                        "durationMicroseconds": 371,
-                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
-                        "functionName": "ambient",
-                        "line": 244
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 38,
-                        "durationMicroseconds": 246,
-                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
-                        "functionName": "diffuse",
-                        "line": 245
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 39,
-                        "durationMicroseconds": 268,
-                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
-                        "functionName": "specular",
-                        "line": 246
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 37,
-                        "durationMicroseconds": 54,
-                        "errorMessage": "Cannot access value for name modelObject",
-                        "functionName": "source",
-                        "line": 224
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 52,
-                        "durationMicroseconds": 357,
-                        "errorMessage": "Cannot generate efficient code for lookup of function property.",
-                        "functionName": "onCompleted",
-                        "line": 226
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 38,
-                        "durationMicroseconds": 136,
-                        "errorMessage": "Cannot access value for name scaleValue",
-                        "functionName": "scale3D",
-                        "line": 217
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 40,
-                        "durationMicroseconds": 44,
-                        "errorMessage": "Cannot access value for name modelRotationX",
-                        "functionName": "rotationX",
-                        "line": 218
+                        "line": 176
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 40,
                         "durationMicroseconds": 34,
+                        "errorMessage": "Cannot access value for name modelRotationZ",
+                        "functionName": "rotationZ",
+                        "line": 177
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 38,
+                        "durationMicroseconds": 307,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
+                        "functionName": "ambient",
+                        "line": 282
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 38,
+                        "durationMicroseconds": 331,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
+                        "functionName": "diffuse",
+                        "line": 283
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 39,
+                        "durationMicroseconds": 262,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
+                        "functionName": "specular",
+                        "line": 284
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 37,
+                        "durationMicroseconds": 55,
+                        "errorMessage": "Cannot access value for name modelObject",
+                        "functionName": "source",
+                        "line": 251
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 147,
+                        "errorMessage": "",
+                        "functionName": "showPlaceholderGeometry",
+                        "line": 273
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 52,
+                        "durationMicroseconds": 392,
+                        "errorMessage": "Cannot generate efficient code for lookup of function property.",
+                        "functionName": "onCompleted",
+                        "line": 253
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 38,
+                        "durationMicroseconds": 144,
+                        "errorMessage": "Cannot access value for name scaleValue",
+                        "functionName": "scale3D",
+                        "line": 244
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 40,
+                        "durationMicroseconds": 36,
+                        "errorMessage": "Cannot access value for name modelRotationX",
+                        "functionName": "rotationX",
+                        "line": 245
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 40,
+                        "durationMicroseconds": 33,
                         "errorMessage": "Cannot access value for name modelRotationY",
                         "functionName": "rotationY",
-                        "line": 219
+                        "line": 246
                     },
                     {
                         "codegenSuccessfull": false,
@@ -297,471 +313,423 @@
                         "durationMicroseconds": 33,
                         "errorMessage": "Cannot access value for name modelRotationZ",
                         "functionName": "rotationZ",
-                        "line": 220
+                        "line": 247
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 20,
-                        "durationMicroseconds": 317,
+                        "durationMicroseconds": 335,
                         "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
                         "functionName": "color",
-                        "line": 260
+                        "line": 300
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 68,
+                        "durationMicroseconds": 245,
                         "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 257
+                        "line": 297
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 60,
+                        "durationMicroseconds": 184,
                         "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 265
+                        "line": 305
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 47,
-                        "durationMicroseconds": 113,
+                        "durationMicroseconds": 195,
                         "errorMessage": "",
                         "functionName": "horizontalCenter",
-                        "line": 272
+                        "line": 312
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 47,
-                        "durationMicroseconds": 103,
+                        "durationMicroseconds": 369,
                         "errorMessage": "",
                         "functionName": "horizontalCenter",
-                        "line": 280
+                        "line": 320
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 33,
-                        "durationMicroseconds": 83,
+                        "durationMicroseconds": 143,
                         "errorMessage": "",
                         "functionName": "height",
-                        "line": 285
+                        "line": 325
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 38,
+                        "durationMicroseconds": 69,
                         "errorMessage": "Cannot load property primaryColor from const QMetaObject.",
                         "functionName": "color",
-                        "line": 286
+                        "line": 326
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 33,
-                        "durationMicroseconds": 85,
+                        "durationMicroseconds": 114,
                         "errorMessage": "Cannot load property radius from (component in GarmentPreviewPage.qml)::parent with type QQuickItem.",
                         "functionName": "radius",
-                        "line": 287
+                        "line": 327
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 38,
-                        "durationMicroseconds": 93,
+                        "durationMicroseconds": 134,
                         "errorMessage": "",
                         "functionName": "running",
-                        "line": 290
+                        "line": 330
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 36,
-                        "durationMicroseconds": 97,
+                        "durationMicroseconds": 108,
                         "errorMessage": "",
                         "functionName": "loops",
-                        "line": 291
+                        "line": 331
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 20,
-                        "durationMicroseconds": 305,
+                        "durationMicroseconds": 397,
                         "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method rgba, returning QVariant -> QColor stored as QVariant",
                         "functionName": "color",
-                        "line": 306
+                        "line": 346
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 69,
+                        "durationMicroseconds": 155,
                         "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 303
+                        "line": 343
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 58,
+                        "durationMicroseconds": 79,
                         "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 311
+                        "line": 353
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 47,
-                        "durationMicroseconds": 124,
+                        "durationMicroseconds": 121,
                         "errorMessage": "",
                         "functionName": "horizontalCenter",
-                        "line": 319
+                        "line": 361
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 116,
+                        "errorMessage": "",
+                        "functionName": "text",
+                        "line": 365
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 147,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 369
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 222,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 370
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 42,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "horizontalAlignment",
+                        "line": 371
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 47,
-                        "durationMicroseconds": 106,
+                        "durationMicroseconds": 132,
                         "errorMessage": "",
                         "functionName": "horizontalCenter",
-                        "line": 326
-                    },
-                    {
-                        "codegenSuccessfull": true,
-                        "column": 47,
-                        "durationMicroseconds": 112,
-                        "errorMessage": "",
-                        "functionName": "horizontalCenter",
-                        "line": 333
+                        "line": 368
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 32,
+                        "column": 27,
+                        "durationMicroseconds": 78,
+                        "errorMessage": "Cannot access value for name modelObject",
+                        "functionName": "text",
+                        "line": 375
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 47,
+                        "durationMicroseconds": 208,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 378
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 47,
+                        "durationMicroseconds": 1701,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
+                        "line": 382
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 36,
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"pressed\".",
                         "functionName": "onPressed",
-                        "line": 340
+                        "line": 387
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 47,
+                        "column": 36,
                         "durationMicroseconds": 0,
-                        "errorMessage": "Could not find property \"horizontalCenter\".",
-                        "functionName": "horizontalCenter",
-                        "line": 338
+                        "errorMessage": "Could not find signal \"pressed\".",
+                        "functionName": "onPressed",
+                        "line": 400
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 41,
-                        "durationMicroseconds": 258,
+                        "durationMicroseconds": 280,
                         "errorMessage": "",
                         "functionName": "previousPos",
-                        "line": 355
+                        "line": 414
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 24,
-                        "durationMicroseconds": 173,
+                        "durationMicroseconds": 194,
                         "errorMessage": "Cannot find name isDragging",
                         "functionName": "onPressed",
-                        "line": 371
+                        "line": 430
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 24,
-                        "durationMicroseconds": 63,
+                        "durationMicroseconds": 96,
                         "errorMessage": "",
                         "functionName": "onPressed",
-                        "line": 371
+                        "line": 430
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 378,
+                        "durationMicroseconds": 536,
                         "errorMessage": "Cannot access value for name isDragging",
                         "functionName": "onPositionChanged",
-                        "line": 382
+                        "line": 441
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 32,
-                        "durationMicroseconds": 61,
+                        "durationMicroseconds": 193,
                         "errorMessage": "",
                         "functionName": "onPositionChanged",
-                        "line": 382
+                        "line": 441
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 25,
-                        "durationMicroseconds": 43,
+                        "durationMicroseconds": 56,
                         "errorMessage": "Cannot find name isDragging",
                         "functionName": "onReleased",
-                        "line": 400
+                        "line": 459
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 25,
-                        "durationMicroseconds": 51,
+                        "durationMicroseconds": 219,
                         "errorMessage": "",
                         "functionName": "onReleased",
-                        "line": 400
+                        "line": 459
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 27,
-                        "durationMicroseconds": 71,
+                        "durationMicroseconds": 216,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 354
+                        "line": 413
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 30,
-                        "durationMicroseconds": 274,
+                        "durationMicroseconds": 314,
                         "errorMessage": "",
                         "functionName": "onActiveChanged",
-                        "line": 413
+                        "line": 472
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 29,
-                        "durationMicroseconds": 316,
+                        "durationMicroseconds": 1095,
                         "errorMessage": "Cannot load property previousScale from .",
                         "functionName": "onScaleChanged",
-                        "line": 419
+                        "line": 478
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 20,
-                        "durationMicroseconds": 185,
+                        "durationMicroseconds": 281,
                         "errorMessage": "",
                         "functionName": "width",
-                        "line": 436
+                        "line": 495
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 21,
-                        "durationMicroseconds": 219,
+                        "durationMicroseconds": 272,
                         "errorMessage": "",
                         "functionName": "height",
-                        "line": 437
+                        "line": 496
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 26,
-                        "durationMicroseconds": 129,
+                        "durationMicroseconds": 202,
                         "errorMessage": "",
                         "functionName": "top",
-                        "line": 433
+                        "line": 492
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 27,
-                        "durationMicroseconds": 167,
+                        "durationMicroseconds": 119,
                         "errorMessage": "",
                         "functionName": "left",
-                        "line": 434
+                        "line": 493
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 23,
-                        "durationMicroseconds": 229,
+                        "durationMicroseconds": 273,
                         "errorMessage": "Cannot access value for name scaleValue",
                         "functionName": "text",
-                        "line": 443
+                        "line": 502
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 75,
+                        "durationMicroseconds": 72,
                         "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 442
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 22,
-                        "durationMicroseconds": 64,
-                        "errorMessage": "Cannot access value for name modelRotationY",
-                        "functionName": "onTriggered",
-                        "line": 457
-                    },
-                    {
-                        "codegenSuccessfull": true,
-                        "column": 16,
-                        "durationMicroseconds": 186,
-                        "errorMessage": "",
-                        "functionName": "width",
-                        "line": 466
-                    },
-                    {
-                        "codegenSuccessfull": true,
-                        "column": 17,
-                        "durationMicroseconds": 161,
-                        "errorMessage": "",
-                        "functionName": "height",
-                        "line": 467
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 16,
-                        "durationMicroseconds": 247,
-                        "errorMessage": "Cannot load property primaryColor from const QMetaObject.",
-                        "functionName": "color",
-                        "line": 468
-                    },
-                    {
-                        "codegenSuccessfull": true,
-                        "column": 25,
-                        "durationMicroseconds": 1279,
-                        "errorMessage": "",
-                        "functionName": "bottom",
-                        "line": 463
-                    },
-                    {
-                        "codegenSuccessfull": true,
-                        "column": 35,
-                        "durationMicroseconds": 145,
-                        "errorMessage": "",
-                        "functionName": "horizontalCenter",
-                        "line": 464
-                    },
-                    {
-                        "codegenSuccessfull": true,
-                        "column": 31,
-                        "durationMicroseconds": 76,
-                        "errorMessage": "",
-                        "functionName": "centerIn",
-                        "line": 473
-                    },
-                    {
-                        "codegenSuccessfull": true,
-                        "column": 35,
-                        "durationMicroseconds": 122,
-                        "errorMessage": "",
-                        "functionName": "alignment",
-                        "line": 478
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 32,
-                        "durationMicroseconds": 0,
-                        "errorMessage": "Could not find signal \"pressed\".",
-                        "functionName": "onPressed",
                         "line": 501
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 46,
-                        "durationMicroseconds": 350,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
-                        "line": 490
+                        "column": 22,
+                        "durationMicroseconds": 126,
+                        "errorMessage": "Cannot access value for name modelRotationY",
+                        "functionName": "onTriggered",
+                        "line": 517
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 1411,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 526
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 674,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 527
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 44,
-                        "durationMicroseconds": 272,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "verticalAlignment",
-                        "line": 491
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 32,
-                        "durationMicroseconds": 925,
-                        "errorMessage": "Cannot access value for name rotateXUpButton",
+                        "column": 16,
+                        "durationMicroseconds": 211,
+                        "errorMessage": "Cannot load property primaryColor from const QMetaObject.",
                         "functionName": "color",
-                        "line": 495
+                        "line": 528
                     },
                     {
-                        "codegenSuccessfull": false,
-                        "column": 32,
-                        "durationMicroseconds": 0,
-                        "errorMessage": "Could not find signal \"pressed\".",
-                        "functionName": "onPressed",
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 479,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 523
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 395,
+                        "errorMessage": "",
+                        "functionName": "horizontalCenter",
                         "line": 524
                     },
                     {
-                        "codegenSuccessfull": false,
-                        "column": 46,
-                        "durationMicroseconds": 335,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
-                        "line": 513
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 90,
+                        "errorMessage": "",
+                        "functionName": "centerIn",
+                        "line": 533
                     },
                     {
-                        "codegenSuccessfull": false,
-                        "column": 44,
-                        "durationMicroseconds": 287,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "verticalAlignment",
-                        "line": 514
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 32,
-                        "durationMicroseconds": 902,
-                        "errorMessage": "Cannot access value for name rotateXDownButton",
-                        "functionName": "color",
-                        "line": 518
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 32,
-                        "durationMicroseconds": 0,
-                        "errorMessage": "Could not find signal \"pressed\".",
-                        "functionName": "onPressed",
-                        "line": 548
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 46,
-                        "durationMicroseconds": 340,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
-                        "line": 537
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 44,
-                        "durationMicroseconds": 404,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "verticalAlignment",
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 126,
+                        "errorMessage": "",
+                        "functionName": "alignment",
                         "line": 538
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 1067,
-                        "errorMessage": "Cannot access value for name rotateYLeftButton",
-                        "functionName": "color",
-                        "line": 542
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 32,
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"pressed\".",
                         "functionName": "onPressed",
-                        "line": 571
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 46,
-                        "durationMicroseconds": 339,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
-                        "line": 560
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 44,
-                        "durationMicroseconds": 284,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "verticalAlignment",
                         "line": 561
                     },
                     {
                         "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 372,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 550
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 44,
+                        "durationMicroseconds": 574,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 551
+                    },
+                    {
+                        "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 905,
-                        "errorMessage": "Cannot access value for name rotateYRightButton",
+                        "durationMicroseconds": 3529,
+                        "errorMessage": "Cannot access value for name rotateXUpButton",
                         "functionName": "color",
-                        "line": 565
+                        "line": 555
                     },
                     {
                         "codegenSuccessfull": false,
@@ -769,31 +737,31 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"pressed\".",
                         "functionName": "onPressed",
-                        "line": 595
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 46,
-                        "durationMicroseconds": 281,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
                         "line": 584
                     },
                     {
                         "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 365,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 573
+                    },
+                    {
+                        "codegenSuccessfull": false,
                         "column": 44,
-                        "durationMicroseconds": 266,
+                        "durationMicroseconds": 807,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 585
+                        "line": 574
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 851,
-                        "errorMessage": "Cannot access value for name rotateZLeftButton",
+                        "durationMicroseconds": 1023,
+                        "errorMessage": "Cannot access value for name rotateXDownButton",
                         "functionName": "color",
-                        "line": 589
+                        "line": 578
                     },
                     {
                         "codegenSuccessfull": false,
@@ -801,87 +769,31 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"pressed\".",
                         "functionName": "onPressed",
-                        "line": 618
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 46,
-                        "durationMicroseconds": 271,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "horizontalAlignment",
-                        "line": 607
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 44,
-                        "durationMicroseconds": 254,
-                        "errorMessage": "Cannot access value for name Text",
-                        "functionName": "verticalAlignment",
                         "line": 608
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 32,
-                        "durationMicroseconds": 866,
-                        "errorMessage": "Cannot access value for name rotateZRightButton",
-                        "functionName": "color",
-                        "line": 612
-                    },
-                    {
-                        "codegenSuccessfull": true,
-                        "column": 35,
-                        "durationMicroseconds": 131,
-                        "errorMessage": "",
-                        "functionName": "alignment",
-                        "line": 624
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 32,
-                        "durationMicroseconds": 0,
-                        "errorMessage": "Could not find signal \"pressed\".",
-                        "functionName": "onPressed",
-                        "line": 647
-                    },
-                    {
-                        "codegenSuccessfull": false,
                         "column": 46,
-                        "durationMicroseconds": 295,
+                        "durationMicroseconds": 378,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
-                        "line": 636
+                        "line": 597
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 44,
-                        "durationMicroseconds": 260,
+                        "durationMicroseconds": 375,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 637
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 38,
-                        "durationMicroseconds": 274,
-                        "errorMessage": "Cannot access value for name Style",
-                        "functionName": "family",
-                        "line": 634
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 41,
-                        "durationMicroseconds": 256,
-                        "errorMessage": "Cannot access value for name Style",
-                        "functionName": "pixelSize",
-                        "line": 635
+                        "line": 598
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 873,
-                        "errorMessage": "Cannot access value for name resetViewButton",
+                        "durationMicroseconds": 8140,
+                        "errorMessage": "Cannot access value for name rotateYLeftButton",
                         "functionName": "color",
-                        "line": 641
+                        "line": 602
                     },
                     {
                         "codegenSuccessfull": false,
@@ -889,115 +801,155 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"pressed\".",
                         "functionName": "onPressed",
-                        "line": 677
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 31,
-                        "durationMicroseconds": 56,
-                        "errorMessage": "Cannot access value for name autoRotate",
-                        "functionName": "text",
-                        "line": 662
+                        "line": 631
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 46,
+                        "durationMicroseconds": 399,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 620
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 44,
                         "durationMicroseconds": 298,
                         "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 621
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 957,
+                        "errorMessage": "Cannot access value for name rotateYRightButton",
+                        "functionName": "color",
+                        "line": 625
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"pressed\".",
+                        "functionName": "onPressed",
+                        "line": 655
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 440,
+                        "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
-                        "line": 666
+                        "line": 644
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 44,
-                        "durationMicroseconds": 290,
+                        "durationMicroseconds": 381,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
+                        "line": 645
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 1723,
+                        "errorMessage": "Cannot access value for name rotateZLeftButton",
+                        "functionName": "color",
+                        "line": 649
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"pressed\".",
+                        "functionName": "onPressed",
+                        "line": 678
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 336,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
                         "line": 667
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 38,
-                        "durationMicroseconds": 292,
-                        "errorMessage": "Cannot access value for name Style",
-                        "functionName": "family",
-                        "line": 664
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 41,
-                        "durationMicroseconds": 272,
-                        "errorMessage": "Cannot access value for name Style",
-                        "functionName": "pixelSize",
-                        "line": 665
+                        "column": 44,
+                        "durationMicroseconds": 296,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 668
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 996,
-                        "errorMessage": "Cannot access value for name autoRotateButton",
+                        "durationMicroseconds": 1070,
+                        "errorMessage": "Cannot access value for name rotateZRightButton",
                         "functionName": "color",
-                        "line": 671
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 28,
-                        "durationMicroseconds": 0,
-                        "errorMessage": "Could not find signal \"pressed\".",
-                        "functionName": "onPressed",
-                        "line": 704
+                        "line": 672
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 175,
+                        "durationMicroseconds": 165,
                         "errorMessage": "",
                         "functionName": "alignment",
-                        "line": 685
+                        "line": 684
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 42,
-                        "durationMicroseconds": 314,
+                        "column": 32,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"pressed\".",
+                        "functionName": "onPressed",
+                        "line": 707
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 359,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
-                        "line": 693
+                        "line": 696
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 40,
-                        "durationMicroseconds": 271,
+                        "column": 44,
+                        "durationMicroseconds": 389,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
+                        "line": 697
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 38,
+                        "durationMicroseconds": 316,
+                        "errorMessage": "Cannot access value for name Style",
+                        "functionName": "family",
                         "line": 694
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 34,
-                        "durationMicroseconds": 776,
-                        "errorMessage": "Cannot access value for name Style",
-                        "functionName": "family",
-                        "line": 690
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 37,
-                        "durationMicroseconds": 334,
+                        "column": 41,
+                        "durationMicroseconds": 308,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "pixelSize",
-                        "line": 691
+                        "line": 695
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 28,
-                        "durationMicroseconds": 1029,
-                        "errorMessage": "Cannot access value for name tryNowButton",
+                        "column": 32,
+                        "durationMicroseconds": 3005,
+                        "errorMessage": "Cannot access value for name resetViewButton",
                         "functionName": "color",
-                        "line": 698
+                        "line": 701
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 20,
+                        "column": 32,
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"pressed\".",
                         "functionName": "onPressed",
@@ -1005,11 +957,123 @@
                     },
                     {
                         "codegenSuccessfull": false,
+                        "column": 31,
+                        "durationMicroseconds": 87,
+                        "errorMessage": "Cannot access value for name autoRotate",
+                        "functionName": "text",
+                        "line": 722
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 321,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 726
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 44,
+                        "durationMicroseconds": 402,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 727
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 38,
+                        "durationMicroseconds": 533,
+                        "errorMessage": "Cannot access value for name Style",
+                        "functionName": "family",
+                        "line": 724
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 41,
+                        "durationMicroseconds": 380,
+                        "errorMessage": "Cannot access value for name Style",
+                        "functionName": "pixelSize",
+                        "line": 725
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 1083,
+                        "errorMessage": "Cannot access value for name autoRotateButton",
+                        "functionName": "color",
+                        "line": 731
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"pressed\".",
+                        "functionName": "onPressed",
+                        "line": 764
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 167,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 745
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 42,
+                        "durationMicroseconds": 320,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "horizontalAlignment",
+                        "line": 753
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 40,
+                        "durationMicroseconds": 420,
+                        "errorMessage": "Cannot access value for name Text",
+                        "functionName": "verticalAlignment",
+                        "line": 754
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 34,
+                        "durationMicroseconds": 477,
+                        "errorMessage": "Cannot access value for name Style",
+                        "functionName": "family",
+                        "line": 750
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 37,
+                        "durationMicroseconds": 478,
+                        "errorMessage": "Cannot access value for name Style",
+                        "functionName": "pixelSize",
+                        "line": 751
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
+                        "durationMicroseconds": 950,
+                        "errorMessage": "Cannot access value for name tryNowButton",
+                        "functionName": "color",
+                        "line": 758
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 20,
+                        "durationMicroseconds": 0,
+                        "errorMessage": "Could not find signal \"pressed\".",
+                        "functionName": "onPressed",
+                        "line": 797
+                    },
+                    {
+                        "codegenSuccessfull": false,
                         "column": 22,
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"top\".",
                         "functionName": "top",
-                        "line": 715
+                        "line": 775
                     },
                     {
                         "codegenSuccessfull": false,
@@ -1017,47 +1081,47 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"left\".",
                         "functionName": "left",
-                        "line": 716
+                        "line": 776
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 34,
-                        "durationMicroseconds": 346,
+                        "durationMicroseconds": 489,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
-                        "line": 726
+                        "line": 786
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 406,
+                        "durationMicroseconds": 324,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
-                        "line": 727
+                        "line": 787
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 26,
-                        "durationMicroseconds": 329,
+                        "durationMicroseconds": 347,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "family",
-                        "line": 724
+                        "line": 784
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 29,
-                        "durationMicroseconds": 283,
+                        "durationMicroseconds": 282,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "pixelSize",
-                        "line": 725
+                        "line": 785
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 20,
-                        "durationMicroseconds": 849,
+                        "durationMicroseconds": 843,
                         "errorMessage": "Cannot access value for name backButton",
                         "functionName": "color",
-                        "line": 731
+                        "line": 791
                     }
                 ],
                 "filepath": "GarmentPreviewPage.qml"
