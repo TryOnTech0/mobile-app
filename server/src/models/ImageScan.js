@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ImageScanSchema = new mongoose.Schema({
-  imageId: {
+  garmentId: {
     type: String,
     required: true,
     unique: true

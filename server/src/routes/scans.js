@@ -19,6 +19,59 @@ const upload = multer({
   }
 });
 
+// GET /api/scans - Get last uploaded image for authenticated user
+router.get('/', auth, async (req, res) => {
+  try {
+    const lastScan = await ImageScan.findOne({ createdBy: req.user.id })
+      .sort({ createdAt: -1 })
+      .select('-__v');
+
+    if (!lastScan) {
+      return res.status(404).json({ error: 'No scans found' });
+    }
+
+    res.json(lastScan);
+
+  } catch (err) {
+    console.error('Error fetching last scan:', err);
+    res.status(500).json({ 
+      error: 'Failed to fetch last scan',
+      details: err.message 
+    });
+  }
+});
+
+// DELETE /api/scans - Delete last created entry for authenticated user
+router.delete('/', auth, async (req, res) => {
+  try {
+    const lastScan = await ImageScan.findOne({ createdBy: req.user.id })
+      .sort({ createdAt: -1 });
+
+    if (!lastScan) {
+      return res.status(404).json({ error: 'No scans found to delete' });
+    }
+
+    await ImageScan.findByIdAndDelete(lastScan._id);
+
+    res.json({ 
+      message: 'Last scan deleted successfully',
+      deletedScan: {
+        id: lastScan._id,
+        garmentId: lastScan.garmentId,
+        category: lastScan.category,
+        createdAt: lastScan.createdAt
+      }
+    });
+
+  } catch (err) {
+    console.error('Error deleting last scan:', err);
+    res.status(500).json({ 
+      error: 'Failed to delete last scan',
+      details: err.message 
+    });
+  }
+});
+
 // POST /api/scans - Upload scan to S3
 router.post('/', auth, upload.single('image'), async (req, res) => {
     try {
@@ -34,7 +87,7 @@ router.post('/', auth, upload.single('image'), async (req, res) => {
       }
   
       const newScan = new ImageScan({
-        imageId: `SCN-${Date.now()}`,
+        garmentId: req.body.garmentId,
         imageUrl: s3Data.url,
         imageKey: s3Data.key,
         category: req.body.category,

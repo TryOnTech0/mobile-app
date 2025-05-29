@@ -40,9 +40,13 @@ public:
     Q_INVOKABLE void requestCameraPermission();
     Q_INVOKABLE bool hasCameraPermission() const;
     Q_INVOKABLE void fetchGarments(bool forceRefresh = false);
-    Q_INVOKABLE void handleCapturedFrame(const QImage& frame);
+    Q_INVOKABLE void handleCapturedFrame(const QImage& frame, const QString& garmentId);
     // Q_INVOKABLE void fetchGarments();
     Q_INVOKABLE void setScanCategory(const QString& category);
+    Q_INVOKABLE void saveGarment(const QString& garmentId,
+                             const QString& name, 
+                             const QString& previewUrl, 
+                             const QString& modelUrl);
     // Property getters
     int scanProgress() const;
     QVariantList garments() const;
@@ -63,6 +67,7 @@ signals:
     // Garment signals
     void garmentsChanged();
     void garmentLoadFailed(const QString& error);
+    void processedModelUrlReady(const QString& modelUrl, const QString& previewUrl);
     
     // AR signals
     void arSessionReady();

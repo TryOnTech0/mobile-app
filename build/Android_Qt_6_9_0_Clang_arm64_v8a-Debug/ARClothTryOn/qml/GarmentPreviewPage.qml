@@ -12,6 +12,7 @@ Page {
     id: garmentPreviewPage
     property string garmentId
     property url previewImage
+    property url modelObject
 
     // State variables for garment manipulation (model only)
     property real scaleValue: 1.0
@@ -152,14 +153,18 @@ Page {
                         },
                         Mesh {
                             id: modelMesh
-                            source: qmlManager.garments.find(g => g.id === garmentId)?.modelUrl || ""
-                            onMeshStatusChanged: {
-                                if (modelMesh.status === Mesh.Error) {
-                                    console.log("Error loading 3D model:", modelMesh.source)
-                                    modelError.visible = true
-                                } else {
-                                    modelError.visible = false
-                                }
+                            source: modelObject
+
+                            // Fix: Use proper signal connection syntax
+                            Component.onCompleted: {
+                                modelMesh.statusChanged.connect(function() {
+                                    if (modelMesh.status === Mesh.Error) {
+                                        console.log("Error loading 3D model:", modelMesh.source)
+                                        modelError.visible = true
+                                    } else if (modelMesh.status === Mesh.Ready) {
+                                        modelError.visible = false
+                                    }
+                                })
                             }
                         },
                         PhongMaterial {
@@ -170,6 +175,35 @@ Page {
                             shininess: 50
                         }
                     ]
+                }
+            }
+        }
+
+        // Error overlay for 3D model loading issues
+        Rectangle {
+            id: modelError
+            anchors.centerIn: parent
+            width: 200
+            height: 100
+            color: Qt.rgba(0.5, 0.5, 0.5, 0.8)
+            radius: 8
+            visible: false
+
+            Column {
+                anchors.centerIn: parent
+                spacing: 10
+
+                Text {
+                    text: "3D Model Error"
+                    color: "white"
+                    font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+
+                Text {
+                    text: "Failed to load model"
+                    color: "white"
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
             }
         }

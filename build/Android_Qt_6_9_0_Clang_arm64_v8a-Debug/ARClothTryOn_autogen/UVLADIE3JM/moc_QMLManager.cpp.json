@@ -12,32 +12,26 @@
             "methods": [
                 {
                     "access": "public",
-                    "index": 20,
+                    "index": 22,
                     "name": "uploadNewGarment",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 21,
+                    "index": 23,
                     "name": "initializeApp",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 22,
+                    "index": 24,
                     "name": "startScanning",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 23,
+                    "index": 25,
                     "name": "saveScan",
-                    "returnType": "void"
-                },
-                {
-                    "access": "public",
-                    "index": 24,
-                    "name": "loadGarments",
                     "returnType": "void"
                 },
                 {
@@ -48,19 +42,19 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 25,
+                    "index": 26,
                     "name": "tryOnGarment",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 26,
+                    "index": 27,
                     "name": "requestCameraPermission",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 27,
+                    "index": 28,
                     "isConst": true,
                     "name": "hasCameraPermission",
                     "returnType": "bool"
@@ -73,15 +67,67 @@
                             "type": "bool"
                         }
                     ],
-                    "index": 28,
+                    "index": 29,
                     "name": "fetchGarments",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 29,
+                    "index": 30,
                     "isCloned": true,
                     "name": "fetchGarments",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "frame",
+                            "type": "QImage"
+                        },
+                        {
+                            "name": "garmentId",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 31,
+                    "name": "handleCapturedFrame",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "category",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 32,
+                    "name": "setScanCategory",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "garmentId",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "name",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "previewUrl",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "modelUrl",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 33,
+                    "name": "saveGarment",
                     "returnType": "void"
                 }
             ],
@@ -176,7 +222,19 @@
                 },
                 {
                     "access": "public",
+                    "arguments": [
+                        {
+                            "name": "error",
+                            "type": "QString"
+                        }
+                    ],
                     "index": 5,
+                    "name": "scanProcessingFailed",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 6,
                     "name": "garmentsChanged",
                     "returnType": "void"
                 },
@@ -188,13 +246,29 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 6,
+                    "index": 7,
                     "name": "garmentLoadFailed",
                     "returnType": "void"
                 },
                 {
                     "access": "public",
-                    "index": 7,
+                    "arguments": [
+                        {
+                            "name": "modelUrl",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "previewUrl",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 8,
+                    "name": "processedModelUrlReady",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 9,
                     "name": "arSessionReady",
                     "returnType": "void"
                 },
@@ -206,7 +280,7 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 8,
+                    "index": 10,
                     "name": "arSessionFailed",
                     "returnType": "void"
                 },
@@ -218,7 +292,7 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 9,
+                    "index": 11,
                     "name": "showPreview",
                     "returnType": "void"
                 },
@@ -230,7 +304,7 @@
                             "type": "bool"
                         }
                     ],
-                    "index": 10,
+                    "index": 12,
                     "name": "networkStatusChanged",
                     "returnType": "void"
                 },
@@ -242,7 +316,7 @@
                             "type": "int"
                         }
                     ],
-                    "index": 11,
+                    "index": 13,
                     "name": "uploadProgressChanged",
                     "returnType": "void"
                 },
@@ -254,7 +328,7 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 12,
+                    "index": 14,
                     "name": "uploadCompleted",
                     "returnType": "void"
                 },
@@ -266,7 +340,7 @@
                             "type": "QString"
                         }
                     ],
-                    "index": 13,
+                    "index": 15,
                     "name": "uploadFailed",
                     "returnType": "void"
                 }
@@ -280,7 +354,7 @@
                             "type": "QPermission"
                         }
                     ],
-                    "index": 14,
+                    "index": 16,
                     "name": "handlePermissionResult",
                     "returnType": "void"
                 },
@@ -292,7 +366,7 @@
                             "type": "QImage"
                         }
                     ],
-                    "index": 15,
+                    "index": 17,
                     "name": "handleFrame",
                     "returnType": "void"
                 },
@@ -304,7 +378,7 @@
                             "type": "int"
                         }
                     ],
-                    "index": 16,
+                    "index": 18,
                     "name": "updateScanProgress",
                     "returnType": "void"
                 },
@@ -316,7 +390,7 @@
                             "type": "QJsonArray"
                         }
                     ],
-                    "index": 17,
+                    "index": 19,
                     "name": "handleGarmentsReceived",
                     "returnType": "void"
                 },
@@ -328,7 +402,7 @@
                             "type": "bool"
                         }
                     ],
-                    "index": 18,
+                    "index": 20,
                     "name": "handleNetworkStatusChanged",
                     "returnType": "void"
                 },
@@ -340,7 +414,7 @@
                             "type": "int"
                         }
                     ],
-                    "index": 19,
+                    "index": 21,
                     "name": "handleUploadProgress",
                     "returnType": "void"
                 }

@@ -6,7 +6,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 31,
-                        "durationMicroseconds": 458,
+                        "durationMicroseconds": 751,
                         "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method font, returning QVariant -> QFont stored as QVariant",
                         "functionName": "buttonFont",
                         "line": 8
@@ -14,7 +14,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 30,
-                        "durationMicroseconds": 214,
+                        "durationMicroseconds": 336,
                         "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: call to method font, returning QVariant -> QFont stored as QVariant",
                         "functionName": "inputFont",
                         "line": 14

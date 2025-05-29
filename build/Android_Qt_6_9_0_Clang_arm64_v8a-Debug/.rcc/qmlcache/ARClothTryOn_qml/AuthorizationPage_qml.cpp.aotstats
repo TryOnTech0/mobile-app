@@ -14,7 +14,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 16,
-                        "durationMicroseconds": 200,
+                        "durationMicroseconds": 303,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "color",
                         "line": 14
@@ -22,7 +22,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 23,
-                        "durationMicroseconds": 8,
+                        "durationMicroseconds": 11,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "fill",
                         "line": 15
@@ -30,7 +30,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 160,
+                        "durationMicroseconds": 240,
                         "errorMessage": "Cannot access value for name width",
                         "functionName": "onCompleted",
                         "line": 20
@@ -38,7 +38,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 34,
-                        "durationMicroseconds": 114,
+                        "durationMicroseconds": 163,
                         "errorMessage": "Cannot retrieve a non-object type by ID: loadingIndicator",
                         "functionName": "onRegistrationSucceeded",
                         "line": 29
@@ -46,15 +46,15 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 31,
-                        "durationMicroseconds": 171,
-                        "errorMessage": "Cannot access value for name error",
+                        "durationMicroseconds": 75,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: loadingIndicator",
                         "functionName": "onRegistrationFailed",
                         "line": 40
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 25,
-                        "durationMicroseconds": 72,
+                        "durationMicroseconds": 95,
                         "errorMessage": "Cannot retrieve a non-object type by ID: loadingIndicator",
                         "functionName": "onUserLoggedIn",
                         "line": 46
@@ -62,15 +62,15 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 33,
-                        "durationMicroseconds": 153,
-                        "errorMessage": "Cannot access value for name error",
+                        "durationMicroseconds": 93,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: loadingIndicator",
                         "functionName": "onAuthenticationFailed",
                         "line": 54
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 18,
-                        "durationMicroseconds": 2716,
+                        "durationMicroseconds": 3944,
                         "errorMessage": "Cannot load property gridSpacing from const QMetaObject.",
                         "functionName": "spacing",
                         "line": 64
@@ -78,7 +78,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 16,
-                        "durationMicroseconds": 298,
+                        "durationMicroseconds": 453,
                         "errorMessage": "",
                         "functionName": "width",
                         "line": 65
@@ -86,7 +86,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 27,
-                        "durationMicroseconds": 62,
+                        "durationMicroseconds": 91,
                         "errorMessage": "",
                         "functionName": "centerIn",
                         "line": 63
@@ -110,7 +110,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 95,
+                        "durationMicroseconds": 118,
                         "errorMessage": "",
                         "functionName": "alignment",
                         "line": 70
@@ -206,7 +206,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 44,
+                        "durationMicroseconds": 50,
                         "errorMessage": "Cannot load property buttonWidth from const QMetaObject.",
                         "functionName": "preferredWidth",
                         "line": 135
@@ -214,7 +214,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 37,
-                        "durationMicroseconds": 20,
+                        "durationMicroseconds": 24,
                         "errorMessage": "Cannot load property buttonHeight from const QMetaObject.",
                         "functionName": "preferredHeight",
                         "line": 136
@@ -222,7 +222,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 105,
+                        "durationMicroseconds": 145,
                         "errorMessage": "",
                         "functionName": "alignment",
                         "line": 137
@@ -230,7 +230,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 25,
-                        "durationMicroseconds": 314,
+                        "durationMicroseconds": 289,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "radius",
                         "line": 160
@@ -238,7 +238,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 24,
-                        "durationMicroseconds": 775,
+                        "durationMicroseconds": 538,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "color",
                         "line": 161
@@ -246,7 +246,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 23,
-                        "durationMicroseconds": 60,
+                        "durationMicroseconds": 37,
                         "errorMessage": "Cannot access value for name submitButton",
                         "functionName": "text",
                         "line": 165
@@ -254,7 +254,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 23,
-                        "durationMicroseconds": 22,
+                        "durationMicroseconds": 29,
                         "errorMessage": "Cannot access value for name submitButton",
                         "functionName": "font",
                         "line": 166
@@ -262,7 +262,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 38,
-                        "durationMicroseconds": 318,
+                        "durationMicroseconds": 355,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
                         "line": 168
@@ -270,7 +270,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 271,
+                        "durationMicroseconds": 262,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
                         "line": 169
@@ -294,7 +294,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 154,
+                        "durationMicroseconds": 142,
                         "errorMessage": "",
                         "functionName": "alignment",
                         "line": 178
@@ -302,7 +302,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 23,
-                        "durationMicroseconds": 21,
+                        "durationMicroseconds": 734,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "text",
                         "line": 190
@@ -310,7 +310,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 24,
-                        "durationMicroseconds": 347,
+                        "durationMicroseconds": 407,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "color",
                         "line": 191

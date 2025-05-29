@@ -8,7 +8,6 @@ const { uploadFileToS3 } = require('../utils/s3');
 
 
 // Configure Multer with file filtering
-const storage = multer.memoryStorage();
 const upload = multer({
   storage: multer.memoryStorage(),
   fileFilter: (req, file, cb) => {
@@ -50,8 +49,6 @@ const generateGarmentId = async () => {
   return garmentId;
 };
 
-
-
 // Add new garment with type-specific handling
 router.post('/', auth, upload.fields([
   { name: 'preview', maxCount: 1 },
@@ -75,8 +72,18 @@ router.post('/', auth, upload.fields([
       uploadFileToS3(uploadedFiles.model)
     ]);
 
-    // Generate unique garmentId
-    const garmentId = await generateGarmentId();
+    // Use provided garmentId or generate new one
+    let garmentId;
+    if (req.body.garmentId) {
+      // Validate that garmentId doesn't already exist
+      const existing = await Garment.findOne({ garmentId: req.body.garmentId });
+      if (existing) {
+        return res.status(400).json({ error: 'Garment ID already exists' });
+      }
+      garmentId = req.body.garmentId;
+    } else {
+      garmentId = await generateGarmentId();
+    }
 
     const newGarment = new Garment({
       garmentId,
@@ -157,6 +164,7 @@ router.delete('/:garmentId', auth, async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 router.get('/files/:fileId', auth, (req, res) => {
   try {
     const fileId = new mongoose.Types.ObjectId(req.params.fileId);
@@ -171,10 +179,5 @@ router.get('/files/:fileId', auth, (req, res) => {
     res.status(400).json({ error: 'Invalid file ID' });
   }
 });
-
-
-
-
-
 
 module.exports = router;

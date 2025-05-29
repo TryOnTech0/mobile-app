@@ -12,7 +12,18 @@ Page {
     property string capturedPhotoPath: ""
     property string selectedCategory: ""
     property string processedModelUrl: ""
+    property string lastScanId: ""
     property var capturedFrame: null
+    property string currentGarmentId: ""
+    property string processedPreviewUrl: ""
+
+    // Generate unique garment ID
+    function generateGarmentId() {
+        const timestamp = Date.now();
+        const randomPart = Math.floor(Math.random() * 1000000); // Increased range
+
+        return `garment_${timestamp}_${randomPart}`;
+    }
 
     states: [
         State {
@@ -71,12 +82,43 @@ Page {
 
     QMLManager {
         id: qmlManager
-        onScanProgressChanged: {
-            progressBar.value = scanProgress
-            if(scanProgress >= 100) {
-                processedModelUrl = qmlManager.getProcessedModel()
-                cameraPage.state = "modelPreview"
-            }
+
+        // Handle scan progress updates
+        onScanProgressChanged: function(progress) {
+            progressBar.value = progress
+        }
+
+        // Handle processed model ready
+        onProcessedModelUrlReady: function(modelUrl, previewUrl) {
+            processedModelUrl = modelUrl
+            processedPreviewUrl = previewUrl  // Store the preview URL
+            cameraPage.state = "modelPreview"
+        }
+
+        // Handle scan processing failures
+        onScanProcessingFailed: function(error) {
+            errorLabel.text = "Scan processing failed: " + error
+            errorLabel.visible = true
+            cameraPage.state = "preview"
+            progressOverlay.visible = false
+        }
+
+        // Handle upload completion
+        onUploadCompleted: function(garmentId) {
+            console.log("Upload completed for garment:", garmentId)
+            stackView.pop()
+        }
+
+        // Handle upload failures
+        onUploadFailed: function(error) {
+            errorLabel.text = "Upload failed: " + error
+            errorLabel.visible = true
+            cameraPage.state = "preview"
+        }
+
+        // Handle upload progress
+        onUploadProgressChanged: function(progress) {
+            progressBar.value = progress
         }
     }
 
@@ -88,14 +130,14 @@ Page {
             focusMode: Camera.FocusModeAuto
 
             Component.onCompleted: {
-                if (!PermissionHelper.checkCameraPermission()) {
-                    PermissionHelper.requestCameraPermission()
+                if (!qmlManager.hasCameraPermission()) {
+                    qmlManager.requestCameraPermission()
                 } else {
                     startCamera()
                 }
             }
 
-            onErrorOccurred: (error, errorString) => {
+            onErrorOccurred: function(error, errorString) {
                 errorLabel.text = "Camera Error: " + errorString
                 errorLabel.visible = true
                 camera.stop()
@@ -103,9 +145,9 @@ Page {
         }
         imageCapture: ImageCapture {
             id: imageCapture
-            onImageCaptured: (requestId, frame) => {
-                capturedFrame = frame;
-                cameraPage.state = "categorySelection";
+            onImageCaptured: function(requestId, frame) {
+                capturedFrame = frame
+                cameraPage.state = "categorySelection"
             }
         }
         videoOutput: videoOutput
@@ -124,6 +166,18 @@ Page {
         font.bold: true
         Layout.alignment: Qt.AlignCenter
         anchors.centerIn: parent
+
+        Timer {
+            id: errorTimer
+            interval: 5000
+            onTriggered: errorLabel.visible = false
+        }
+
+        onVisibleChanged: {
+            if (visible) {
+                errorTimer.start()
+            }
+        }
     }
 
     // Capture Button
@@ -144,9 +198,11 @@ Page {
         }
 
         onClicked: {
-            // Directly capture to memory instead of file
+            // Generate new garment ID for this capture
+            currentGarmentId = generateGarmentId()
+            console.log("Garment id from QT: ", currentGarmentId)
+            // Capture image to memory
             imageCapture.capture()
-            cameraPage.state = "capturing"
         }
 
         contentItem: Text {
@@ -167,38 +223,72 @@ Page {
         visible: false
 
         onAccepted: {
+            if (selectedCategory === "") {
+                errorLabel.text = "Please select a category"
+                errorLabel.visible = true
+                return
+            }
+
+            // Set category in QMLManager
             qmlManager.setScanCategory(selectedCategory)
+
             if (capturedFrame) {
-                qmlManager.handleCapturedFrame(capturedFrame)
-                capturedFrame = null // clear after sending
+                // Pass the captured frame to QMLManager for processing
+                qmlManager.handleCapturedFrame(capturedFrame, currentGarmentId)
+                capturedFrame = null // Clear after sending
                 cameraPage.state = "capturing"
             } else {
-                console.warn("No captured frame available.")
+                errorLabel.text = "No captured frame available"
+                errorLabel.visible = true
+                cameraPage.state = "preview"
             }
+        }
+
+        onRejected: {
+            // Reset to preview state if dialog is cancelled
+            cameraPage.state = "preview"
+            capturedFrame = null
         }
 
         ColumnLayout {
             spacing: 20
+
+            ButtonGroup {
+                id: categoryGroup
+            }
+
             RadioButton {
                 text: "Shirt"
                 checked: true
+                ButtonGroup.group: categoryGroup
                 onCheckedChanged: if(checked) selectedCategory = "shirt"
             }
             RadioButton {
                 text: "Pants"
+                ButtonGroup.group: categoryGroup
                 onCheckedChanged: if(checked) selectedCategory = "pants"
             }
             RadioButton {
                 text: "Dress"
+                ButtonGroup.group: categoryGroup
                 onCheckedChanged: if(checked) selectedCategory = "dress"
             }
             RadioButton {
                 text: "Shoes"
+                ButtonGroup.group: categoryGroup
                 onCheckedChanged: if(checked) selectedCategory = "shoes"
             }
-            Button {
-                text: "Confirm"
-                onClicked: categoryDialog.accept() // Changed from onAccepted
+
+            RowLayout {
+                spacing: 10
+                Button {
+                    text: "Cancel"
+                    onClicked: categoryDialog.reject()
+                }
+                Button {
+                    text: "Confirm"
+                    onClicked: categoryDialog.accept()
+                }
             }
         }
     }
@@ -216,14 +306,15 @@ Page {
 
             BusyIndicator {
                 Layout.alignment: Qt.AlignCenter
-                running: true
+                running: progressOverlay.visible
                 width: 100
                 height: 100
             }
 
             ProgressBar {
                 id: progressBar
-                width: parent.width * 0.8
+                Layout.preferredWidth: 250
+                Layout.alignment: Qt.AlignCenter
                 from: 0
                 to: 100
                 value: 0
@@ -233,6 +324,7 @@ Page {
                 text: "Processing scan...\nThis may take a few seconds"
                 color: "white"
                 horizontalAlignment: Text.AlignHCenter
+                Layout.alignment: Qt.AlignCenter
             }
         }
     }
@@ -247,18 +339,30 @@ Page {
         ColumnLayout {
             anchors.centerIn: parent
             spacing: 20
+            width: parent.width * 0.8
 
-            // 3D Preview Component (Replace with actual 3D viewer)
+            Label {
+                text: "3D Model Preview"
+                font.bold: true
+                font.pixelSize: 18
+                Layout.alignment: Qt.AlignCenter
+            }
+
+            // 3D Preview Component placeholder
             Rectangle {
-                width: 300
-                height: 300
-                color: "white"
-                border.color: "gray"
+                Layout.preferredWidth: 300
+                Layout.preferredHeight: 300
+                Layout.alignment: Qt.AlignCenter
+                color: "#e0e0e0"
+                border.color: "#ccc"
+                border.width: 1
+                radius: 5
 
-                Text {
+                Label {
                     anchors.centerIn: parent
-                    text: "3D Model Preview\n(Placeholder)"
+                    text: "3D Model Preview\n" + processedModelUrl
                     horizontalAlignment: Text.AlignHCenter
+                    color: "#666"
                 }
             }
 
@@ -266,20 +370,46 @@ Page {
                 id: garmentName
                 placeholderText: "Enter garment name"
                 Layout.fillWidth: true
+                Layout.preferredHeight: 40
             }
 
             RowLayout {
                 spacing: 20
+                Layout.alignment: Qt.AlignCenter
+
                 Button {
-                    text: "Confirm"
+                    text: "Save Garment"
+                    enabled: garmentName.text.trim() !== ""
                     onClicked: {
-                        qmlManager.saveGarment(garmentName.text, selectedCategory, processedModelUrl)
-                        stackView.pop()
+                        if (garmentName.text.trim() === "") {
+                            errorLabel.text = "Please enter a garment name"
+                            errorLabel.visible = true
+                            return
+                        }
+
+                        // Call saveGarment with correct parameters: garmentId, name, previewUrl, modelUrl
+                        qmlManager.saveGarment(
+                            currentGarmentId,           // garmentId (generated in QML)
+                            garmentName.text.trim(),    // name
+                            processedPreviewUrl,                         // previewUrl (will be generated server-side)
+                            processedModelUrl           // modelUrl
+                        )
+
+                        // Show processing state
+                        cameraPage.state = "capturing"
                     }
                 }
+
                 Button {
                     text: "Retake"
                     onClicked: {
+                        // Reset state and restart camera
+                        processedModelUrl = ""
+                        processedPreviewUrl = ""
+                        lastScanId = ""
+                        currentGarmentId = ""
+                        selectedCategory = ""
+                        garmentName.text = ""
                         cameraPage.state = "preview"
                         camera.start()
                     }
@@ -288,27 +418,35 @@ Page {
         }
     }
 
-    Component.onCompleted: {
-        if (camera.cameraStatus === Camera.UnloadedStatus) {
+    // Handle permission results
+    Connections {
+        target: qmlManager
+
+        function onPermissionGranted() {
             camera.start()
+        }
+
+        function onPermissionDenied() {
+            errorLabel.text = "Camera permission denied. Please enable camera access in settings."
+            errorLabel.visible = true
+        }
+    }
+
+    Component.onCompleted: {
+        // Initialize selected category
+        selectedCategory = "shirt"
+
+        // Start camera if not already started
+        if (camera.cameraStatus === Camera.UnloadedStatus) {
+            if (qmlManager.hasCameraPermission()) {
+                camera.start()
+            }
         }
     }
 
     Component.onDestruction: {
         if (camera.cameraStatus === Camera.ActiveStatus) {
             camera.stop()
-        }
-    }
-
-    Connections {
-        target: qmlManager
-        function onUploadProgress(percent) {
-            progressBar.value = percent
-        }
-        function onProcessingError(error) {
-            errorLabel.text = "Processing error: " + error
-            errorLabel.visible = true
-            cameraPage.state = "preview"
         }
     }
 }

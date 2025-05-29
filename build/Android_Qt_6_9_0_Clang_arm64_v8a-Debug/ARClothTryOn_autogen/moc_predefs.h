@@ -11,7 +11,7 @@
 #define QT_GUI_LIB 1
 #define QT_MULTIMEDIA_LIB 1
 #define QT_NETWORK_LIB 1
-#define QT_NO_SSL 1
+#define QT_NETWORK_SSL 1
 #define QT_OPENGL_LIB 1
 #define QT_QMLINTEGRATION_LIB 1
 #define QT_QMLMETA_LIB 1

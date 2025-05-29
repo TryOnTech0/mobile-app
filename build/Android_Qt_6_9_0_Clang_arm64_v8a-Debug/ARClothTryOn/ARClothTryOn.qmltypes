@@ -69,6 +69,20 @@ Module {
             Parameter { name: "garmentId"; type: "QString" }
         }
         Signal {
+            name: "scanUploaded"
+            Parameter { name: "imageId"; type: "QString" }
+            Parameter { name: "imageUrl"; type: "QString" }
+        }
+        Signal {
+            name: "scanProgressChanged"
+            Parameter { name: "progress"; type: "int" }
+        }
+        Signal {
+            name: "processedModelReady"
+            Parameter { name: "imageId"; type: "QString" }
+            Parameter { name: "modelUrl"; type: "QString" }
+        }
+        Signal {
             name: "userLoggedIn"
             Parameter { name: "username"; type: "QString" }
             Parameter { name: "userId"; type: "QString" }
@@ -115,27 +129,14 @@ Module {
             Parameter { name: "reply"; type: "QNetworkReply"; isPointer: true }
         }
         Method { name: "fetchUserData" }
+        Method { name: "isConnected"; type: "bool"; isMethodConstant: true }
+        Method { name: "verifyAuthToken" }
+        Method { name: "verifyServerConnectivity" }
         Method {
-            name: "connectToDatabase"
-            type: "bool"
-            Parameter { name: "dbName"; type: "QString" }
-            Parameter { name: "username"; type: "QString" }
-            Parameter { name: "password"; type: "QString" }
+            name: "onSslErrors"
+            Parameter { name: "reply"; type: "QNetworkReply"; isPointer: true }
+            Parameter { name: "errors"; type: "QSslError"; isList: true }
         }
-        Method {
-            name: "connectToDatabase"
-            type: "bool"
-            isCloned: true
-            Parameter { name: "dbName"; type: "QString" }
-            Parameter { name: "username"; type: "QString" }
-        }
-        Method {
-            name: "connectToDatabase"
-            type: "bool"
-            isCloned: true
-            Parameter { name: "dbName"; type: "QString" }
-        }
-        Method { name: "disconnectFromDatabase" }
         Method {
             name: "fetchGarments"
             Parameter { name: "forceRefresh"; type: "bool" }
@@ -161,6 +162,16 @@ Module {
         Method {
             name: "deleteGarment"
             Parameter { name: "garmentId"; type: "QString" }
+        }
+        Method {
+            name: "uploadScan"
+            Parameter { name: "imageData"; type: "QByteArray" }
+            Parameter { name: "category"; type: "QString" }
+            Parameter { name: "garmentId"; type: "QString" }
+        }
+        Method {
+            name: "getProcessedModel"
+            Parameter { name: "imageId"; type: "QString" }
         }
         Method {
             name: "registerUser"
@@ -220,10 +231,19 @@ Module {
             name: "scanFailed"
             Parameter { name: "error"; type: "QString" }
         }
+        Signal {
+            name: "scanProcessingFailed"
+            Parameter { name: "error"; type: "QString" }
+        }
         Signal { name: "garmentsChanged" }
         Signal {
             name: "garmentLoadFailed"
             Parameter { name: "error"; type: "QString" }
+        }
+        Signal {
+            name: "processedModelUrlReady"
+            Parameter { name: "modelUrl"; type: "QString" }
+            Parameter { name: "previewUrl"; type: "QString" }
         }
         Signal { name: "arSessionReady" }
         Signal {
@@ -278,7 +298,6 @@ Module {
         Method { name: "initializeApp" }
         Method { name: "startScanning" }
         Method { name: "saveScan" }
-        Method { name: "loadGarments" }
         Method {
             name: "tryOnGarment"
             Parameter { name: "garmentId"; type: "QString" }
@@ -290,5 +309,21 @@ Module {
             Parameter { name: "forceRefresh"; type: "bool" }
         }
         Method { name: "fetchGarments"; isCloned: true }
+        Method {
+            name: "handleCapturedFrame"
+            Parameter { name: "frame"; type: "QImage" }
+            Parameter { name: "garmentId"; type: "QString" }
+        }
+        Method {
+            name: "setScanCategory"
+            Parameter { name: "category"; type: "QString" }
+        }
+        Method {
+            name: "saveGarment"
+            Parameter { name: "garmentId"; type: "QString" }
+            Parameter { name: "name"; type: "QString" }
+            Parameter { name: "previewUrl"; type: "QString" }
+            Parameter { name: "modelUrl"; type: "QString" }
+        }
     }
 }

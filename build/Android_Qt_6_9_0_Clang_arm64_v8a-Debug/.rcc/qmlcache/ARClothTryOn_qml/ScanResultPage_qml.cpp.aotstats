@@ -4,28 +4,28 @@
             {
                 "entries": [
                     {
-                        "codegenSuccessfull": false,
+                        "codegenSuccessfull": true,
                         "column": 27,
-                        "durationMicroseconds": 0,
-                        "errorMessage": "Could not find property \"centerIn\".",
+                        "durationMicroseconds": 260,
+                        "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 10
+                        "line": 11
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 21,
-                        "durationMicroseconds": 115,
+                        "durationMicroseconds": 58,
                         "errorMessage": "Cannot access value for name previewPath",
                         "functionName": "source",
-                        "line": 13
+                        "line": 14
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 58,
-                        "durationMicroseconds": 214,
+                        "durationMicroseconds": 81,
                         "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 21
+                        "line": 22
                     },
                     {
                         "codegenSuccessfull": false,
@@ -33,7 +33,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 28
+                        "line": 29
                     },
                     {
                         "codegenSuccessfull": false,
@@ -41,7 +41,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 33
+                        "line": 34
                     }
                 ],
                 "filepath": "ScanResultPage.qml"

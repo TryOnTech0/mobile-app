@@ -45,7 +45,8 @@ public:
                               const QString& previewPath = QString(),
                               const QString& modelPath = QString());
     Q_INVOKABLE void deleteGarment(const QString& garmentId);
-    Q_INVOKABLE void uploadScan(const QByteArray& imageData, const QString& category);
+    Q_INVOKABLE void uploadScan(const QByteArray& imageData, const QString& category, const QString& garmentId);
+    Q_INVOKABLE void getProcessedModel(const QString& imageId);
 
     // User management
     Q_INVOKABLE void registerUser(const QString& username, const QString& email, const QString& password);
@@ -76,6 +77,9 @@ signals:
     // Scan upload signals - ADDED MISSING SIGNAL
     void scanUploaded(const QString& imageId, const QString& imageUrl);
     void scanProgressChanged(int progress);
+    void processedModelReady(const QString& imageId, const QString& modelUrl);
+
+
 
     // Authentication signals
     void userLoggedIn(const QString& username, const QString& userId);

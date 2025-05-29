@@ -24,7 +24,7 @@
 /client/*.pro.user
 /client/*.pro.user.*
 /client/.qmake.stash
-/build/
+/build/*
 /client/android-opencv/
 
 

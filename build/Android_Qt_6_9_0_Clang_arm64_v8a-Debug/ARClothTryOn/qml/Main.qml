@@ -14,11 +14,7 @@ ApplicationWindow {
         id: qmlManager
     }
 
-    // Enable console.log output in QML
-    Component.onCompleted: {
-        qmlManager.initializeApp();
-        console.log("Main.qml loaded")
-    }
+    
 
     // Main stack view
     StackView {

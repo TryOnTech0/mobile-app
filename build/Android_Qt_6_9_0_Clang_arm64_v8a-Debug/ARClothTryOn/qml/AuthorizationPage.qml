@@ -38,9 +38,9 @@ Page {
             }
         }
         onRegistrationFailed: {
-            console.log("Registration failed:", error)
+            console.log("Registration failed")
             loadingIndicator.running = false
-            errorLabel.text = error
+            errorLabel.text = "Registration failed"
             errorLabel.visible = true
         }
         onUserLoggedIn: {
@@ -52,9 +52,9 @@ Page {
             }
         }
         onAuthenticationFailed: {
-            console.log("Authentication failed:", error)
+            console.log("Authentication failed")
             loadingIndicator.running = false
-            errorLabel.text = error
+            errorLabel.text = "Authentication failed"
             errorLabel.visible = true
         }
     }

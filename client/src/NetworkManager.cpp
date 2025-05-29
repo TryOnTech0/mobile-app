@@ -12,6 +12,7 @@
 #include <QSslSocket>
 #include <QSslConfiguration>
 #include <memory>
+#include <QThread>
 
 NetworkManager::NetworkManager(QObject* parent)
     : QObject(parent),
@@ -19,8 +20,8 @@ NetworkManager::NetworkManager(QObject* parent)
 {
     #ifdef Q_OS_ANDROID
         //eduroam
-        // m_serverUrl = "http://10.1.239.113:5000/api";
-        m_serverUrl = "http://192.168.1.5:5000/api";
+        m_serverUrl = "http://10.1.239.113:5000/api";
+        // m_serverUrl = "http://192.168.1.5:5000/api";
     #else
         m_serverUrl = "http://localhost:5000/api";
     #endif
@@ -113,54 +114,7 @@ void NetworkManager::onSslErrors(QNetworkReply* reply, const QList<QSslError>& e
 #endif
 
 // Method for scan uploads
-void NetworkManager::uploadScan(const QByteArray& imageData, const QString& category) {
-    qDebug() << "Uploading scan with:";
-    qDebug() << " - Category:" << category;
-    qDebug() << " - Image size:" << imageData.size() << "bytes";
 
-    QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
-    
-    // Add category part
-    QHttpPart categoryPart;
-    categoryPart.setHeader(QNetworkRequest::ContentDispositionHeader, 
-                         QVariant("form-data; name=\"category\""));
-    categoryPart.setBody(category.toUtf8());
-    multiPart->append(categoryPart);
-
-    // Add image part
-    QHttpPart imagePart;
-    imagePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
-    imagePart.setHeader(QNetworkRequest::ContentDispositionHeader,
-                      QVariant("form-data; name=\"image\"; filename=\"scan.jpg\""));
-    imagePart.setBody(imageData);
-    multiPart->append(imagePart);
-
-    QUrl url(m_serverUrl + "/scans");
-    QNetworkRequest request = createAuthenticatedRequest(url);
-    
-    QNetworkReply* reply = m_networkManager->post(request, multiPart);
-    multiPart->setParent(reply);
-
-    connect(reply, &QNetworkReply::uploadProgress, [this](qint64 sent, qint64 total) {
-        emit scanProgressChanged(static_cast<int>((sent * 100) / total));
-    });
-
-    connect(reply, &QNetworkReply::finished, [this, reply]() {
-        bool ok;
-        QJsonDocument response = parseJsonReply(reply, ok);
-        
-        if(ok && response.object().contains("imageUrl")) {
-            emit scanUploaded(
-                response.object()["imageId"].toString(),
-                response.object()["imageUrl"].toString()
-            );
-        } else {
-            emit networkError("Scan upload failed: " + 
-                response.object()["error"].toString());
-        }
-        reply->deleteLater();
-    });
-}
 // Get server URL
 QString NetworkManager::serverUrl() const {
     return m_serverUrl;
@@ -210,6 +164,163 @@ void NetworkManager::handleGarmentsResponse(QNetworkReply* reply) {
     
     reply->deleteLater();
 }
+
+void NetworkManager::uploadScan(const QByteArray& imageData, const QString& category, const QString& garmentId) {
+    qDebug() << "Uploading scan with:";
+    qDebug() << " - Category:" << category;
+    qDebug() << " - Garment ID:" << garmentId;
+    qDebug() << " - Image size:" << imageData.size() << "bytes";
+
+    QHttpMultiPart *multiPart = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+    
+    // Add garment ID part
+    QHttpPart garmentIdPart;
+    garmentIdPart.setHeader(QNetworkRequest::ContentDispositionHeader,
+                        QVariant("form-data; name=\"garmentId\""));
+    garmentIdPart.setBody(garmentId.toUtf8());  
+    multiPart->append(garmentIdPart);
+    
+    // Add category part
+    QHttpPart categoryPart;
+    categoryPart.setHeader(QNetworkRequest::ContentDispositionHeader,
+                          QVariant("form-data; name=\"category\""));
+    categoryPart.setBody(category.toUtf8());
+    multiPart->append(categoryPart);
+
+    // Add image part
+    QHttpPart imagePart;
+    imagePart.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("image/jpeg"));
+    imagePart.setHeader(QNetworkRequest::ContentDispositionHeader,
+                       QVariant("form-data; name=\"image\"; filename=\"scan.jpg\""));
+    imagePart.setBody(imageData);
+    multiPart->append(imagePart);
+
+    QUrl url(m_serverUrl + "/scans");
+    QNetworkRequest request = createAuthenticatedRequest(url);
+    
+    QNetworkReply* reply = m_networkManager->post(request, multiPart);
+    multiPart->setParent(reply);
+
+    connect(reply, &QNetworkReply::uploadProgress, [this](qint64 sent, qint64 total) {
+        if (total > 0) {
+            emit scanProgressChanged(static_cast<int>((sent * 100) / total));
+        }
+    });
+
+    connect(reply, &QNetworkReply::finished, [this, reply, garmentId]() {
+        bool ok;
+        QJsonDocument response = parseJsonReply(reply, ok);
+        
+        if (ok && response.isObject()) {
+            QJsonObject responseObj = response.object();
+            
+            if ((responseObj.contains("success") && responseObj["success"].toBool()) ||
+                responseObj.contains("garmentId") || 
+                responseObj.contains("imageUrl")) {
+                
+                QString returnedGarmentId = responseObj.contains("garmentId") ? 
+                                        responseObj["garmentId"].toString() : garmentId;
+                
+                QString imageUrl = responseObj.contains("imageUrl") ? 
+                                responseObj["imageUrl"].toString() : "";
+                
+                qDebug() << "Scan upload successful for garment:" << returnedGarmentId;
+                emit scanUploaded(returnedGarmentId, imageUrl);
+            } else {
+                QString errorMsg = responseObj.contains("error") ? 
+                                 responseObj["error"].toString() : "Unknown upload error";
+                qWarning() << "Scan upload failed:" << errorMsg;
+                emit networkError("Scan upload failed: " + errorMsg);
+            }
+        } else {
+            qWarning() << "Invalid response from scan upload";
+            emit networkError("Scan upload failed: Invalid server response");
+        }
+        
+        reply->deleteLater();
+    });
+}
+
+void NetworkManager::getProcessedModel(const QString& garmentId) {
+    qDebug() << "Requesting processed model for garment:" << garmentId;
+    
+    const int maxRetries = 10;
+    const int retryDelayMs = 2000;
+
+    // Build URL with garmentId as query parameter
+    QUrl url(m_serverUrl + "/3d-models");
+    QUrlQuery query;
+    query.addQueryItem("garmentId", garmentId);
+    url.setQuery(query);
+    
+    QNetworkRequest request = createAuthenticatedRequest(url);
+
+    for (int attempt = 0; attempt < maxRetries; ++attempt) {
+        qDebug() << "Requesting processed model for garment" << garmentId 
+                 << "(attempt" << (attempt + 1) << "of" << maxRetries << ")";
+
+        QNetworkReply* reply = m_networkManager->get(request);
+
+        QEventLoop loop;
+        connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+        loop.exec();  // BLOCKS until the reply is finished
+
+        bool ok;
+        QJsonDocument response = parseJsonReply(reply, ok);
+
+        if (ok && response.isObject()) {
+            QJsonObject obj = response.object();
+            
+            // Check if processing is complete
+            if (obj.contains("status")) {
+                QString status = obj["status"].toString();
+                qDebug() << "Processing status for garment" << garmentId << ":" << status;
+                
+                if (status == "completed" && obj.contains("modelUrl")) {
+                    QString modelUrl = obj["modelUrl"].toString();
+                    QString previewUrl = obj["previewUrl"].toString();
+                    qDebug() << "3D model ready for garment" << garmentId << ":" << modelUrl;
+                    emit processedModelReady(modelUrl, previewUrl);
+                    reply->deleteLater();
+                    return;
+                } else if (status == "failed") {
+                    QString errorMsg = obj.contains("error") ? 
+                                     obj["error"].toString() : "Processing failed";
+                    qWarning() << "3D model processing failed for garment" << garmentId << ":" << errorMsg;
+                    emit networkError("3D model processing failed: " + errorMsg);
+                    reply->deleteLater();
+                    return;
+                } else if (status == "processing") {
+                    qDebug() << "Model still processing for garment" << garmentId << "...";
+                    // Continue to retry
+                }
+            } else if (obj.contains("modelUrl")) {
+                // Fallback: direct modelUrl without status field
+                QString modelUrl = obj["modelUrl"].toString();
+                QString previewUrl = obj["previewUrl"].toString();
+                qDebug() << "3D model ready for garment" << garmentId << ":" << modelUrl;
+                emit processedModelReady(modelUrl, previewUrl);
+                reply->deleteLater();
+                return;
+            }
+        } else {
+            qWarning() << "Invalid response when requesting model for garment" << garmentId;
+        }
+
+        reply->deleteLater();
+        
+        // Don't sleep on the last attempt
+        if (attempt < maxRetries - 1) {
+            qDebug() << "Model not ready yet for garment" << garmentId 
+                     << ". Retrying in" << retryDelayMs << "ms...";
+            QThread::msleep(retryDelayMs);
+        }
+    }
+
+    qWarning() << "Failed to get 3D model for garment" << garmentId << ": Max retries reached";
+    emit networkError("Failed to get 3D model for garment " + garmentId + ": Max retries reached");
+}
+
 
 // Upload a new garment
 void NetworkManager::uploadGarment(const QJsonObject& garmentData, 

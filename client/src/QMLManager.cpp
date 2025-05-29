@@ -28,7 +28,17 @@ QMLManager::QMLManager(QObject* parent)
                 qWarning() << "Network error:" << error;
                 // You can emit a signal to QML if needed
             });
-    
+    connect(m_networkManager.get(), &NetworkManager::scanUploaded,
+            this, [this](const QString& garmentId, const QString& imageUrl) {
+        qDebug() << "Scan uploaded. Image ID:" << garmentId;
+        m_networkManager->getProcessedModel(garmentId);
+    });
+
+    connect(m_networkManager.get(), &NetworkManager::processedModelReady,
+        this, [this](const QString& modelUrl, const QString& previewUrl) {
+            emit processedModelUrlReady(modelUrl, previewUrl);
+    });
+
     connect(m_networkManager.get(), &NetworkManager::garmentUploadSucceeded,
             this, [this](const QString& garmentId) {
                 qDebug() << "Upload succeeded for garment:" << garmentId;
@@ -62,7 +72,7 @@ void QMLManager::handleUploadProgress(int percent) {
     // You can emit a signal to QML for progress updates here
 }
 
-void QMLManager::handleCapturedFrame(const QImage& frame) {
+void QMLManager::handleCapturedFrame(const QImage& frame, const QString& garmentId) {
     if(frame.isNull()) return;
 
     QByteArray imageData;
@@ -75,7 +85,7 @@ void QMLManager::handleCapturedFrame(const QImage& frame) {
             qWarning() << "Category not selected";
             emit scanProcessingFailed("Please select a category");
         }
-        m_networkManager->uploadScan(imageData, m_currentCategory);
+        m_networkManager->uploadScan(imageData, m_currentCategory, garmentId);
     }
 }
 
@@ -244,29 +254,17 @@ void QMLManager::fetchGarments(bool forceRefresh) {
     }
 }
 
-// Upload new garment with proper error handling
-// void QMLManager::uploadNewGarment() {
-//     if (!m_networkManager) {
-//         qWarning() << "NetworkManager not initialized";
-//         return;
-//     }
-
-//     // Example shirt data
-//     QJsonObject shirt_data;
-//     shirt_data["name"] = "White Shirt";
-    
-//     m_networkManager->uploadGarment(shirt_data,
-//                                   "garments/shirt/preview.png",
-//                                   "garments/shirt/model.obj");
-
-//     // Example pants data
-//     QJsonObject pants_data;
-//     pants_data["name"] = "Classic Pants";
-    
-//     m_networkManager->uploadGarment(pants_data,
-//                                   "garments/pants/preview.png",
-//                                   "garments/pants/model.obj");
-// }
+void QMLManager::saveGarment(const QString& garmentId,
+                             const QString& name, 
+                             const QString& previewUrl, 
+                             const QString& modelUrl) {
+    // Create garment data
+    QJsonObject garmentData;
+    garmentData["name"] = name;    
+    garmentData["garmentId"] = garmentId; 
+    // Upload garment (preview will be generated server-side)
+    m_networkManager->uploadGarment(garmentData, previewUrl, modelUrl);
+}
 
 void QMLManager::uploadNewGarment() {
     if (!m_networkManager) {

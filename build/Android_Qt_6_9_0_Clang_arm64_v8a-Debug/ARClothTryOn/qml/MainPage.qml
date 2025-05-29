@@ -22,11 +22,16 @@ Page {
             permissionDialog.close()
             permissionErrorDialog.open()
         }
-        onGarmentsChanged: {
-            stackView.push("qrc:/ARClothTryOn/qml/GarmentSelectionPage.qml")
-        }
+        // onGarmentsChanged: {
+        //     stackView.push("qrc:/ARClothTryOn/qml/GarmentSelectionPage.qml")
+        // }
     }
-
+    // Enable console.log output in QML
+    Component.onCompleted: {
+        qmlManager.initializeApp();
+        console.log("Main.qml loaded")
+    }
+    
     ColumnLayout {
         anchors.centerIn: parent
         spacing: Style.gridSpacing * 2
@@ -74,7 +79,8 @@ Page {
 
             onClicked: {
                 console.log("Select garment button clicked")
-                qmlManager.loadGarments()
+                // qmlManager.fetchGarments()
+                stackView.push("qrc:/ARClothTryOn/qml/GarmentSelectionPage.qml")
             }
 
             background: Rectangle {

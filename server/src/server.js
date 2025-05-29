@@ -6,6 +6,7 @@ const authRoutes = require('./routes/auth');
 const garmentRoutes = require('./routes/garments');
 const userRoutes = require('./routes/users');
 const scanRoutes = require('./routes/scans');
+const modelProcessedRoutes = require('./routes/3d-models');
 const cors = require('cors');
 const fs = require('fs');
 
@@ -71,6 +72,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/garments', garmentRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/scans', scanRoutes);
+app.use('/api/3d-models', modelProcessedRoutes);
 
 // Database connection test endpoint
 app.get('/api/database/health', async (req, res) => {
