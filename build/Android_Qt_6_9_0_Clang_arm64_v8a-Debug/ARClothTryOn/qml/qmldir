@@ -1,15 +1,1 @@
-module ARClothTryOn
-typeinfo plugins.qmltypes
-
-# QML Components
-Main 1.0 Main.qml
-MainPage 1.0 MainPage.qml
-CameraPage 1.0 CameraPage.qml
-ScanResultPage 1.0 ScanResultPage.qml
-GarmentSelectionPage 1.0 GarmentSelectionPage.qml
-GarmentPreviewPage 1.0 GarmentPreviewPage.qml
-AuthorizationPage 1.0 AuthorizationPage.qml
-ARCamera 1.0 ARCamera.qml
-
-# Singleton
-singleton Style 1.0 Style.qml
+prefer :/ARClothTryOn/

@@ -65,15 +65,15 @@
         <item>arm64-v8a;Qt6QuickShapes_arm64-v8a</item>
         <item>arm64-v8a;Qt6LabsQmlModels_arm64-v8a</item>
         <item>arm64-v8a;Qt6MultimediaQuick_arm64-v8a</item>
-        <item>arm64-v8a;Qt6QmlCore_arm64-v8a</item>
         <item>arm64-v8a;Qt6QuickDialogs2Utils_arm64-v8a</item>
         <item>arm64-v8a;Qt6QuickDialogs2QuickImpl_arm64-v8a</item>
         <item>arm64-v8a;Qt6QuickDialogs2_arm64-v8a</item>
+        <item>arm64-v8a;Qt6LabsFolderListModel_arm64-v8a</item>
+        <item>arm64-v8a;Qt6QmlCore_arm64-v8a</item>
         <item>arm64-v8a;Qt63DQuickRender_arm64-v8a</item>
         <item>arm64-v8a;Qt63DQuickInput_arm64-v8a</item>
         <item>arm64-v8a;Qt63DQuickExtras_arm64-v8a</item>
         <item>arm64-v8a;Qt63DQuickScene3D_arm64-v8a</item>
-        <item>arm64-v8a;Qt6LabsFolderListModel_arm64-v8a</item>
     </array>
 
     <array name="load_local_libs">

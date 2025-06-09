@@ -20,8 +20,10 @@ NetworkManager::NetworkManager(QObject* parent)
 {
     #ifdef Q_OS_ANDROID
         //eduroam
-        m_serverUrl = "http://10.1.239.113:5000/api";
-        // m_serverUrl = "http://192.168.1.5:5000/api";
+        // m_serverUrl = "http://10.1.239.113:5000/api";
+        m_serverUrl = "http://192.168.1.23:5000/api";
+        // Ata
+        // m_serverUrl = "http://172.20.10.6:5000/api";
     #else
         m_serverUrl = "http://localhost:5000/api";
     #endif

@@ -6,7 +6,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 5,
-                        "durationMicroseconds": 213,
+                        "durationMicroseconds": 129,
                         "errorMessage": "function without return type annotation returns QString. This may prevent proper compilation to Cpp.",
                         "functionName": "generateGarmentId",
                         "line": 22
@@ -14,7 +14,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 39,
-                        "durationMicroseconds": 18,
+                        "durationMicroseconds": 12,
                         "errorMessage": "Cannot access value for name categoryDialog",
                         "functionName": "target",
                         "line": 46
@@ -22,7 +22,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 39,
-                        "durationMicroseconds": 9,
+                        "durationMicroseconds": 6,
                         "errorMessage": "Cannot access value for name captureButton",
                         "functionName": "target",
                         "line": 42
@@ -30,7 +30,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 39,
-                        "durationMicroseconds": 7,
+                        "durationMicroseconds": 4,
                         "errorMessage": "Cannot access value for name captureButton",
                         "functionName": "target",
                         "line": 37
@@ -38,7 +38,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 39,
-                        "durationMicroseconds": 8,
+                        "durationMicroseconds": 5,
                         "errorMessage": "Cannot access value for name progressOverlay",
                         "functionName": "target",
                         "line": 38
@@ -46,7 +46,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 39,
-                        "durationMicroseconds": 7,
+                        "durationMicroseconds": 5,
                         "errorMessage": "Cannot access value for name captureButton",
                         "functionName": "target",
                         "line": 32
@@ -54,7 +54,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 39,
-                        "durationMicroseconds": 7,
+                        "durationMicroseconds": 4,
                         "errorMessage": "Cannot access value for name progressOverlay",
                         "functionName": "target",
                         "line": 33
@@ -62,7 +62,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 40,
-                        "durationMicroseconds": 230,
+                        "durationMicroseconds": 151,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "color",
                         "line": 54
@@ -70,7 +70,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 27,
-                        "durationMicroseconds": 16,
+                        "durationMicroseconds": 9,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "fill",
                         "line": 58
@@ -126,7 +126,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 32,
-                        "durationMicroseconds": 146,
+                        "durationMicroseconds": 88,
                         "errorMessage": "",
                         "functionName": "onScanProgressChanged",
                         "line": 93
@@ -134,7 +134,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 35,
-                        "durationMicroseconds": 134,
+                        "durationMicroseconds": 74,
                         "errorMessage": "Cannot find name processedModelUrl",
                         "functionName": "onProcessedModelUrlReady",
                         "line": 98
@@ -142,7 +142,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 113,
+                        "durationMicroseconds": 71,
                         "errorMessage": "",
                         "functionName": "onProcessedModelUrlReady",
                         "line": 98
@@ -150,7 +150,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 33,
-                        "durationMicroseconds": 92,
+                        "durationMicroseconds": 49,
                         "errorMessage": "Cannot retrieve a non-object type by ID: errorLabel",
                         "functionName": "onScanProcessingFailed",
                         "line": 107
@@ -158,7 +158,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 33,
-                        "durationMicroseconds": 58,
+                        "durationMicroseconds": 32,
                         "errorMessage": "",
                         "functionName": "onScanProcessingFailed",
                         "line": 107
@@ -166,7 +166,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 168,
+                        "durationMicroseconds": 95,
                         "errorMessage": "Cannot access value for name stackView",
                         "functionName": "onUploadCompleted",
                         "line": 115
@@ -174,7 +174,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 28,
-                        "durationMicroseconds": 58,
+                        "durationMicroseconds": 33,
                         "errorMessage": "",
                         "functionName": "onUploadCompleted",
                         "line": 115
@@ -182,7 +182,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 25,
-                        "durationMicroseconds": 88,
+                        "durationMicroseconds": 47,
                         "errorMessage": "Cannot retrieve a non-object type by ID: errorLabel",
                         "functionName": "onUploadFailed",
                         "line": 121
@@ -190,7 +190,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 25,
-                        "durationMicroseconds": 54,
+                        "durationMicroseconds": 31,
                         "errorMessage": "",
                         "functionName": "onUploadFailed",
                         "line": 121
@@ -198,7 +198,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 34,
-                        "durationMicroseconds": 28,
+                        "durationMicroseconds": 15,
                         "errorMessage": "Cannot retrieve a non-object type by ID: progressBar",
                         "functionName": "onUploadProgressChanged",
                         "line": 128
@@ -206,7 +206,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 34,
-                        "durationMicroseconds": 49,
+                        "durationMicroseconds": 29,
                         "errorMessage": "",
                         "functionName": "onUploadProgressChanged",
                         "line": 128
@@ -214,7 +214,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 22,
-                        "durationMicroseconds": 120,
+                        "durationMicroseconds": 74,
                         "errorMessage": "",
                         "functionName": "videoOutput",
                         "line": 161
@@ -222,7 +222,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 27,
-                        "durationMicroseconds": 45,
+                        "durationMicroseconds": 24,
                         "errorMessage": "Cannot load property defaultVideoInput from const QMetaObject.",
                         "functionName": "cameraDevice",
                         "line": 137
@@ -230,7 +230,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 24,
-                        "durationMicroseconds": 133,
+                        "durationMicroseconds": 82,
                         "errorMessage": "",
                         "functionName": "focusMode",
                         "line": 138
@@ -238,7 +238,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 30,
-                        "durationMicroseconds": 92,
+                        "durationMicroseconds": 89,
                         "errorMessage": "Cannot retrieve a non-object type by ID: errorLabel",
                         "functionName": "onErrorOccurred",
                         "line": 148
@@ -246,7 +246,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 30,
-                        "durationMicroseconds": 72,
+                        "durationMicroseconds": 44,
                         "errorMessage": "",
                         "functionName": "onErrorOccurred",
                         "line": 148
@@ -254,7 +254,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 36,
-                        "durationMicroseconds": 346,
+                        "durationMicroseconds": 225,
                         "errorMessage": "method startCamera cannot be resolved.",
                         "functionName": "onCompleted",
                         "line": 140
@@ -262,7 +262,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 30,
-                        "durationMicroseconds": 65,
+                        "durationMicroseconds": 35,
                         "errorMessage": "Cannot find name capturedFrame",
                         "functionName": "onImageCaptured",
                         "line": 156
@@ -270,7 +270,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 30,
-                        "durationMicroseconds": 84,
+                        "durationMicroseconds": 47,
                         "errorMessage": "",
                         "functionName": "onImageCaptured",
                         "line": 156
@@ -278,7 +278,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 19,
-                        "durationMicroseconds": 104,
+                        "durationMicroseconds": 60,
                         "errorMessage": "",
                         "functionName": "fillMode",
                         "line": 167
@@ -286,7 +286,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 23,
-                        "durationMicroseconds": 85,
+                        "durationMicroseconds": 48,
                         "errorMessage": "",
                         "functionName": "fill",
                         "line": 166
@@ -302,7 +302,7 @@
                     {
                         "codegenSuccessfull": true,
                         "column": 27,
-                        "durationMicroseconds": 125,
+                        "durationMicroseconds": 69,
                         "errorMessage": "",
                         "functionName": "alignment",
                         "line": 175
@@ -318,7 +318,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 26,
-                        "durationMicroseconds": 39,
+                        "durationMicroseconds": 20,
                         "errorMessage": "Cannot retrieve a non-object type by ID: errorLabel",
                         "functionName": "onTriggered",
                         "line": 181
@@ -374,7 +374,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 21,
-                        "durationMicroseconds": 28,
+                        "durationMicroseconds": 13,
                         "errorMessage": "Cannot access value for name height",
                         "functionName": "radius",
                         "line": 204
@@ -382,7 +382,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 20,
-                        "durationMicroseconds": 270,
+                        "durationMicroseconds": 170,
                         "errorMessage": "Cannot access value for name parent",
                         "functionName": "color",
                         "line": 205
@@ -390,7 +390,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 19,
-                        "durationMicroseconds": 362,
+                        "durationMicroseconds": 222,
                         "errorMessage": "Cannot access value for name Style",
                         "functionName": "font",
                         "line": 219
@@ -398,7 +398,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 34,
-                        "durationMicroseconds": 268,
+                        "durationMicroseconds": 156,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "horizontalAlignment",
                         "line": 221
@@ -406,7 +406,7 @@
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 250,
+                        "durationMicroseconds": 148,
                         "errorMessage": "Cannot access value for name Text",
                         "functionName": "verticalAlignment",
                         "line": 222
@@ -485,19 +485,11 @@
                     },
                     {
                         "codegenSuccessfull": false,
-                        "column": 35,
+                        "column": 32,
                         "durationMicroseconds": 0,
-                        "errorMessage": "Could not find signal \"checkedChanged\".",
-                        "functionName": "onCheckedChanged",
-                        "line": 288
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 36,
-                        "durationMicroseconds": 0,
-                        "errorMessage": "Could not find property \"group\".",
-                        "functionName": "group",
-                        "line": 287
+                        "errorMessage": "Could not find signal \"clicked\".",
+                        "functionName": "onClicked",
+                        "line": 290
                     },
                     {
                         "codegenSuccessfull": false,
@@ -505,31 +497,23 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 295
-                    },
-                    {
-                        "codegenSuccessfull": false,
-                        "column": 32,
-                        "durationMicroseconds": 0,
-                        "errorMessage": "Could not find signal \"clicked\".",
-                        "functionName": "onClicked",
-                        "line": 299
+                        "line": 294
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 23,
-                        "durationMicroseconds": 163,
+                        "durationMicroseconds": 118,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 308
+                        "line": 303
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 94,
+                        "durationMicroseconds": 107,
                         "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 313
+                        "line": 308
                     },
                     {
                         "codegenSuccessfull": false,
@@ -537,23 +521,23 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"running\".",
                         "functionName": "running",
-                        "line": 318
+                        "line": 313
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 150,
+                        "durationMicroseconds": 118,
                         "errorMessage": "",
                         "functionName": "alignment",
-                        "line": 317
+                        "line": 312
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 122,
+                        "durationMicroseconds": 89,
                         "errorMessage": "",
                         "functionName": "alignment",
-                        "line": 326
+                        "line": 321
                     },
                     {
                         "codegenSuccessfull": false,
@@ -561,103 +545,103 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"horizontalAlignment\".",
                         "functionName": "horizontalAlignment",
-                        "line": 335
+                        "line": 330
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 138,
+                        "durationMicroseconds": 114,
                         "errorMessage": "",
                         "functionName": "alignment",
-                        "line": 336
+                        "line": 331
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 18,
-                        "durationMicroseconds": 93,
+                        "durationMicroseconds": 69,
                         "errorMessage": "Cannot retrieve a non-object type by ID: cameraPage",
                         "functionName": "visible",
-                        "line": 345
+                        "line": 340
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 23,
-                        "durationMicroseconds": 95,
+                        "durationMicroseconds": 58,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 344
+                        "line": 339
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 20,
-                        "durationMicroseconds": 427,
+                        "durationMicroseconds": 218,
                         "errorMessage": "",
                         "functionName": "width",
-                        "line": 351
+                        "line": 346
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 105,
+                        "durationMicroseconds": 87,
                         "errorMessage": "",
                         "functionName": "centerIn",
-                        "line": 349
+                        "line": 344
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 149,
+                        "durationMicroseconds": 99,
                         "errorMessage": "",
                         "functionName": "alignment",
-                        "line": 357
+                        "line": 352
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 1440,
+                        "durationMicroseconds": 76,
                         "errorMessage": "",
                         "functionName": "alignment",
-                        "line": 364
+                        "line": 359
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 29,
-                        "durationMicroseconds": 85,
+                        "durationMicroseconds": 43,
                         "errorMessage": "Cannot access value for name processedPreviewUrl",
                         "functionName": "source",
-                        "line": 374
+                        "line": 369
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 31,
-                        "durationMicroseconds": 136,
+                        "durationMicroseconds": 76,
                         "errorMessage": "",
                         "functionName": "fillMode",
-                        "line": 375
+                        "line": 370
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 30,
-                        "durationMicroseconds": 55,
+                        "durationMicroseconds": 39,
                         "errorMessage": "Cannot access value for name processedPreviewUrl",
                         "functionName": "visible",
-                        "line": 378
+                        "line": 373
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 38,
-                        "durationMicroseconds": 117,
+                        "durationMicroseconds": 127,
                         "errorMessage": "Cannot retrieve a non-object type by ID: errorLabel",
                         "functionName": "onStatusChanged",
-                        "line": 390
+                        "line": 385
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 94,
+                        "durationMicroseconds": 57,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 372
+                        "line": 367
                     },
                     {
                         "codegenSuccessfull": false,
@@ -665,7 +649,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"running\".",
                         "functionName": "running",
-                        "line": 383
+                        "line": 378
                     },
                     {
                         "codegenSuccessfull": false,
@@ -673,7 +657,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"visible\".",
                         "functionName": "visible",
-                        "line": 386
+                        "line": 381
                     },
                     {
                         "codegenSuccessfull": false,
@@ -681,7 +665,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"centerIn\".",
                         "functionName": "centerIn",
-                        "line": 382
+                        "line": 377
                     },
                     {
                         "codegenSuccessfull": false,
@@ -689,7 +673,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"text\".",
                         "functionName": "text",
-                        "line": 401
+                        "line": 396
                     },
                     {
                         "codegenSuccessfull": false,
@@ -697,7 +681,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"horizontalAlignment\".",
                         "functionName": "horizontalAlignment",
-                        "line": 404
+                        "line": 399
                     },
                     {
                         "codegenSuccessfull": false,
@@ -705,7 +689,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"visible\".",
                         "functionName": "visible",
-                        "line": 406
+                        "line": 401
                     },
                     {
                         "codegenSuccessfull": false,
@@ -713,39 +697,39 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"centerIn\".",
                         "functionName": "centerIn",
-                        "line": 400
+                        "line": 395
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 30,
-                        "durationMicroseconds": 476,
+                        "durationMicroseconds": 633,
                         "errorMessage": "",
                         "functionName": "enabled",
-                        "line": 413
+                        "line": 408
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 32,
-                        "durationMicroseconds": 455,
+                        "durationMicroseconds": 450,
                         "errorMessage": "Cannot access value for name fullScreenPreview",
                         "functionName": "onClicked",
-                        "line": 414
+                        "line": 409
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 219,
+                        "durationMicroseconds": 86,
                         "errorMessage": "",
                         "functionName": "fill",
-                        "line": 412
+                        "line": 407
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 35,
-                        "durationMicroseconds": 369,
+                        "durationMicroseconds": 109,
                         "errorMessage": "",
                         "functionName": "alignment",
-                        "line": 430
+                        "line": 425
                     },
                     {
                         "codegenSuccessfull": false,
@@ -753,7 +737,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find property \"enabled\".",
                         "functionName": "enabled",
-                        "line": 434
+                        "line": 429
                     },
                     {
                         "codegenSuccessfull": false,
@@ -761,7 +745,7 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 435
+                        "line": 430
                     },
                     {
                         "codegenSuccessfull": false,
@@ -769,47 +753,47 @@
                         "durationMicroseconds": 0,
                         "errorMessage": "Could not find signal \"clicked\".",
                         "functionName": "onClicked",
-                        "line": 466
+                        "line": 461
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 17,
-                        "durationMicroseconds": 4850,
+                        "durationMicroseconds": 113,
                         "errorMessage": "",
                         "functionName": "target",
-                        "line": 483
+                        "line": 478
                     },
                     {
                         "codegenSuccessfull": true,
                         "column": 9,
-                        "durationMicroseconds": 141,
+                        "durationMicroseconds": 119,
                         "errorMessage": "",
                         "functionName": "onPermissionGranted",
-                        "line": 485
+                        "line": 480
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 9,
-                        "durationMicroseconds": 52,
+                        "durationMicroseconds": 45,
                         "errorMessage": "Cannot retrieve a non-object type by ID: errorLabel",
                         "functionName": "onPermissionDenied",
-                        "line": 489
+                        "line": 484
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 28,
-                        "durationMicroseconds": 899,
+                        "durationMicroseconds": 385,
                         "errorMessage": "Cannot load property cameraStatus from .",
                         "functionName": "onCompleted",
-                        "line": 495
+                        "line": 490
                     },
                     {
                         "codegenSuccessfull": false,
                         "column": 30,
-                        "durationMicroseconds": 502,
+                        "durationMicroseconds": 333,
                         "errorMessage": "Cannot load property cameraStatus from .",
                         "functionName": "onDestruction",
-                        "line": 507
+                        "line": 502
                     }
                 ],
                 "filepath": "CameraPage.qml"

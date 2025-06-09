@@ -2,37 +2,38 @@ import QtQuick
 import QtQuick.Controls
 import QtMultimedia
 import QtQuick.Layouts
+import QtQuick.Dialogs
 import QtCore
 import ARClothTryOn 1.0
 
 Page {
     id: cameraPage
-    property string garmentId
     property alias manager: qmlManager
-    property bool hasCameraPermission: false
-    property bool arActive: false
+    property string garmentId: ""
+    property string processedPreviewUrl: ""
+    property string processedModelUrl: ""
+    property string lastScanId: ""
+    property string selectedCategory: ""
+    property string garmentName: ""
 
-    // Fixed CameraFrameProcessor with proper parameter declarations
-    CameraFrameProcessor {
-        id: frameProcessor
-        videoSink: videoOutput.videoSink  // Connect to the display output
+    states: [
+        State {
+            name: "initial"
+            PropertyChanges { target: captureButton; visible: true }
+            PropertyChanges { target: progressOverlay; visible: false }
+        },
+        State {
+            name: "capturing"
+            PropertyChanges { target: captureButton; visible: false }
+            PropertyChanges { target: progressOverlay; visible: true }
+        },
+        State {
+            name: "modelPreview"
+        }
+    ]
 
-        onArActiveChanged: cameraPage.arActive = arActive
-        onArErrorOccurred: function(error) { showError(error) }
-        onProcessedFrameReady: function(frame) {
-            console.log("Received processed frame")
-        }
-        onCameraReadyChanged: function(ready) {
-            console.log("Camera ready state changed:", ready)
-            if (!ready) {
-                arActive = false
-            }
-        }
-    }
     header: ToolBar {
-        background: Rectangle {
-            color: Style.primaryColor
-        }
+        background: Rectangle { color: Style.primaryColor }
         height: 50
 
         RowLayout {
@@ -52,13 +53,42 @@ Page {
             }
 
             Label {
-                text: arActive ? "AR Session Active" : "Camera Preview"
+                text: {
+                    if(cameraPage.state === "capturing") return "Processing..."
+                    if(cameraPage.state === "modelPreview") return "Model Preview"
+                    return "AR Session"
+                }
                 color: "white"
                 font.bold: true
                 font.pixelSize: Style.buttonFont.pixelSize
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignRight
             }
+        }
+    }
+
+    QMLManager {
+        id: qmlManager
+    }
+
+    ImageProcessor {
+        id: imageProcessor
+        serverUrl: "https://c449-193-140-134-140.ngrok-free.app" // HTTP endpoint instead of WebSocket
+
+        onProcessedImageReceived: function(imageData) {
+            // Create base64 data URL for display
+            processedPreviewUrl = "data:image/jpeg;base64," + Qt.btoa(imageData)
+            cameraPage.state = "modelPreview"
+        }
+
+        onProcessingProgress: function(progress) {
+            progressBar.value = progress * 100
+        }
+
+        onProcessingError: function(errorMessage) {
+            errorLabel.text = errorMessage
+            errorLabel.visible = true
+            cameraPage.state = "initial"
         }
     }
 
@@ -78,26 +108,38 @@ Page {
             }
 
             onErrorOccurred: function(error, errorString) {
-                showError("Camera Error: " + errorString)
+                errorLabel.text = "Camera Error: " + errorString
+                errorLabel.visible = true
                 camera.stop()
             }
         }
+
+        imageCapture: ImageCapture {
+            id: imageCapture
+
+            onImageCaptured: function(requestId, preview) {
+                // Convert QImage to JPEG byte array and process
+                // The preview parameter is a QImage that we can convert
+                const jpegData = qmlManager.convertImageToJpeg(preview)
+                imageProcessor.handleCapturedImage(jpegData, garmentId)
+            }
+
+            onErrorOccurred: function(requestId, error, message) {
+                errorLabel.text = "Capture Error: " + message
+                errorLabel.visible = true
+                cameraPage.state = "initial"
+            }
+        }
+
         videoOutput: videoOutput
     }
 
-    // Single VideoOutput that shows either camera or processed frames
     VideoOutput {
         id: videoOutput
         anchors.fill: parent
         fillMode: VideoOutput.PreserveAspectCrop
-
-        Component.onCompleted: {
-            // Connect camera to frame processor for status monitoring
-            frameProcessor.monitorCameraStatus(camera)
-        }
     }
 
-    // Error label
     Label {
         id: errorLabel
         visible: false
@@ -111,199 +153,200 @@ Page {
             interval: 5000
             onTriggered: errorLabel.visible = false
         }
+
+        onVisibleChanged: {
+            if (visible) {
+                errorTimer.start()
+            }
+        }
     }
 
-    // Permission request overlay
+    // Capture Button
+    Button {
+        id: captureButton
+        anchors {
+            bottom: parent.bottom
+            horizontalCenter: parent.horizontalCenter
+            bottomMargin: 30
+        }
+        width: Style.buttonWidth
+        height: Style.buttonHeight
+        visible: camera.cameraStatus === Camera.ActiveStatus
+
+        background: Rectangle {
+            radius: height/2
+            color: parent.down ? Qt.darker("red", 1.2) : "red"
+        }
+
+        onClicked: {
+            // Generate new garment ID for this capture
+            console.log("Garment id:", garmentId)
+
+            // Capture image (will trigger onImageCaptured)
+            imageCapture.capture()
+            cameraPage.state = "capturing"
+        }
+
+        contentItem: Text {
+            text: "Capture"
+            font: Style.buttonFont
+            color: "white"
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+        }
+    }
+
+    // Model Preview
     Rectangle {
-        id: permissionOverlay
+        id: modelPreview
+        anchors.fill: parent
+        visible: cameraPage.state === "modelPreview"
+        color: "#f0f0f0"
+
+        ColumnLayout {
+            anchors.fill: parent
+            spacing: 20
+            anchors.margins: 20
+
+            Label {
+                text: "Virtual Try-On Result"
+                font.bold: true
+                font.pixelSize: 24
+                Layout.alignment: Qt.AlignHCenter
+            }
+
+            // Preview Image
+            Rectangle {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignCenter
+                color: "#e0e0e0"
+                border.color: "#ccc"
+                border.width: 1
+                radius: 5
+
+                Image {
+                    id: previewImage
+                    anchors.fill: parent
+                    anchors.margins: 10
+                    source: processedPreviewUrl
+                    fillMode: Image.PreserveAspectFit
+                    smooth: true
+                    cache: false
+
+                    // Loading indicator
+                    BusyIndicator {
+                        anchors.centerIn: parent
+                        running: previewImage.status === Image.Loading
+                        width: 50
+                        height: 50
+                        visible: running
+                    }
+                }
+
+                // Fallback if image fails to load
+                Label {
+                    anchors.centerIn: parent
+                    text: "Preview Image\n" + (previewImage.status === Image.Error ?
+                          "Failed to load image" : "Processing...")
+                    horizontalAlignment: Text.AlignHCenter
+                    color: "#666"
+                    visible: processedPreviewUrl === "" || previewImage.status === Image.Error
+                    font.pixelSize: 16
+                }
+            }
+
+            // Action Buttons
+            RowLayout {
+                Layout.alignment: Qt.AlignHCenter
+                spacing: 20
+
+                Button {
+                    text: "Retake"
+                    font: Style.buttonFont
+                    onClicked: {
+                        processedPreviewUrl = ""
+                        processedModelUrl = ""
+                        garmentId = ""
+                        cameraPage.state = "initial"
+                        camera.start()
+                    }
+                }
+
+                Button {
+                    text: "Save Result"
+                    font: Style.buttonFont
+                    palette.button: "green"
+                    onClicked: {
+                        // Implementation for saving the result
+                        qmlManager.saveImageResult(processedPreviewUrl)
+                        stackView.pop()
+                    }
+                }
+            }
+        }
+    }
+
+    // Processing Overlay
+    Rectangle {
+        id: progressOverlay
         anchors.fill: parent
         color: "#80000000"
-        visible: !hasCameraPermission
-        z: 999
+        visible: false
 
         ColumnLayout {
             anchors.centerIn: parent
             spacing: 20
-            width: Math.min(parent.width * 0.8, 400)
 
-            Label {
-                text: "Camera Permission Required"
-                color: "white"
-                font: Style.buttonFont
+            BusyIndicator {
                 Layout.alignment: Qt.AlignCenter
+                running: progressOverlay.visible
+                width: 100
+                height: 100
+            }
+
+            ProgressBar {
+                id: progressBar
+                Layout.preferredWidth: 250
+                Layout.alignment: Qt.AlignCenter
+                from: 0
+                to: 100
+                value: 0
             }
 
             Label {
-                text: "This app needs camera access to provide AR functionality."
+                text: "Processing scan...\nThis may take a few seconds"
                 color: "white"
-                font: Style.inputFont
-                wrapMode: Text.WordWrap
-                Layout.fillWidth: true
                 horizontalAlignment: Text.AlignHCenter
                 Layout.alignment: Qt.AlignCenter
-            }
-
-            Button {
-                text: "Grant Permission"
-                Layout.alignment: Qt.AlignCenter
-                width: Style.buttonWidth
-                height: Style.buttonHeight
-                font: Style.buttonFont
-
-                background: Rectangle {
-                    radius: height/2
-                    color: parent.down ? Qt.darker(Style.primaryColor, 1.2) : Style.primaryColor
-                }
-
-                contentItem: Text {
-                    text: parent.text
-                    font: parent.font
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                onClicked: qmlManager.requestCameraPermission()
+                font.pixelSize: 16
             }
         }
     }
 
-    // Controls overlay
-    Rectangle {
-        id: controls
-        width: parent.width
-        height: 100
-        anchors.bottom: parent.bottom
-        color: "#80000000"
-        visible: hasCameraPermission && camera.cameraStatus === Camera.ActiveStatus
+    // Handle permission results
+    Connections {
+        target: qmlManager
 
-        ColumnLayout {
-            anchors.centerIn: parent
-            spacing: 10
-
-            Button {
-                id: startButton
-                text: arActive ? "Stop AR" : "Start AR"
-                Layout.alignment: Qt.AlignCenter
-                width: Style.buttonWidth
-                height: Style.buttonHeight
-
-                background: Rectangle {
-                    radius: height/2
-                    color: parent.down ? Qt.darker(arActive ? "#ff6b6b" : "#4ecdc4", 1.2) :
-                           (arActive ? "#ff6b6b" : "#4ecdc4")
-                }
-
-                contentItem: Text {
-                    text: parent.text
-                    font: Style.buttonFont
-                    color: "white"
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
-
-                onClicked: {
-                    if (arActive) {
-                        stopArProcessing()
-                    } else {
-                        startArProcessing()
-                    }
-                }
-            }
-
-            Label {
-                id: statusText
-                Layout.alignment: Qt.AlignCenter
-                text: {
-                    if (!hasCameraPermission) return "Camera permission required"
-                    if (camera.cameraStatus !== Camera.ActiveStatus) return "Camera not ready"
-                    return arActive ? "AR Session Active" : "Ready for AR"
-                }
-                color: "white"
-                font.pixelSize: 12
-            }
-        }
-    }
-
-    // Status indicator
-    Rectangle {
-        width: 20
-        height: 20
-        radius: 10
-        anchors {
-            top: parent.top
-            right: parent.right
-            margins: 20
-        }
-        color: {
-            if (!hasCameraPermission) return "orange"
-            if (camera.cameraStatus !== Camera.ActiveStatus) return "orange"
-            return arActive ? "green" : "red"
-        }
-        z: 1001
-    }
-
-    // Helper function to start camera
-    function startCamera() {
-        if (hasCameraPermission &&
-            (camera.cameraStatus === Camera.UnloadedStatus ||
-             camera.cameraStatus === Camera.StoppedStatus)) {
+        function onPermissionGranted() {
             camera.start()
         }
-    }
 
-    // Helper function to stop camera safely
-    function stopCamera() {
-        if (camera.cameraStatus === Camera.ActiveStatus) {
-            camera.stop()
-        }
-    }
-
-    // Start AR processing
-    function startArProcessing() {
-        // Replace with your actual server URL
-        const serverUrl = "wss://40e5-193-140-134-140.ngrok-free.app"
-        frameProcessor.startArProcessing(serverUrl)
-    }
-
-    // Stop AR processing
-    function stopArProcessing() {
-        frameProcessor.stopArProcessing()
-    }
-
-    // Show error message
-    function showError(message) {
-        errorLabel.text = message
-        errorLabel.visible = true
-        errorTimer.restart()
-    }
-
-    // QMLManager for handling permissions
-    QMLManager {
-        id: qmlManager
-
-        onPermissionGranted: {
-            console.log("Camera permission granted")
-            hasCameraPermission = true
-            startCamera()
-        }
-
-        onPermissionDenied: {
-            console.log("Camera permission denied")
-            hasCameraPermission = false
-            showError("Camera permission denied. Please enable camera access in settings.")
+        function onPermissionDenied() {
+            errorLabel.text = "Camera permission denied. Please enable camera access in settings."
+            errorLabel.visible = true
         }
     }
 
     Component.onCompleted: {
-        // Initialize camera permission state
-        hasCameraPermission = qmlManager.hasCameraPermission()
-        console.log("Camera initialized, has permission:", hasCameraPermission)
+        if (camera.cameraStatus === Camera.UnloadedStatus && qmlManager.hasCameraPermission()) {
+            camera.start()
+        }
     }
 
     Component.onDestruction: {
-        console.log("Camera component being destroyed, cleaning up...")
-        stopArProcessing()
-        stopCamera()
+        if (camera.cameraStatus === Camera.ActiveStatus) {
+            camera.stop()
+        }
     }
 }

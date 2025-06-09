@@ -43,6 +43,7 @@ public:
     Q_INVOKABLE void handleCapturedFrame(const QImage& frame, const QString& garmentId);
     // Q_INVOKABLE void fetchGarments();
     Q_INVOKABLE void setScanCategory(const QString& category);
+    // Q_INVOKABLE QByteArray convertImageToJpeg(const QImage &image);
     Q_INVOKABLE void saveGarment(const QString& garmentId,
                              const QString& name,
                              const QString& modelUrl,

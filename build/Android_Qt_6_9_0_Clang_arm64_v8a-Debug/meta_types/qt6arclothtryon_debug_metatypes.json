@@ -28,231 +28,6 @@
     {
         "classes": [
             {
-                "className": "CameraFrameProcessor",
-                "lineNumber": 12,
-                "methods": [
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "serverUrl",
-                                "type": "QString"
-                            }
-                        ],
-                        "index": 12,
-                        "name": "startArProcessing",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "index": 13,
-                        "name": "stopArProcessing",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "camera",
-                                "type": "QObject*"
-                            }
-                        ],
-                        "index": 14,
-                        "name": "monitorCameraStatus",
-                        "returnType": "void"
-                    }
-                ],
-                "object": true,
-                "properties": [
-                    {
-                        "constant": false,
-                        "designable": true,
-                        "final": false,
-                        "index": 0,
-                        "name": "videoSink",
-                        "notify": "videoSinkChanged",
-                        "read": "videoSink",
-                        "required": false,
-                        "scriptable": true,
-                        "stored": true,
-                        "type": "QObject*",
-                        "user": false,
-                        "write": "setVideoSink"
-                    },
-                    {
-                        "constant": false,
-                        "designable": true,
-                        "final": false,
-                        "index": 1,
-                        "name": "arActive",
-                        "notify": "arActiveChanged",
-                        "read": "isArActive",
-                        "required": false,
-                        "scriptable": true,
-                        "stored": true,
-                        "type": "bool",
-                        "user": false
-                    },
-                    {
-                        "constant": false,
-                        "designable": true,
-                        "final": false,
-                        "index": 2,
-                        "name": "cameraReady",
-                        "notify": "cameraReadyChanged",
-                        "read": "isCameraReady",
-                        "required": false,
-                        "scriptable": true,
-                        "stored": true,
-                        "type": "bool",
-                        "user": false
-                    }
-                ],
-                "qualifiedClassName": "CameraFrameProcessor",
-                "signals": [
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "active",
-                                "type": "bool"
-                            }
-                        ],
-                        "index": 0,
-                        "name": "arActiveChanged",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "ready",
-                                "type": "bool"
-                            }
-                        ],
-                        "index": 1,
-                        "name": "cameraReadyChanged",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "videoSink",
-                                "type": "QObject*"
-                            }
-                        ],
-                        "index": 2,
-                        "name": "videoSinkChanged",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "error",
-                                "type": "QString"
-                            }
-                        ],
-                        "index": 3,
-                        "name": "arErrorOccurred",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "frame",
-                                "type": "QImage"
-                            }
-                        ],
-                        "index": 4,
-                        "name": "processedFrameReady",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "status",
-                                "type": "int"
-                            }
-                        ],
-                        "index": 5,
-                        "name": "cameraStatusChanged",
-                        "returnType": "void"
-                    }
-                ],
-                "slots": [
-                    {
-                        "access": "private",
-                        "arguments": [
-                            {
-                                "name": "frame",
-                                "type": "QVideoFrame"
-                            }
-                        ],
-                        "index": 6,
-                        "name": "handleVideoFrame",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "private",
-                        "index": 7,
-                        "name": "handleWebSocketConnected",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "private",
-                        "index": 8,
-                        "name": "handleWebSocketDisconnected",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "private",
-                        "arguments": [
-                            {
-                                "name": "message",
-                                "type": "QByteArray"
-                            }
-                        ],
-                        "index": 9,
-                        "name": "handleBinaryMessageReceived",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "private",
-                        "arguments": [
-                            {
-                                "name": "error",
-                                "type": "QAbstractSocket::SocketError"
-                            }
-                        ],
-                        "index": 10,
-                        "name": "handleWebSocketError",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "private",
-                        "index": 11,
-                        "name": "checkCameraStatus",
-                        "returnType": "void"
-                    }
-                ],
-                "superClasses": [
-                    {
-                        "access": "public",
-                        "name": "QObject"
-                    }
-                ]
-            }
-        ],
-        "inputFile": "CameraFrameProcessor.h",
-        "outputRevision": 69
-    },
-    {
-        "classes": [
-            {
                 "className": "ClothScanner",
                 "lineNumber": 6,
                 "object": true,
@@ -280,6 +55,127 @@
             }
         ],
         "inputFile": "ClothScanner.h",
+        "outputRevision": 69
+    },
+    {
+        "classes": [
+            {
+                "className": "ImageProcessor",
+                "lineNumber": 11,
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "jpgData",
+                                "type": "QByteArray"
+                            },
+                            {
+                                "name": "garmentId",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 6,
+                        "name": "handleCapturedImage",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "name": "serverUrl",
+                        "notify": "serverUrlChanged",
+                        "read": "serverUrl",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QUrl",
+                        "user": false,
+                        "write": "setServerUrl"
+                    }
+                ],
+                "qualifiedClassName": "ImageProcessor",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "imageData",
+                                "type": "QByteArray"
+                            }
+                        ],
+                        "index": 0,
+                        "name": "processedImageReceived",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "progress",
+                                "type": "qreal"
+                            }
+                        ],
+                        "index": 1,
+                        "name": "processingProgress",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "errorMessage",
+                                "type": "QString"
+                            }
+                        ],
+                        "index": 2,
+                        "name": "processingError",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "index": 3,
+                        "name": "serverUrlChanged",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "private",
+                        "index": 4,
+                        "name": "onReplyFinished",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "private",
+                        "arguments": [
+                            {
+                                "name": "bytesSent",
+                                "type": "qint64"
+                            },
+                            {
+                                "name": "bytesTotal",
+                                "type": "qint64"
+                            }
+                        ],
+                        "index": 5,
+                        "name": "onUploadProgress",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "ImageProcessor.h",
         "outputRevision": 69
     },
     {

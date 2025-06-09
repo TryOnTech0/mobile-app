@@ -278,11 +278,6 @@ Page {
                 onCheckedChanged: if(checked) selectedCategory = "pants"
             }
             RadioButton {
-                text: "Dress"
-                ButtonGroup.group: categoryGroup
-                onCheckedChanged: if(checked) selectedCategory = "dress"
-            }
-            RadioButton {
                 text: "Shoes"
                 ButtonGroup.group: categoryGroup
                 onCheckedChanged: if(checked) selectedCategory = "shoes"

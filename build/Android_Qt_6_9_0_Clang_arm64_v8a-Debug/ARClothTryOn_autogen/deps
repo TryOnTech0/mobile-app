@@ -3,8 +3,6 @@ ARClothTryOn_autogen/timestamp: \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/resources.qrc \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/BodyTracker.cpp \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/BodyTracker.h \
-	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/CameraFrameProcessor.cpp \
-	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/CameraFrameProcessor.h \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/ClothFitter.cpp \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/ClothFitter.h \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/ClothScanner.cpp \
@@ -12,6 +10,8 @@ ARClothTryOn_autogen/timestamp: \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/CommonTypes.h \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/ImageConverter.cpp \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/ImageConverter.h \
+	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/ImageProcessor.cpp \
+	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/ImageProcessor.h \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/NetworkManager.cpp \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/NetworkManager.h \
 	C:/ProgramData/QtCreator/Links/0efaccad35ba65cf7432e1dbac669bfb/src/QMLManager.cpp \
@@ -766,6 +766,7 @@ ARClothTryOn_autogen/timestamp: \
 	C:/Users/user/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/wctype.h \
 	C:/Users/user/AppData/Local/Android/Sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/xlocale.h \
 	D:/GTU3/CENG/TryOnApp/build/Android_Qt_6_9_0_Clang_arm64_v8a-Debug/.qtc/package-manager/auto-setup.cmake \
+	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QByteArray \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QDateTime \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QFileInfo \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QFlags \
@@ -783,7 +784,6 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QSharedDataPointer \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QString \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QStringList \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QTimer \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QUrl \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QUrlQuery \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/QVariant \
@@ -941,7 +941,6 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qtformat_impl.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qthread.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qthreadpool.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qtimer.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qtimezone.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qtmetamacros.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtCore/qtnoop.h \
@@ -983,34 +982,17 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtGui/qtguiglobal.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtGui/qtransform.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtGui/qwindowdefs.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/QCamera \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/QMediaCaptureSession \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/QVideoSink \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qcamera.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qcameradevice.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qmediacapturesession.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qtmultimedia-config.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qtmultimediaexports.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qtmultimediaglobal.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qtvideo.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qvideoframe.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qvideoframeformat.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtMultimedia/qvideosink.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QAbstractSocket \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QAuthenticator \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QNetworkAccessManager \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QNetworkProxy \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QNetworkReply \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QNetworkRequest \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QSslConfiguration \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QSslError \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/QSslPreSharedKeyAuthenticator \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qabstractsocket.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qauthenticator.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qhostaddress.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qhttpheaders.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkaccessmanager.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkproxy.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkreply.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qnetworkrequest.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qssl.h \
@@ -1025,11 +1007,6 @@ ARClothTryOn_autogen/timestamp: \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtNetwork/qtnetworkglobal.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtQml/qqmlregistration.h \
 	D:/progs/6.9.0/android_arm64_v8a/include/QtQmlIntegration/qqmlintegration.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtWebSockets/QWebSocket \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtWebSockets/qtwebsocketsexports.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtWebSockets/qwebsocket.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtWebSockets/qwebsocketprotocol.h \
-	D:/progs/6.9.0/android_arm64_v8a/include/QtWebSockets/qwebsockets_global.h \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules/ECMFindModuleHelpersStub.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules/FindEGL.cmake \
 	D:/progs/6.9.0/android_arm64_v8a/lib/cmake/Qt6/3rdparty/extra-cmake-modules/modules/ECMFindModuleHelpers.cmake \

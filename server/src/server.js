@@ -16,8 +16,10 @@ const app = express();
 connectDB();
 
 const allowedOrigins = [
-    'http://192.168.1.5:5000', // home wi-fi
+    'http://192.168.1.23:5000', // home wi-fi
     // 'http://10.1.247.79:5000', // Server IP eduroam
+    'ws://192.168.185.169:3000',
+    "http://172.20.10.6:5000",
     'http://10.1.239.113:5000', // Server IP eduroam
     'capacitor://localhost',    // Android
     'http://localhost'          // Development

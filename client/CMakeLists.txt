@@ -57,8 +57,8 @@ qt_add_executable(ARClothTryOn
     src/ImageConverter.cpp
     src/NetworkManager.cpp
     src/NetworkManager.h
-    src/CameraFrameProcessor.cpp
-    src/CameraFrameProcessor.h
+    src/ImageProcessor.cpp
+    src/ImageProcessor.h
     resources.qrc
     ${QRC_FILES}
 )

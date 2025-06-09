@@ -4,7 +4,7 @@
 #include <QQuickStyle>
 #include "QMLManager.h"
 #include "NetworkManager.h"
-#include "CameraFrameProcessor.h"
+#include "ImageProcessor.h"
 #include <Qt3DRender/QRenderAspect>
 #include <QSslSocket>
 
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
     // Register QMLManager
     qmlRegisterType<QMLManager>("ARClothTryOn", 1, 0, "QMLManager");
     qmlRegisterType<NetworkManager>("ARClothTryOn", 1, 0, "NetworkManager");
-    qmlRegisterType<CameraFrameProcessor>("ARClothTryOn", 1, 0, "CameraFrameProcessor");
+    qmlRegisterType<ImageProcessor>("ARClothTryOn", 1, 0, "ImageProcessor");
 
 #ifdef Q_OS_ANDROID
     // Initialize Qt Android platform integration
